@@ -1,0 +1,35 @@
+public int add(int a, int b) {
+    return a + b;
+}
+
+1、JDK8之前，我们都是面向数据编程，方法传值
+
+
+2、JDK8是面向函数式，面向行为的，我们可以传值，传行为
+
+
+Google Guava
+
+
+Date Api
+
+
+Joda Time
+
+
+Lambda表达式的基本结构:
+
+(param1, param2, param3) -> {
+
+}
+
+关于函数式接口：
+1.  a functional interface has exactly one abstract method.
+
+2.  If a type is annotated with this annotation type(@interface FunctionalInterface),
+    compilers are required to generate an error message unless:
+        The type is an interface type and not an annotation type, enum, or class.
+        The annotated type satisfies the requirements of a functional interface.
+
+3.  However, the compiler will treat any interface meeting the definition of a functional interface as a functional interface regardless of whether or not a {@code FunctionalInterface} annotation is present on the interface declaration.
+    也就是说, 如果某个接口只有一个抽象方法但是并没有用注解去修饰那么编译器依旧会将该接口看作是函数式接口
