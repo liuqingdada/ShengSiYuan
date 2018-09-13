@@ -2,7 +2,7 @@ public int add(int a, int b) {
     return a + b;
 }
 
-1、JDK8之前，我们都是面向数据编程，方法传值
+1、JDK8之前，我们都是面向数据编程，方法传值  pass by value
 
 
 2、JDK8是面向函数式，面向行为的，我们可以传值，传行为
@@ -42,6 +42,10 @@ method reference: 例如 System.out::println
     也就是说, 如果某个接口只有一个抽象方法但是并没有用注解去修饰那么编译器依旧会将该接口看作是函数式接口
 
 4.  If an interface declares an abstract method overriding one of the public methods of {@code java.lang.Object}, that also does <em>not</em> count toward the interface's abstract method count since any implementation of the interface will have an implementation from {@code java.lang.Object} or elsewhere.
+
+
+
+
 
 
 
