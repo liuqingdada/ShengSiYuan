@@ -28,5 +28,18 @@ public class Test1 {
         });
 
         System.out.println("---------------------");
+
+        list.forEach((Integer i) -> {
+            System.out.println(i);
+        });
+
+        System.out.println("--------------------");
+
+        list.forEach(System.out::println);
+
+
+
+
+
     }
 }
