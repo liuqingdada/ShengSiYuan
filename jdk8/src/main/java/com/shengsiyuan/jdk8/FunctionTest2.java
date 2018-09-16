@@ -1,5 +1,6 @@
 package com.shengsiyuan.jdk8;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class FunctionTest2 {
@@ -18,6 +19,17 @@ public class FunctionTest2 {
                         .apply(a);
     }
 
+    private int compute3(int a, int b, BiFunction<Integer, Integer, Integer> biFunction) {
+        return biFunction.apply(a, b);
+    }
+
+    private int compute4(int a, int b,
+                         BiFunction<Integer, Integer, Integer> biFunction,
+                         Function<Integer, Integer> function) {
+        return biFunction.andThen(function)
+                         .apply(a, b);
+    }
+
     public static void main(String[] args) {
         FunctionTest2 test = new FunctionTest2();
         int compute = test.compute(2, v -> v * 3, v -> v * v);
@@ -26,16 +38,20 @@ public class FunctionTest2 {
         compute = test.compute2(2, v -> v * 3, v -> v * v);
         System.out.println(compute);
 
-        compute = test.compute2(3, new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(Integer integer) {
-                return integer * 3;
-            }
-        }, new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(Integer integer) {
-                return integer * integer;
-            }
-        });
+        System.out.println("---------");
+
+        compute = test.compute3(1, 2, (v1, v2) -> v1 + v2);
+        System.out.println(compute);
+        compute = test.compute3(1, 2, (v1, v2) -> v1 - v2);
+        System.out.println(compute);
+        compute = test.compute3(1, 2, (v1, v2) -> v1 * v2);
+        System.out.println(compute);
+        compute = test.compute3(1, 2, (v1, v2) -> v1 / v2);
+        System.out.println(compute);
+
+        System.out.println("------------");
+
+        compute = test.compute4(2, 3, (v1, v2) -> v1 + v2, v -> v * v);
+        System.out.println(compute);
     }
 }
