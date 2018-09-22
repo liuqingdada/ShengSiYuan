@@ -24,6 +24,15 @@ public class PersopnTest {
 
         ps = test.getPersonsByAge(30, persons);
         ps.forEach(System.out::println);
+
+        System.out.println("-------------------");
+
+        ps = test.getPersonsByAge(20, persons, (age, personList) ->
+                                          personList.stream()
+                                                    .filter(person -> person.getAge() >= age)
+                                                    .collect(Collectors.toList())
+                                 );
+        ps.forEach(System.out::println);
     }
 
     private List<Person> getPersonsByUsername(String username, List<Person> persons) {
@@ -39,9 +48,16 @@ public class PersopnTest {
 
         BiFunction<Integer, List<Person>, List<Person>> biFunction = (a, ps) ->
                 ps.stream()
-                  .filter(f -> f.getAge() > age)
+                  .filter(f -> f.getAge() >= age)
                   .collect(Collectors.toList());
 
         return biFunction.apply(age, persons);
+    }
+
+    private List<Person> getPersonsByAge(int age, List<Person> persons,
+                                         BiFunction<Integer, List<Person>, List<Person>> bi) {
+        Objects.requireNonNull(persons);
+
+        return bi.apply(age, persons);
     }
 }
