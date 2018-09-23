@@ -3,8 +3,18 @@ package com.shengsiyuan.jdk8.methodreference;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class MethodReferenceTest {
+
+    private String getString(Supplier<String> supplier) {
+        return supplier.get() + " test";
+    }
+
+    private String getString2(String str, Function<String, String> function) {
+        return function.apply(str);
+    }
 
     public static void main(String[] args) {
 
@@ -40,5 +50,16 @@ public class MethodReferenceTest {
 //        System.out.println(cities);
         Collections.sort(cities, String::compareToIgnoreCase);
         cities.forEach(System.out::println);
+
+
+        System.out.println("===============");
+        MethodReferenceTest test = new MethodReferenceTest();
+        System.out.println(test.getString(() -> new String()));
+        System.out.println(test.getString(String::new));
+        System.out.println(test.getString(() -> "hello"));
+        System.out.println("=================");
+
+        System.out.println(test.getString2("hello", String::new));
+        System.out.println(test.getString2("world", (str) -> new String(str)));
     }
 }

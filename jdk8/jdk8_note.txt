@@ -4,41 +4,7 @@ This file is used for recording lecture notes temporarily
 *****************************************
 *****************************************
 
-Optional
 
-NullPointerException
-
-if(null != person) {
-    ...
-    if(null != address) {
-        ...
-    }
-}
-
-String str = null;
-// 可恶的计算机科学家
-
-
-optional: A container object which may or may not contain a non-null value.
-
-Optional 不要用作方法参数和成员变量, 最好只用作返回值
-
-
-
-
-方法引用: Method Reference
-
-实际上就是进一步简化Lambda, 是Lambda的语法糖; 是一个"函数指针" (实际上是一个函数式接口的实例)
-
-方法引用分为4类:
-
-1. class_name::static_mathod_name
-
-2. reference_name(object reference)::instance_method_name
-
-3. class_name::instance_method_name
-
-4.
 
 
 

@@ -48,6 +48,58 @@ method reference: 例如 System.out::println
 
 
 
+Optional
+
+NullPointerException
+
+if(null != person) {
+    ...
+    if(null != address) {
+        ...
+    }
+}
+
+String str = null;
+// 可恶的计算机科学家
+
+
+optional: A container object which may or may not contain a non-null value.
+
+Optional 不要用作方法参数和成员变量, 最好只用作返回值
+
+
+
+
+方法引用: Method Reference
+
+实际上就是进一步简化Lambda, 是Lambda的语法糖; 是一个"函数指针" (实际上是一个函数式接口的实例)
+
+方法引用分为4类:
+
+1. class_name::static_mathod_name
+
+2. reference_name(object reference)::instance_method_name
+
+3. class_name::instance_method_name
+
+4. class_name::new
+
+
+
+JDK8中引入 interface default method 在设计上是nice的, 是为了老版本的应用向后兼容
+
+
+Stream:
+
+组成:  1, 源;  2, 零个额多个中间操作(A); 3, 终止操作(B);
+
+分类:  A, 惰性求值;  B, 及早求值;
+
+
+
+
+
+
 
 
 
