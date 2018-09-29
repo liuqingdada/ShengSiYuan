@@ -29,7 +29,7 @@ public class StreamTest {
         long sum = list.stream()
                        .map((i) -> 2 * i)
                        //.reduce(0, (i, j) -> i + j);
-                       .reduce(0, Integer::sum);
+                       .reduce(0, Integer::sum); // 归纳
         System.out.println(sum);
     }
 
