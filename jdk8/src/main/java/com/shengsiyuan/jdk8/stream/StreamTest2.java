@@ -17,10 +17,8 @@ public class StreamTest2 {
               .forEach(System.out::println);
         System.out.println("-----------");
 
-        stream = Stream.of("hello", "world", "Hello world");
         Set<String> set = stream.collect(Collectors.toSet());
 
-        stream = Stream.of("hello", "world", "Hello world");
         ArrayList<String> collect = stream.parallel()
                                           .collect(() -> {
                                                        System.out.println("param1, " + Thread.currentThread()
@@ -41,10 +39,8 @@ public class StreamTest2 {
                                                    });
         System.out.println(collect);
 
-        stream = Stream.of("hello", "world", "Hello world");
         Set<String> lhs = stream.collect(Collectors.toCollection(LinkedHashSet::new));
 
-        stream = Stream.of("hello", "world", "Hello world");
         String str = stream.collect(Collectors.joining());
         System.out.println(str);
     }

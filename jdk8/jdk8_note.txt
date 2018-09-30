@@ -4,6 +4,23 @@ This file is used for recording lecture notes temporarily
 *****************************************
 *****************************************
 
+集合关注的是对数据与数据存储本身
+
+流关注的是对数据的计算
+
+流和迭代器类似的一点: 无法重复使用或消费
+
+中间操作都会返回一个Stream对象
+
+
+流是短路运算
+
+
+
+
+
+collect: 收集器
+collector: 收集者的抽象. A mutable reduction operation that accumulates input elements into a mutable result container
 
 
 

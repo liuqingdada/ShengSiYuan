@@ -13,7 +13,6 @@ public class StreamTest5 {
                              .toUpperCase() + item.substring(1))
             .forEach(System.out::println);
 
-        list = Arrays.asList("hello", "world", "hello world");
         list.stream()
             .map(item -> {
                 String result = item.substring(0, 1)
