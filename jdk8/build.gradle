@@ -13,4 +13,10 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile(
+            'joda-time:joda-time:2.10',
+            'org.joda:joda-collect:1.0.1',
+            'org.joda:joda-primitives:1.0'
+    )
 }
