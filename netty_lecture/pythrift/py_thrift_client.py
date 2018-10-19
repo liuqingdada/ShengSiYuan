@@ -1,5 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding:utf-8
+# import importlib
+# import sys
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -7,10 +9,9 @@ from thrift.transport import TTransport
 from thrift.protocol import TCompactProtocol
 from com.shengsiyuan.thrift.python import PersonService
 from com.shengsiyuan.thrift.python import ttypes
-import sys
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+# importlib.reload(sys)
+# sys.setdefaultencoding('utf8')
 
 __author__ = 'suhen'
 
@@ -26,9 +27,9 @@ try:
     transport.open()
 
     person = client.getPersonByName("张三")
-    print person
+    print(person)
 
-    print "============"
+    print("============")
 
     person2 = ttypes.Person()
     person2.name = '李四'
@@ -39,5 +40,5 @@ try:
 
     transport.close()
 
-except Thrift.TException, e:
-    print "%s" % e.message
+except Thrift.TException as e:
+    print("%s" % e.message)

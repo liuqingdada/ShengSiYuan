@@ -1,5 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding:utf-8
+# import importlib
+# import sys
 
 from thrift import Thrift
 from thrift.server import TServer
@@ -9,10 +11,10 @@ from thrift.protocol import TCompactProtocol
 from com.shengsiyuan.thrift.python import PersonService
 from person_service_impl import PersonServiceImpl
 
-import sys
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+# importlib.reload(sys)
+# Python3字符串默认编码unicode, 所以sys.setdefaultencoding也不存在了
+# sys.setdefaultencoding('utf8')
 
 try:
     personServiceHandler = PersonServiceImpl()
@@ -25,9 +27,9 @@ try:
 
     server = TServer.TThreadPoolServer(processor, serverSocket, transportFactory, protocolFactory)
 
-    print "python thrift server is start"
+    print("python thrift server is start")
     server.serve()
-    print 'python thrift server is stop'
+    print('python thrift server is stop')
 
-except Thrift.TException, e:
-    print '%s' % e.message
+except Thrift.TException as e:
+    print('%s' % e.message)
