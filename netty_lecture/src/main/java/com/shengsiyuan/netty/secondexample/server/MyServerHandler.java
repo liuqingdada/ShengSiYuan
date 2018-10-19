@@ -12,6 +12,7 @@ public class MyServerHandler extends SimpleChannelInboundHandler<String> {
         System.out.println(ctx.channel()
                               .remoteAddress() + ", " + msg);
 
+        Thread.sleep(1000);
         ctx.channel()
            .writeAndFlush("from server: " + UUID.randomUUID());
     }

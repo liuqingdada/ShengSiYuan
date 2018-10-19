@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+package com.shengsiyuan.protobuf;
+
+option optimize_for = SPEED;
+option java_package = "com.shengsiyuan.protobuf";
+option java_outer_classname = "DataInfo";
+
+message ProtoMessage {
+
+    enum DataType {
+        STUDENT_TYPE = 1;
+        DOG_TYPE = 2;
+        CAT_TYPE = 3;
+    }
+
+    required DataType data_type = 1;
+
+    oneof DataBody {
+        Student student = 2;
+        Dog dog = 3;
+        Cat cat = 4;
+    }
+}
+
+message Student {
+    // required 不建议使用
+    optional string name = 1;
+    optional int32 age = 2;
+    optional string address = 3;
+}
+
+message Dog {
+    optional string name = 1;
+    optional int32 age = 2;
+}
+
+message Cat {
+    optional string name = 1;
+    optional string city = 2;
+}

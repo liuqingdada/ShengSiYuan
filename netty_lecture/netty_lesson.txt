@@ -1,0 +1,25 @@
+
+gradlew -> gradle wrapper    gradle包装器, 使用此脚本在不安装gradle的情况下, 也可以构建工程
+
+
+# 下载目录
+distributionBase=GRADLE_USER_HOME
+# 下载目录的相对路径
+distributionPath=wrapper/dists
+# 解压目录
+zipStoreBase=GRADLE_USER_HOME
+# 解压目录的相对路径
+zipStorePath=wrapper/dists
+# 需要的gradle版本
+# xxx.bin   xxx.all(bin sources doc)
+distributionUrl=https\://services.gradle.org/distributions/gradle-4.4-bin.zip
+# 校验和
+distributionSha256Sum=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# shasum -a 256 file    ->    7a2c66d1a78f811d5f37d14630ad21cec5e77a2a4dc61e787e2257a6341016ce
+
+# gradle wrapper
+# gradle wrapper --gradle-version 4.4
+
+# gradle clean build
+# ./gradlew clean build

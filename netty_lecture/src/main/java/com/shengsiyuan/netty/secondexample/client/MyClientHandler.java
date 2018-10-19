@@ -11,6 +11,8 @@ public class MyClientHandler extends SimpleChannelInboundHandler<String> {
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
         System.out.println(ctx.channel()
                               .remoteAddress() + ", " + msg);
+
+        Thread.sleep(1000);
         ctx.writeAndFlush("from client: " + LocalDateTime.now());
     }
 

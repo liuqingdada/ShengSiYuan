@@ -13,8 +13,19 @@ repositories {
 }
 
 dependencies {
-//    testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile 'junit:junit:4.12'
-//    compile group: 'io.netty', name: 'netty-all', version: '4.1.29.Final'
     compile 'io.netty:netty-all:4.1.29.Final'
+
+    compile(
+            'com.google.protobuf:protobuf-java:3.6.1',
+            'com.google.protobuf:protobuf-java-util:3.6.1',
+            //'com.google.protobuf:protobuf-lite:3.0.1'
+    )
+    compile "org.apache.thrift:libthrift:0.11.0"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+    //gradleVersion = '4.10.2'
+    distributionType = 'all'
 }
