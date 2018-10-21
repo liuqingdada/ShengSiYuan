@@ -24,8 +24,8 @@ dependencies {
     compile "org.apache.thrift:libthrift:0.11.0"
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
-    //gradleVersion = '4.10.2'
-    distributionType = 'all'
-}
+//task wrapper(type: Wrapper) {
+//    gradleVersion = '4.4'
+//    gradleVersion = '4.10.2'
+//    distributionType = 'bin' // bin all
+//}
