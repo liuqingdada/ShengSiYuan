@@ -1,15 +1,77 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.5'
+    }
+}
+
 plugins {
+    id "com.google.protobuf" version "0.8.5"
     id 'java'
 }
+//apply plugin: 'com.google.protobuf'
 
 group 'com.shengsiyuan'
 version '1.0'
+
+protobuf {
+    generatedFilesBaseDir = "$projectDir/src/main/grpc-gen"
+
+//    protoc {
+//        path = '/usr/local/bin/protoc'
+//    }
+
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.5.1-1"
+    }
+
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.15.1'
+        }
+    }
+
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+sourceSets {
+    main {
+        proto {
+            // In addition to the default 'src/main/proto'
+            //srcDir 'src/main/protobuf'
+            //srcDir 'src/main/protocolbuffers'
+            // In addition to the default '**/*.proto' (use with caution).
+            // Using an extension other than 'proto' is NOT recommended,
+            // because when proto files are published along with class files, we can
+            // only tell the type of a file from its extension.
+            //include '**/*.protodevel'
+        }
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src/main/jdk8'
+            srcDir 'src/main/grpc-gen/main/grpc'
+            srcDir 'src/main/grpc-gen/main/java'
+        }
+    }
+    test {
+        proto {
+            // In addition to the default 'src/test/proto'
+            //srcDir 'src/test/protocolbuffers'
+        }
+    }
 }
 
 dependencies {
@@ -22,6 +84,14 @@ dependencies {
             //'com.google.protobuf:protobuf-lite:3.0.1'
     )
     compile "org.apache.thrift:libthrift:0.11.0"
+
+    compile(
+            'io.grpc:grpc-netty-shaded:1.15.1',
+            'io.grpc:grpc-protobuf:1.15.1',
+            'io.grpc:grpc-stub:1.15.1'
+            // For Android client, use grpc-okhttp instead of grpc-netty-shaded
+            // and grpc-protobuf-lite instead of grpc-protobuf:
+    )
 }
 
 //task wrapper(type: Wrapper) {

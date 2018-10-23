@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package com.shengsiyuan.proto;
+
+option java_package = "com.shengsiyuan.proto";
+option java_outer_classname = "PersonProto";
+option java_multiple_files = true;
+
+service PersonService {
+    rpc GetRealNameByUsername(PRequest) returns (PResponse) {}
+}
+
+message PRequest {
+    string username = 1;
+}
+
+message PResponse {
+    string realname = 1;
+}
+
+
