@@ -60,7 +60,6 @@ sourceSets {
             //include '**/*.protodevel'
         }
         java {
-            srcDir 'src/main/java'
             srcDir 'src/main/jdk8'
             srcDir 'src/main/grpc-gen/main/grpc'
             srcDir 'src/main/grpc-gen/main/java'
