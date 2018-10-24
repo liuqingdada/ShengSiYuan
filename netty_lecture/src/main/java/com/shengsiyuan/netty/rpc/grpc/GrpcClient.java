@@ -12,6 +12,8 @@ import com.shengsiyuan.proto.StreamResponse;
 
 import java.time.LocalDateTime;
 import java.util.Iterator;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import io.grpc.ManagedChannel;
@@ -19,8 +21,9 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
 public class GrpcClient {
-
     public static void main(String[] args) throws Exception {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+
         ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("127.0.0.1", 8899)
                                                              .usePlaintext()
                                                              .build();
@@ -96,6 +99,7 @@ public class GrpcClient {
                     @Override
                     public void onCompleted() {
                         System.out.println("on completed\n");
+                        countDownLatch.countDown();
                     }
                 });
 
@@ -108,5 +112,8 @@ public class GrpcClient {
                   reqStreamObserver.onNext(t);
                   Thread.sleep(1000);
               }));
+        reqStreamObserver.onCompleted();
+
+        countDownLatch.await(5, TimeUnit.MINUTES);
     }
 }

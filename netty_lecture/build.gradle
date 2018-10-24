@@ -62,7 +62,6 @@ sourceSets {
             //include '**/*.protodevel'
         }
         java {
-            srcDir 'src/main/jdk8'
             srcDir 'src/main/grpc-gen/main/grpc'
             srcDir 'src/main/grpc-gen/main/java'
         }
@@ -77,6 +76,8 @@ sourceSets {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'io.netty:netty-all:4.1.29.Final'
 
     compile(

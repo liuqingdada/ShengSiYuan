@@ -1,6 +1,6 @@
 package com.java.util.function;
 
-import com.java.util.Sneaky;
+import com.java.Sneaky;
 
 import java.util.function.Function;
 

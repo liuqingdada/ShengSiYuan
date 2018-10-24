@@ -112,11 +112,13 @@ public class PersonServiceImpl extends PersonServiceGrpc.PersonServiceImplBase {
 
             @Override
             public void onError(Throwable t) {
+                System.out.println("on error");
                 System.out.println(t.getMessage());
             }
 
             @Override
             public void onCompleted() {
+                System.out.println("on completed");
                 responseObserver.onCompleted();
             }
         };

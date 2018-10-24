@@ -1,6 +1,6 @@
 package com.java.lang;
 
-import com.java.util.Sneaky;
+import com.java.Sneaky;
 
 @FunctionalInterface
 public interface UncheckedRunnable {
