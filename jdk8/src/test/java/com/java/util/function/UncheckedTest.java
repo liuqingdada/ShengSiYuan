@@ -62,6 +62,14 @@ public class UncheckedTest {
         System.out.println("read: " + read);
     }
 
+//    private void Consumer() throws IOException {
+//        Consumer<String> consumer = str -> {
+//            readFile();
+//            System.out.println(str);
+//        };
+//        consumer.accept("MMP, 抛不出去异常啊");
+//    }
+
     @Test
     public void UncheckedBiConsumer() {
         BiConsumer<String, String> biConsumer = UncheckedBiConsumer.unchecked(
