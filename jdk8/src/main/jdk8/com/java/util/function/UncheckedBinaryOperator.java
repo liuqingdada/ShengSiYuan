@@ -1,5 +1,7 @@
 package com.java.util.function;
 
+import com.java.util.Sneaky;
+
 import java.util.function.BinaryOperator;
 
 public interface UncheckedBinaryOperator<T> extends UncheckedBiFunction<T, T, T> {

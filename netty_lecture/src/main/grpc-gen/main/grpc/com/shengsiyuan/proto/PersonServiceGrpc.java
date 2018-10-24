@@ -59,6 +59,102 @@ public final class PersonServiceGrpc {
      return getGetRealNameByUsernameMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.shengsiyuan.proto.IntReq,
+      com.shengsiyuan.proto.StreamResponse> getGetPersonsByAgeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetPersonsByAge",
+      requestType = com.shengsiyuan.proto.IntReq.class,
+      responseType = com.shengsiyuan.proto.StreamResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.shengsiyuan.proto.IntReq,
+      com.shengsiyuan.proto.StreamResponse> getGetPersonsByAgeMethod() {
+    io.grpc.MethodDescriptor<com.shengsiyuan.proto.IntReq, com.shengsiyuan.proto.StreamResponse> getGetPersonsByAgeMethod;
+    if ((getGetPersonsByAgeMethod = PersonServiceGrpc.getGetPersonsByAgeMethod) == null) {
+      synchronized (PersonServiceGrpc.class) {
+        if ((getGetPersonsByAgeMethod = PersonServiceGrpc.getGetPersonsByAgeMethod) == null) {
+          PersonServiceGrpc.getGetPersonsByAgeMethod = getGetPersonsByAgeMethod = 
+              io.grpc.MethodDescriptor.<com.shengsiyuan.proto.IntReq, com.shengsiyuan.proto.StreamResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "com.shengsiyuan.proto.PersonService", "GetPersonsByAge"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.shengsiyuan.proto.IntReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.shengsiyuan.proto.StreamResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new PersonServiceMethodDescriptorSupplier("GetPersonsByAge"))
+                  .build();
+          }
+        }
+     }
+     return getGetPersonsByAgeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.shengsiyuan.proto.IntReq,
+      com.shengsiyuan.proto.StreamListResponse> getGetPersonsWrapperByAgesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetPersonsWrapperByAges",
+      requestType = com.shengsiyuan.proto.IntReq.class,
+      responseType = com.shengsiyuan.proto.StreamListResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<com.shengsiyuan.proto.IntReq,
+      com.shengsiyuan.proto.StreamListResponse> getGetPersonsWrapperByAgesMethod() {
+    io.grpc.MethodDescriptor<com.shengsiyuan.proto.IntReq, com.shengsiyuan.proto.StreamListResponse> getGetPersonsWrapperByAgesMethod;
+    if ((getGetPersonsWrapperByAgesMethod = PersonServiceGrpc.getGetPersonsWrapperByAgesMethod) == null) {
+      synchronized (PersonServiceGrpc.class) {
+        if ((getGetPersonsWrapperByAgesMethod = PersonServiceGrpc.getGetPersonsWrapperByAgesMethod) == null) {
+          PersonServiceGrpc.getGetPersonsWrapperByAgesMethod = getGetPersonsWrapperByAgesMethod = 
+              io.grpc.MethodDescriptor.<com.shengsiyuan.proto.IntReq, com.shengsiyuan.proto.StreamListResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "com.shengsiyuan.proto.PersonService", "GetPersonsWrapperByAges"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.shengsiyuan.proto.IntReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.shengsiyuan.proto.StreamListResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new PersonServiceMethodDescriptorSupplier("GetPersonsWrapperByAges"))
+                  .build();
+          }
+        }
+     }
+     return getGetPersonsWrapperByAgesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.shengsiyuan.proto.StreamReq,
+      com.shengsiyuan.proto.StreamResp> getBiTalkMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "BiTalk",
+      requestType = com.shengsiyuan.proto.StreamReq.class,
+      responseType = com.shengsiyuan.proto.StreamResp.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<com.shengsiyuan.proto.StreamReq,
+      com.shengsiyuan.proto.StreamResp> getBiTalkMethod() {
+    io.grpc.MethodDescriptor<com.shengsiyuan.proto.StreamReq, com.shengsiyuan.proto.StreamResp> getBiTalkMethod;
+    if ((getBiTalkMethod = PersonServiceGrpc.getBiTalkMethod) == null) {
+      synchronized (PersonServiceGrpc.class) {
+        if ((getBiTalkMethod = PersonServiceGrpc.getBiTalkMethod) == null) {
+          PersonServiceGrpc.getBiTalkMethod = getBiTalkMethod = 
+              io.grpc.MethodDescriptor.<com.shengsiyuan.proto.StreamReq, com.shengsiyuan.proto.StreamResp>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "com.shengsiyuan.proto.PersonService", "BiTalk"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.shengsiyuan.proto.StreamReq.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.shengsiyuan.proto.StreamResp.getDefaultInstance()))
+                  .setSchemaDescriptor(new PersonServiceMethodDescriptorSupplier("BiTalk"))
+                  .build();
+          }
+        }
+     }
+     return getBiTalkMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -93,6 +189,27 @@ public final class PersonServiceGrpc {
       asyncUnimplementedUnaryCall(getGetRealNameByUsernameMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getPersonsByAge(com.shengsiyuan.proto.IntReq request,
+        io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetPersonsByAgeMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.shengsiyuan.proto.IntReq> getPersonsWrapperByAges(
+        io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamListResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getGetPersonsWrapperByAgesMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamReq> biTalk(
+        io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamResp> responseObserver) {
+      return asyncUnimplementedStreamingCall(getBiTalkMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -102,6 +219,27 @@ public final class PersonServiceGrpc {
                 com.shengsiyuan.proto.PRequest,
                 com.shengsiyuan.proto.PResponse>(
                   this, METHODID_GET_REAL_NAME_BY_USERNAME)))
+          .addMethod(
+            getGetPersonsByAgeMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                com.shengsiyuan.proto.IntReq,
+                com.shengsiyuan.proto.StreamResponse>(
+                  this, METHODID_GET_PERSONS_BY_AGE)))
+          .addMethod(
+            getGetPersonsWrapperByAgesMethod(),
+            asyncClientStreamingCall(
+              new MethodHandlers<
+                com.shengsiyuan.proto.IntReq,
+                com.shengsiyuan.proto.StreamListResponse>(
+                  this, METHODID_GET_PERSONS_WRAPPER_BY_AGES)))
+          .addMethod(
+            getBiTalkMethod(),
+            asyncBidiStreamingCall(
+              new MethodHandlers<
+                com.shengsiyuan.proto.StreamReq,
+                com.shengsiyuan.proto.StreamResp>(
+                  this, METHODID_BI_TALK)))
           .build();
     }
   }
@@ -131,6 +269,30 @@ public final class PersonServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getGetRealNameByUsernameMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getPersonsByAge(com.shengsiyuan.proto.IntReq request,
+        io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamResponse> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getGetPersonsByAgeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.shengsiyuan.proto.IntReq> getPersonsWrapperByAges(
+        io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamListResponse> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(getGetPersonsWrapperByAgesMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamReq> biTalk(
+        io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamResp> responseObserver) {
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getBiTalkMethod(), getCallOptions()), responseObserver);
+    }
   }
 
   /**
@@ -156,6 +318,14 @@ public final class PersonServiceGrpc {
     public com.shengsiyuan.proto.PResponse getRealNameByUsername(com.shengsiyuan.proto.PRequest request) {
       return blockingUnaryCall(
           getChannel(), getGetRealNameByUsernameMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<com.shengsiyuan.proto.StreamResponse> getPersonsByAge(
+        com.shengsiyuan.proto.IntReq request) {
+      return blockingServerStreamingCall(
+          getChannel(), getGetPersonsByAgeMethod(), getCallOptions(), request);
     }
   }
 
@@ -187,6 +357,9 @@ public final class PersonServiceGrpc {
   }
 
   private static final int METHODID_GET_REAL_NAME_BY_USERNAME = 0;
+  private static final int METHODID_GET_PERSONS_BY_AGE = 1;
+  private static final int METHODID_GET_PERSONS_WRAPPER_BY_AGES = 2;
+  private static final int METHODID_BI_TALK = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -209,6 +382,10 @@ public final class PersonServiceGrpc {
           serviceImpl.getRealNameByUsername((com.shengsiyuan.proto.PRequest) request,
               (io.grpc.stub.StreamObserver<com.shengsiyuan.proto.PResponse>) responseObserver);
           break;
+        case METHODID_GET_PERSONS_BY_AGE:
+          serviceImpl.getPersonsByAge((com.shengsiyuan.proto.IntReq) request,
+              (io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -219,6 +396,12 @@ public final class PersonServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_GET_PERSONS_WRAPPER_BY_AGES:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.getPersonsWrapperByAges(
+              (io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamListResponse>) responseObserver);
+        case METHODID_BI_TALK:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.biTalk(
+              (io.grpc.stub.StreamObserver<com.shengsiyuan.proto.StreamResp>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -271,6 +454,9 @@ public final class PersonServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new PersonServiceFileDescriptorSupplier())
               .addMethod(getGetRealNameByUsernameMethod())
+              .addMethod(getGetPersonsByAgeMethod())
+              .addMethod(getGetPersonsWrapperByAgesMethod())
+              .addMethod(getBiTalkMethod())
               .build();
         }
       }

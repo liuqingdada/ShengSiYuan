@@ -7,7 +7,17 @@ option java_outer_classname = "PersonProto";
 option java_multiple_files = true;
 
 service PersonService {
-    rpc GetRealNameByUsername(PRequest) returns (PResponse) {}
+    rpc GetRealNameByUsername (PRequest) returns (PResponse) {
+    }
+
+    rpc GetPersonsByAge (IntReq) returns (stream StreamResponse) {
+    }
+
+    rpc GetPersonsWrapperByAges (stream IntReq) returns (StreamListResponse) {
+    }
+
+    rpc BiTalk (stream StreamReq) returns (stream StreamResp) {
+    }
 }
 
 message PRequest {
@@ -18,4 +28,26 @@ message PResponse {
     string realname = 1;
 }
 
+message IntReq {
+    int32 age = 1;
+}
 
+message StreamResponse {
+    string name = 1;
+    int32 age = 2;
+    string city = 3;
+}
+
+message StreamListResponse {
+    repeated StreamResponse streamResponse = 1;
+}
+
+///////////////
+
+message StreamReq {
+    string req_info = 1;
+}
+
+message StreamResp {
+    string resp_info = 1;
+}

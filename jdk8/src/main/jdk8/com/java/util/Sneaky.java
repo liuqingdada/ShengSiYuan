@@ -1,4 +1,4 @@
-package com.java.util.function;
+package com.java.util;
 
 public interface Sneaky {
 
