@@ -7,7 +7,7 @@ public interface UncheckedLongToDoubleFunction {
 
     double applyAsDouble(long value) throws Exception;
 
-    static LongToDoubleFunction unchecked(LongToDoubleFunction function) {
+    static LongToDoubleFunction unchecked(UncheckedLongToDoubleFunction function) {
         return value -> {
             try {
                 return function.applyAsDouble(value);

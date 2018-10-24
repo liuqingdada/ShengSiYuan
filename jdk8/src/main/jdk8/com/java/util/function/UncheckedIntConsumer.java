@@ -13,7 +13,7 @@ public interface UncheckedIntConsumer {
                 consumer.accept(value);
 
             } catch (Exception e) {
-                Sneaky.sneakyVoidThrow(e);
+                Sneaky.sneakyThrow(e);
             }
         };
     }

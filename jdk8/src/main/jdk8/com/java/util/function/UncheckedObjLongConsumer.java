@@ -13,7 +13,7 @@ public interface UncheckedObjLongConsumer<T> {
                 consumer.accept(t, value);
 
             } catch (Exception e) {
-                Sneaky.sneakyVoidThrow(e);
+                Sneaky.sneakyThrow(e);
             }
         };
     }

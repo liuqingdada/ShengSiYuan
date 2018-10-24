@@ -13,7 +13,7 @@ public interface UncheckedBiConsumer<T, U> {
                 biConsumer.accept(t, u);
 
             } catch (Exception e) {
-                Sneaky.sneakyVoidThrow(e);
+                Sneaky.sneakyThrow(e);
             }
         };
     }
