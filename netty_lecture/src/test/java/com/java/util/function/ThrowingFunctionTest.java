@@ -7,7 +7,7 @@ public class ThrowingFunctionTest {
 
     private void throwE() throws IOException {
         Optional.of(42)
-                .map(ThrowingFunction.unchecked(ThrowingFunctionTest::throwException));
+                .map(UncheckedFunction.unchecked(ThrowingFunctionTest::throwException));
     }
 
     private static String throwException(Integer i) throws IOException {

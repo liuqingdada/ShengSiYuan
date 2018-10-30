@@ -79,31 +79,5 @@ java.nio
 
 
 
-ASCII 美国信息交换标准代码    7 Bit表示一个字符  128 种
 
-ISO-8859-1   8 Bit 表示一个字符  256 种
-
-gb2312(2 byte 一个汉字)  gbk  gb18030
-
-big5
-
-unicode  Unicode 也有UCS-4规范，就是用 4个字节来编码字符
-
-以上都是编码方式
-
-------------
-UTF: Unicode 的实现方式, 基于 Unicode 的存储方式
-
-Zero Width No-Break Spac
-00 00 FE FF    = UTF-32, big-endian
-FF FE 00 00    = UTF-32, little-endian
-EF BB BF       = UTF-8,
-FE FF          = UTF-16, big-endian
-FF FE          = UTF-16, little-endian
----------------------
-
-UTF-8  变长字节表示
-
-BOM (Byte Order Mark), 某些系统引起的不可见字符(Zero Width No-Break Spac)
-    Windows 下可选择带不带 BOM
 

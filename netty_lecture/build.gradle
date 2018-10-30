@@ -55,6 +55,7 @@ sourceSets {
             // In addition to the default 'src/main/proto'
             //srcDir 'src/main/protobuf'
             //srcDir 'src/main/protocolbuffers'
+            srcDir 'proto'
             // In addition to the default '**/*.proto' (use with caution).
             // Using an extension other than 'proto' is NOT recommended,
             // because when proto files are published along with class files, we can
@@ -78,6 +79,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile 'net.vidageek:mirror:1.6.1'
     compile 'io.netty:netty-all:4.1.29.Final'
 
     compile(

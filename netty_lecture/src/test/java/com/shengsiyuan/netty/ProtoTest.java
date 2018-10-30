@@ -6,6 +6,7 @@ import com.shengsiyuan.protobuf.DataInfo;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProtoTest {
 
@@ -22,5 +23,25 @@ public class ProtoTest {
 
         DataInfo.Student student2 = DataInfo.Student.parseFrom(studentBytes);
         System.out.println(student2);
+    }
+
+    @Test
+    public void thread() {
+        AtomicInteger ai = new AtomicInteger(0);
+
+        while (true) {
+            new Thread(() -> {
+                System.out.println(ai.addAndGet(1) + ", " + Thread.currentThread()
+                                                                  .getName());
+                synchronized (this) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }).start();
+        }
     }
 }
