@@ -1,3 +1,27 @@
+强势技能的学习
+
+
+
+重视基础
+
+
+
+节奏感
+
+
+
+思维方式的改进
+
+
+
+效率工具的使用
+
+
+
+主动输出
+
+
+
 
 gradlew -> gradle wrapper    gradle包装器, 使用此脚本在不安装gradle的情况下, 也可以构建工程
 
@@ -127,7 +151,8 @@ Reactor 模式的角色构成:
                                     对于 Linux 来说同步事件分离器值得就是常用的 I/O 多路复用机制, 比如说 select、poll、epoll等
                                     在Java NIO中同步事件分离器对应的就是 Selector, 阻塞的方法就是 select
 
-3. Event Handler: 事件处理器, 它本身由多个回调方法构成, 这些回调方法构成了与应用相关的对于某个事件的反馈机制. Java NIO 没有这个组件; 但是对应于 Netty 中提供的 ChannelHandler, 大量回调
+3. Event Handler: 事件处理器, 它本身由多个回调方法构成, 这些回调方法构成了与应用相关的对于某个事件的反馈机制
+                  Java NIO 没有这个组件; 但是对应于 Netty 中提供的 ChannelHandler, 大量回调
 
 4. Concrete Event Handler: 具体事件处理器, 事件处理器的具体实现, 由框架提供, 或者我们自定义, 它本身实现了事件处理器的各个回调方法, 还有我们的特定业务逻辑
 
