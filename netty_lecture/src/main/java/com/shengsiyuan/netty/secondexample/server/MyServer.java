@@ -22,9 +22,11 @@ public class MyServer {
                            .childHandler(new MyServerInitializer()); // for workerGroup
             ChannelFuture channelFuture = serverBootstrap.bind(8899)
                                                          .sync();
+            System.out.println("server is start");
             channelFuture.channel()
                          .closeFuture()
                          .sync();
+            System.out.println("server is stop");
 
         } finally {
             boosGroup.shutdownGracefully();

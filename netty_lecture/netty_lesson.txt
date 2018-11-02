@@ -74,7 +74,7 @@ java.nio
 
 
     Buffer 本身是一块内存, 底层是个数组, 数据的 读写 都由 Buffer 实现
-    除了数组之外，Buffer还提供了对数据结构化访问方式，并且可以追踪到系统的读写过程
+    除了数组之外, Buffer还提供了对数据结构化访问方式, 并且可以追踪到系统的读写过程
     注意: 相对方法的操作会修改 limit 和 position;  绝对方法完全忽略掉 limit 和 position
 
 
@@ -87,7 +87,7 @@ gb2312(2 byte 一个汉字)  gbk  gb18030
 
 big5
 
-unicode  Unicode 也有UCS-4规范，就是用 4个字节来编码字符
+unicode  Unicode 也有UCS-4规范, 就是用 4个字节来编码字符
 
 以上都是编码方式
 
@@ -106,4 +106,39 @@ UTF-8  变长字节表示
 
 BOM (Byte Order Mark), 某些系统引起的不可见字符(Zero Width No-Break Spac)
     Windows 下可选择带不带 BOM
+
+====================
+====================
+====================
+
+
+EventLoopGroup boosGroup = new NioEventLoopGroup(1);  // 连接线程
+EventLoopGroup workerGroup = new NioEventLoopGroup(); // 其他操作的线程 (读、写、等等)
+所以自定义Handler所处理的业务不应该耗时, 这样会卡 Netty 的线程
+我么应该自定义线程组处理自己的业务
+
+
+Reactor 模式的角色构成:
+
+1. Handle: 句柄 or 描述符  表示操作系统提供的资源, 该资源表示一个个的操作系统事件, 比如文件描述符, 还有网络编程中的 Socket 描述符
+           此事件可以来源于内部(操作系统产生的定时器事件), 也可以来源于外部(client 和 server 之间的交互); Handle 是事件的发源地, 监听事件就是监听 Handle
+
+2. Synchronous Event Demultiplexer: 同步事件分离器, 它本身是一个系统调用, 用于等待事件的发生, 调用方在调用他的时候会被阻塞, 一直等到同步事件分离器上有事件产生为止
+                                    对于 Linux 来说同步事件分离器值得就是常用的 I/O 多路复用机制, 比如说 select、poll、epoll等
+                                    在Java NIO中同步事件分离器对应的就是 Selector, 阻塞的方法就是 select
+
+3. Event Handler: 事件处理器, 它本身由多个回调方法构成, 这些回调方法构成了与应用相关的对于某个事件的反馈机制. Java NIO 没有这个组件; 但是对应于 Netty 中提供的 ChannelHandler, 大量回调
+
+4. Concrete Event Handler: 具体事件处理器, 事件处理器的具体实现, 由框架提供, 或者我们自定义, 它本身实现了事件处理器的各个回调方法, 还有我们的特定业务逻辑
+
+5. Initiation Dispather 初始分发器, 实际上就是 Reactor 角色, 本身定义了一些规范, 这些规范用于控制事件的调度方式, 同时提供了应用进行事件处理器的注册、删除等设施
+                        他会通过同步事件分离器来等待事件的发生, 一旦事件发生, 就会分离出一个事件, 然后调用事件处理器
+
+
+
+
+
+
+
+
 

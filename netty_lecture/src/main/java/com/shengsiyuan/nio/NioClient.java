@@ -78,5 +78,14 @@ public class NioClient {
 
     public static void main(String[] args) throws IOException {
         new NioClient().connect();
+//        for (int i = 0; i < 100; i++) {
+//            new Thread(() -> {
+//                try {
+//                    new NioClient().connect();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }).start();
+//        }
     }
 }
