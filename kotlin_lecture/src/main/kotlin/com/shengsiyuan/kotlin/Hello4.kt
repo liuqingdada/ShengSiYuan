@@ -23,5 +23,5 @@ fun printMultiply (a:String, b: String) {
     val aa = convert2Int(a)
     val bb = convert2Int(b)
 
-    aa
+    // println(aa * bb) // error
 }
