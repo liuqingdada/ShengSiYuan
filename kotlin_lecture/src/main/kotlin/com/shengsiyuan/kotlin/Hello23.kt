@@ -9,6 +9,7 @@ package com.shengsiyuan.kotlin
 // 扩展
 // 扩展函数不会真正修改目标类, 也就是它并不会在目标类中插入新的属性和方法
 // 扩展函数的解析是静态的, 也就是说不支持多态, 调用只取决于对象的声明类型
+// 扩展函数的解析是静态的
 
 class ExtentionTest {
     fun add(a: Int, b: Int) = a + b
