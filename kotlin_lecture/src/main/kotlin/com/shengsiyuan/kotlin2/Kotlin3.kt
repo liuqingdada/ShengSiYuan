@@ -44,6 +44,8 @@ void copyAll(Collection<Object> to, Collection<String> from) {
 
 消费者使用 ? super T       ---- 逆变
 
+PECS: Producer Extends, Consumer Super
+
 */
 
 fun main() {
