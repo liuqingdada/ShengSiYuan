@@ -13,16 +13,22 @@ package com.shengsiyuan.kotlin3
 
 interface MyInterface {
     fun myPrint(i: Int)
+    fun printClassInfo()
 }
 
 abstract class MyAbsClass {
     abstract val age: Int
 
-    abstract fun printClassInfo()
+    open fun printClassInfo() {
+        println("abs -------- ")
+    }
 }
 
 fun main() {
     val obj = object : MyInterface {
+        override fun printClassInfo() {
+        }
+
         override fun myPrint(i: Int) {
             println("i value is $i")
         }
@@ -50,7 +56,8 @@ fun main() {
             get() = 30
 
         override fun printClassInfo() {
-            println("printClassInfo")
+            super<MyAbsClass>.printClassInfo()
+            println("printClassInfo ??")
         }
     }
 

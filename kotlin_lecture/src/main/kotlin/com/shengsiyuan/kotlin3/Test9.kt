@@ -1,5 +1,6 @@
 package com.shengsiyuan.kotlin3
 
+import java.awt.event.ActionListener
 import java.awt.event.WindowEvent
 import java.awt.event.WindowListener
 import javax.swing.JButton
@@ -42,7 +43,19 @@ fun main() {
         }
     })
 
+    jButton.addActionListener(ActionListener { println(it.`when`) }) // when 关键字冲突
+
+    jButton.addActionListener({ println(it.`when`) })
+
     jButton.addActionListener { println(it.actionCommand) }
+
+    val listener = ActionListener { println("hello") }
+    println(listener.javaClass)
+    println(listener.javaClass.superclass)
+
+    println(listener::class)
+    println(listener::class.java)
+    println(listener::class.java.superclass)
 
     jFrame.add(jButton)
     jFrame.pack()
