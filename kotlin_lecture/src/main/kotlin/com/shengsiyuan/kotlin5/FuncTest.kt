@@ -57,7 +57,7 @@ fun main() {
     println("---------")
 
     test3("a", "b", "b")
-    test3(strings = *arrayOf("abc", "def")) // spread operator
+    test3(strings = *arrayOf("abc", "def")) // spread operator 分散运算符，打散数组
     val arr = arrayOf("hello", "world")
     test3(*arr)
 }

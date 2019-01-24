@@ -19,6 +19,16 @@ fun myPrint(string: String): Unit {
 // 单表达式
 fun add(a: Int, b: Int) = a + b
 
-fun main() {
+fun <T> convert2List(vararg elements: T): List<T> {
+    val list = ArrayList<T>()
+    elements.forEach { list.add(it) }
+    return list
+}
 
+fun main() {
+    println(convert2List("hello", "world", "hello world"))
+
+    val arrays = arrayOf("welcome", "byte", "test")
+
+    println(convert2List("zhangsan", "lisi", *arrays))
 }
