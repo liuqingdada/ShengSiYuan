@@ -16,4 +16,9 @@ fun main() {
         val item = it.length > 3
         item
     }
+
+    strings.filter {
+        val item = it.length > 3
+        return@filter item
+    }
 }
