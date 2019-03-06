@@ -4,7 +4,7 @@ package com.shengsiyuan.kotlin
  * run
  * 可以將 run 想像成一個獨立出來的 Scope, run 會把最後一行的東西回傳或是帶到下一個 chain
  */
-fun run() {
+fun run1() {
     val whatsMyName = "Francis"
     run {
         val whatsMyName = "Ajax"
@@ -67,7 +67,7 @@ class GoodSmartPhone : Telephone() {
  *
  * 但很多使用狀況變數可能是可為空的變數，如此一來 with的 scope 中就必須要宣告 「?」或「!!」來取用該物件的方法 (Method)。
  */
-fun with(good: GoodSmartPhone?) {
+fun with1(good: GoodSmartPhone?) {
     val greatSmartphone = GoodSmartPhone()
     with(greatSmartphone) {
         this.setCleanSystemInterface(true)
@@ -157,7 +157,7 @@ class TreasureBox {
  *
  * identifier -> 身份标识，例如 this super，他们后面跟上 @ 符号； 或者自定义类似这种身份标识
  */
-fun let() {
+fun let1() {
     val treasureBox = TreasureBox()
     var open = treasureBox.open(null)
     println(open)
@@ -175,7 +175,7 @@ fun let() {
  * 有點像是 builder pattern ，做完一次設定後又將自己回傳回去。另外， also在 scope 內可以透過 it 來存取 T本身。
  */
 
-fun also() {
+fun also1() {
     val goodSmartPhone = GoodSmartPhone().also {
         it.setCleanSystemInterface(true)
     }.also {
@@ -221,6 +221,14 @@ class XActivity {
                 }
             }
         }
+
+        fun newInstance2(coffeeShops: List<Telephone>): ListFragment {
+            return ListFragment().also {
+                it.arguments = Bundle().also {
+                    it.putParcelableArrayList(COFFEE_SHOP_LIST_KEY, coffeeShops as ArrayList<out Parcelable>)
+                }
+            }
+        }
     }
 }
 
@@ -231,16 +239,16 @@ class XActivity {
  */
 
 fun main() {
-    run()
+    run1()
     run2()
 
     println("*****************")
 
-    with(null)
+    with1(null)
 
     println("*****************")
 
-    let()
+    let1()
 
-    also()
+    also1()
 }
