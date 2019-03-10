@@ -37,7 +37,7 @@ class Class2
 /**
  * 如果需要将某个 class 作为注解的参数，那么请使用 Kotlin class （KClass）
  * Kotlin 编译器会自动将其转换为 java class
- * 这样，java 代码就可以政策看到注解与参数了
+ * 这样，java 代码就可以正常看到注解与参数了
  */
 
 annotation class Annotation3(val arg1: KClass<*>, val arg2: KClass<out Any>)
