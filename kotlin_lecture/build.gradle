@@ -28,6 +28,7 @@ repositories {
 sourceSets {
     main {
         kotlin {
+            srcDirs = ['src/main/kotlin', 'src/main/netty']
         }
         java {
         }
@@ -39,6 +40,7 @@ kapt {
 }
 
 dependencies {
+    compile 'io.netty:netty-all:4.1.31.Final'
     compile "org.jetbrains.kotlin:kotlin-reflect"
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
