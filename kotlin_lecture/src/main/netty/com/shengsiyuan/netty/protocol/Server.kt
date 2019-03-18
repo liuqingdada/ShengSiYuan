@@ -10,7 +10,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.handler.logging.LogLevel
 import io.netty.handler.logging.LoggingHandler
 import io.netty.util.NettyRuntime
-import java.util.concurrent.ExecutorService
 
 /**
  * Created by andy
@@ -34,7 +33,7 @@ class Server {
             serverBootstrap.group(bossGroup, workGroup)
                     .handler(LoggingHandler(LogLevel.INFO))
                     .channel(NioServerSocketChannel::class.java)
-                    .childHandler(ServerInitializer(service))
+                    .childHandler(ServerInitializer())
             val channelFuture = serverBootstrap.bind(8899).sync()
             channelFuture.channel().closeFuture().sync()
         } finally {
@@ -43,17 +42,17 @@ class Server {
         }
     }
 
-    private class ServerInitializer(val service: ExecutorService) : ChannelInitializer<SocketChannel>() {
+    private inner class ServerInitializer() : ChannelInitializer<SocketChannel>() {
         override fun initChannel(ch: SocketChannel?) {
             ch?.pipeline()?.apply {
                 addLast(ProtocolMessageDecoder())
                 addLast(ProtocolMessageEncoder())
-                addLast(ServiceHandler(service))
+                addLast(ServiceHandler())
             }
         }
     }
 
-    private class ServiceHandler(val service: ExecutorService) : SimpleChannelInboundHandler<ProtocolMessage>() {
+    private inner class ServiceHandler() : SimpleChannelInboundHandler<ProtocolMessage>() {
         override fun channelRead0(ctx: ChannelHandlerContext?, msg: ProtocolMessage?) {
             service.execute {
                 ctx?.apply {

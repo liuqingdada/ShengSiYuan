@@ -18,7 +18,7 @@ import java.util.*
  */
 
 fun main() {
-    for (i in 0 until 100) {
+    for (i in 0 until 10) {
         Thread {
             Client().connect()
         }.start()
