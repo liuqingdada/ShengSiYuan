@@ -160,4 +160,32 @@ public class Generic {
         String format = simpleDateFormat.format(new Date(1552273741732L));
         System.out.println(format);
     }
+
+    @Test
+    public void limit0() {
+        Observable.just(100)
+                .limit(2)
+                .subscribe(it -> {
+                    System.out.println(it);
+                });
+
+        Observable.empty()
+                .limit(2)
+                .subscribe(it -> {
+                    System.out.println(it);
+                }, e -> {
+                    e.printStackTrace();
+                }, () -> {
+                    System.out.println("complete");
+                });
+    }
+
+    @Test
+    public void stringSort() {
+        String mac1 = "00:00:46:66:AB:BA";
+        String mac2 = "00:00:46:66:BA:AB";
+        String[] macs = {mac2, mac1};
+        Arrays.sort(macs);
+        System.out.println(Arrays.toString(macs));
+    }
 }
