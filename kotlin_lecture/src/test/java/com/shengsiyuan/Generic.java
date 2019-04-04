@@ -15,6 +15,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -181,11 +184,92 @@ public class Generic {
     }
 
     @Test
-    public void stringSort() {
-        String mac1 = "00:00:46:66:AB:BA";
-        String mac2 = "00:00:46:66:BA:AB";
+    public void stringSort() throws Exception {
+        String mac1 = "00:00:46:66:AB:BA".replaceAll(":", "").toLowerCase();
+        String mac2 = "00:00:46:66:BA:AB".replaceAll(":", "").toLowerCase();
         String[] macs = {mac2, mac1};
         Arrays.sort(macs);
-        System.out.println(Arrays.toString(macs));
+
+        String deviceId = macs[0] + macs[1];
+        System.out.println(deviceId);
+
+        String md5 = DigestEncodingUtils.md5(deviceId);
+        System.out.println(md5);
+    }
+
+    @Test
+    public void buildManufacture() {
+        String goneName = "FDA7";
+        String mac1 = "000046663001";
+        String mac2 = "000046663002";
+        List<Byte> manufacture = new ArrayList<>();
+        for (byte b : IoUtils.hexStr2Bytes(goneName)) {
+            manufacture.add(b);
+        }
+        for (byte b : IoUtils.hexStr2Bytes(mac1)) {
+            manufacture.add(b);
+        }
+        for (byte b : IoUtils.hexStr2Bytes(mac2)) {
+            manufacture.add(b);
+        }
+        manufacture.add((byte) 30); // power
+        manufacture.add((byte) 40);
+        manufacture.add((byte) 50);
+        manufacture.add((byte) 1); // type
+        manufacture.add((byte) 0);
+        manufacture.add((byte) -64);
+        manufacture.add((byte) 0);
+        manufacture.add((byte) 0);
+        manufacture.add((byte) 0);
+        manufacture.add((byte) 0);
+        manufacture.add((byte) 0);
+        manufacture.add((byte) 1);
+        byte[] manu = new byte[26];
+        for (int i = 0; i < manu.length; i++) {
+            manu[i] = manufacture.get(i);
+        }
+        System.out.println(IoUtils.bytes2Hex(manu));
+    }
+
+    @Test
+    public void blockingTest() {
+        LinkedBlockingQueue<Runnable> linkedBlockingQueue = new LinkedBlockingQueue<>();
+        ExecutorService putService = Executors.newSingleThreadExecutor();
+        ExecutorService takeService = Executors.newSingleThreadExecutor();
+
+        putService.execute(() -> {
+            try {
+                Thread.sleep(10000);
+                while (true) {
+                    linkedBlockingQueue.put(() -> System.err.println("--------"));
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        takeService.execute(() -> {
+            try {
+                while (true) {
+                    System.out.println("start take: " + System.currentTimeMillis());
+                    Runnable runnable = linkedBlockingQueue.take();
+                    System.out.println("end take: " + System.currentTimeMillis());
+                    takeService.execute(runnable);
+                    System.out.println();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        synchronized (this) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
