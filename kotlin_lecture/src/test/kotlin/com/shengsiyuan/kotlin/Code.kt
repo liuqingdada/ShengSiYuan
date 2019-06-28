@@ -34,6 +34,10 @@ class Code {
 
         val files = file.listFiles()
         files?.forEach { println("\t${it.path}") }
+
+        val str: String? = null
+        println(str?.length)
+        println(str!!.length)
     }
 
     @Test
