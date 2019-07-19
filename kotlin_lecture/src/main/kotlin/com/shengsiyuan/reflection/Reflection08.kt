@@ -24,4 +24,9 @@ fun main() {
 
     println(String.javaClass)
     println(String.javaClass.kotlin)
+    //println(java.lang.String.javaClass)
+    //println(java.lang.String.javaClass.kotlin)
+    println(java.lang.String::class)
+    println(java.lang.String::class.java)
+    println(java.lang.String::class.java.kotlin)
 }

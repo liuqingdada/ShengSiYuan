@@ -10,7 +10,10 @@ open class Parent
 
 class Son : Parent()
 
-class Daughter : Parent()
+class Daughter : Parent() {
+    companion object {
+    }
+}
 
 fun main() {
     val son: Parent = Son()
@@ -23,4 +26,8 @@ fun main() {
     println(daughter::class)
     println(daughter::class.java)
     println(daughter.javaClass)
+    println(Daughter.javaClass)
+
+    println(daughter.javaClass == daughter::class)
+    println(daughter.javaClass == daughter::class.java)
 }
