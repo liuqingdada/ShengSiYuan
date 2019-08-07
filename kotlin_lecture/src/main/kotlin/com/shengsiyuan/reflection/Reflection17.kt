@@ -37,4 +37,9 @@ fun main() {
         prop.setter.call(test, "Cooper")
         println(prop.get(test))
     }
+
+    // Kotlin 48 补充
+    // parameters 的 size 包含具体实例所占用的数量
+    val func2 = kclass.functions.find { it.name == "print" && it.parameters.size == 2 }
+    func2?.call(test, "world")
 }
