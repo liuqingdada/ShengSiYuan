@@ -7,6 +7,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,8 +21,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by suhen
@@ -89,12 +90,12 @@ public class Generic {
         map.put("01", set2);
 
         // 不会改变原始集合的排序
-        Observable.from(map.entrySet())
+        Observable.fromIterable(map.entrySet())
                 .flatMap(it -> {
                     Set<TicpodDevice> set = it.getValue();
-                    return Observable.from(set);
+                    return Observable.fromIterable(set);
                 })
-                .sorted((item1, item2) -> item1.rssi - item2.rssi)
+                .sorted(Comparator.comparingInt(item -> item.rssi))
                 .subscribe(System.out::println);
         System.out.println(map);
     }
@@ -115,7 +116,7 @@ public class Generic {
         set2.add(new TicpodDevice(-32, new byte[0]));
         map.put("01", set2);
 
-        Observable.from(map.entrySet())
+        Observable.fromIterable(map.entrySet())
                 .map(it -> {
                     System.out.println(it);
                     Set<TicpodDevice> ticpodDevices = it.getValue();
@@ -167,13 +168,13 @@ public class Generic {
     @Test
     public void limit0() {
         Observable.just(100)
-                .limit(2)
+                .take(2)
                 .subscribe(it -> {
                     System.out.println(it);
                 });
 
         Observable.empty()
-                .limit(2)
+                .take(2)
                 .subscribe(it -> {
                     System.out.println(it);
                 }, e -> {
