@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: suhenApp
+  mandatory-file-encoding: utf-8
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+
+
+server:
+  port: 9090
+
+
+suhenConfig:
+  suhenObject:
+    name: Cooper
+    age: 25
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,56 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.2.RELEASE'
+        springMannagement = '1.0.8.RELEASE'
+    }
+
+    repositories {
+        /*maven {
+            url 'https://repo.spring.io/release'
+        }*/
+
+        mavenCentral()
+
+        jcenter()
+    }
+
+    dependencies {
+        classpath(
+                "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}",
+                "io.spring.gradle:dependency-management-plugin:${springMannagement}"
+        )
+    }
+}
+
+apply {
+    plugin("java")
+    plugin("maven")
+    plugin("idea")
+    plugin("org.springframework.boot")
+    plugin("io.spring.dependency-management")
+}
+
+group 'com.shengsiyuan'
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    /*maven {
+        url 'https://repo.spring.io/release'
+    }*/
+
+    mavenCentral()
+
+    jcenter()
+}
+
+dependencies {
+    compileOnly(
+            'org.springframework.boot:spring-boot-loader'
+    )
+    implementation(
+            'org.springframework.boot:spring-boot-starter-web'
+    )
+}
