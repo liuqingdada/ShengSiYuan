@@ -53,6 +53,10 @@ dependencies {
     implementation(
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-websocket',
-            'org.springframework.boot:spring-boot-starter-json'
+            'org.springframework.boot:spring-boot-starter-json',
+            'org.springframework.boot:spring-boot-devtools'
+    )
+    testImplementation(
+            'org.springframework.boot:spring-boot-starter-test'
     )
 }

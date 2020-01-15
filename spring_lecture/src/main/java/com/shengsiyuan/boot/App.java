@@ -1,18 +1,10 @@
 package com.shengsiyuan.boot;
 
-import com.shengsiyuan.boot.websocket.DefaultEchoService;
-import com.shengsiyuan.boot.websocket.EchoService;
-import com.shengsiyuan.boot.websocket.EchoWebSocketHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import javax.annotation.PostConstruct;
 
@@ -28,7 +20,7 @@ import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @EnableWebSocket
-public class App implements WebSocketConfigurer {
+public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
@@ -49,21 +41,5 @@ public class App implements WebSocketConfigurer {
         logger.info("Info Message");
         logger.warn("Warn Message");
         logger.error("Error Message");
-    }
-
-    @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(echoWebSocketHandler(), "/ws");
-                //.withSockJS();
-    }
-
-    @Bean
-    EchoService echoService() {
-        return new DefaultEchoService("You said: \"%s\"");
-    }
-
-    @Bean
-    WebSocketHandler echoWebSocketHandler() {
-        return new EchoWebSocketHandler(echoService());
     }
 }
