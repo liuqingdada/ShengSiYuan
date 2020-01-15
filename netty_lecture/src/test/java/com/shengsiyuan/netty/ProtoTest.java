@@ -25,7 +25,7 @@ public class ProtoTest {
         System.out.println(student2);
     }
 
-    @Test
+    /*@Test
     public void thread() {
         AtomicInteger ai = new AtomicInteger(0);
 
@@ -43,5 +43,5 @@ public class ProtoTest {
 
             }).start();
         }
-    }
+    }*/
 }
