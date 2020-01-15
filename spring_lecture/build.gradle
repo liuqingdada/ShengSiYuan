@@ -51,6 +51,8 @@ dependencies {
             'org.springframework.boot:spring-boot-loader'
     )
     implementation(
-            'org.springframework.boot:spring-boot-starter-web'
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-websocket',
+            'org.springframework.boot:spring-boot-starter-json'
     )
 }

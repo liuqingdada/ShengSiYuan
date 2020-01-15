@@ -3,6 +3,8 @@ package com.shengsiyuan.boot.controller;
 import com.shengsiyuan.boot.config.AppConfigBean;
 import com.shengsiyuan.boot.domain.Person;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -21,6 +23,8 @@ import java.util.Date;
 @RestController
 @RequestMapping(value = "api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PersonController {
+    private static final Log logger = LogFactory.getLog(PersonController.class);
+
     @Value("${suhenConfig.suhenObject.name}")
     private String name;
     @Value("${suhenConfig.suhenObject.age}")
@@ -33,8 +37,13 @@ public class PersonController {
     public Person getPerson() {
         Person person = new Person();
         person.setId(1);
-        person.setName(name + ", " + appConfigBean.getName());
+        person.setName(name);
         person.setBirth(new Date());
+
+        logger.info(age);
+        logger.info(appConfigBean.getName());
+        logger.info(appConfigBean.getAge());
+
         return person;
     }
 }

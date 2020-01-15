@@ -1,4 +1,6 @@
 spring:
+#  profiles:
+#    active: dev
   application:
     name: suhenApp
   mandatory-file-encoding: utf-8
@@ -9,7 +11,7 @@ spring:
 
 
 server:
-  port: 9090
+  port: 8899
 
 
 suhenConfig:
@@ -18,11 +20,8 @@ suhenConfig:
     age: 25
 
 
-
-
-
-
-
-
-
-
+#logging:
+#  level:
+#    root: debug
+#  file:
+#    path: logs/suhenAppLog
