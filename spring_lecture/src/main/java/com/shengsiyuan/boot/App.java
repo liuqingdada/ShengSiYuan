@@ -16,6 +16,16 @@ import javax.annotation.PostConstruct;
  * 调试规范: 日志 远程调试
  * JDWP: Java Debug Wire Protocol, Java调试协议
  * java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000 -jar ***.jar
+ * <p>
+ * kafka:
+ * 1
+ * ./bin/zookeeper-server-start.sh config/zookeeper.properties
+ * ./bin/kafka-server-start.sh config/server.properties
+ * 2
+ * ./bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic suhenTopic
+ * ./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic suhenTopic
+ * 3
+ * ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic suhenTopic (--from-beginning)
  */
 
 @SpringBootApplication
