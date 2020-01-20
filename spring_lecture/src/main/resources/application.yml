@@ -1,6 +1,6 @@
 spring:
-#  profiles:
-#    active: dev
+  #profiles:
+  #  active: dev
   application:
     name: suhenApp
   mandatory-file-encoding: utf-8
@@ -8,6 +8,15 @@ spring:
     encoding:
       enabled: true
       charset: utf-8
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 
 server:

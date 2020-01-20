@@ -50,11 +50,13 @@ dependencies {
     compileOnly(
             'org.springframework.boot:spring-boot-loader'
     )
+    implementation "com.google.code.gson:gson"
     implementation(
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-websocket',
             'org.springframework.boot:spring-boot-starter-json',
-            'org.springframework.boot:spring-boot-devtools'
+            'org.springframework.boot:spring-boot-devtools',
+            'org.springframework.kafka:spring-kafka'
     )
     testImplementation(
             'org.springframework.boot:spring-boot-starter-test'
