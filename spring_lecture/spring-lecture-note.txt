@@ -1,0 +1,52 @@
+传统 Spring MVC 开发一般步骤
+
+web.xml
+
+部署描述符
+
+Servelet
+Filter
+Listener
+
+位于WEB-INF目录下
+
+DispatcherServlet
+
+/*
+
+
+
+ContextLoaderListener
+
+
+
+jar  war
+
+使用jar包的方式要从 Servlet 3.0 规范讲起
+3.0 之前:
+<servlet>
+    <servlet-name>...
+    <servlet-class>...
+</servlet>
+<mapping...>
+
+3.0 后:
+@WebServlet(name = ...)
+
+@WebFilter
+
+@WebListener
+
+无需配置文件
+
+
+SpringBoot中的一些机制
+SPI: service provider interface
+例如 JDBC  XML的解析
+
+
+
+
+
+
+
