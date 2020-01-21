@@ -166,7 +166,7 @@ Reactor 模式的角色构成:
 
 ----------
 
-Reactorm模式的流程
+Reactor模式的流程
 
 1. 当应用向Initiation Dispatcher注册具体的事件处理器时，应用会标识出该事件处理器希望Initiation Dispatcher
    在某个事件发生时向其通知的该事件，该事件与Handle关联。
@@ -189,4 +189,12 @@ Reactorm模式的流程
 
 
 
-
+Netty 线程模型
+1. 一个 EventLoopGroup 包含了一个或者多个 EventLoop
+2. 一个 EventLoop 在它的整个生命周期当中都只会与唯一一个 Thread (
+       就是我们常说的 IO 线程 { SingleThreadEventExecutor }
+   ) 进行绑定
+3. 所有由 EventLoop 所处理的各种 IO 事件都将在它所关联的 Thread 上进行处理
+4. 一个 Channel 在它的整个生命周期中只会注册在一个 EventLoop 上;
+   所以 Channel 里面的那些 Handler 的方法只会由同一个线程执行, 不会产生多线程问题
+5. 一个 EventLoop 在运行过程当中, 会被分配给一个或者多个 Channel
