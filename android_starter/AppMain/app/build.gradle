@@ -1,0 +1,248 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.protobuf'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'channel'
+apply from: "${rootDir}/android_project_common.gradle"
+
+def gitCommitCountCmd = 'git rev-list HEAD --count'
+def calculatedVersionCode = gitCommitCountCmd.execute((String[]) null, project.projectDir).text.trim().toInteger()
+
+def gitLatestCommitCmd = 'git log --format="%H" -1'
+String gitLatestCommitSha1 = gitLatestCommitCmd.execute((String[]) null, project.projectDir).text.trim().replace('\"', '')
+
+// 注意：在修改versionNameBase时，需要同步修改versionCodeBase。规则如下：
+// 1. versionNameBase定义为：<主版本号X>.<次版本号Y>.<hotfix版本号Z>
+//    其中，<主版本号X>支持任意位数字；<次版本号Y>仅支持最多2位数字；<hotfix版本号Z>仅支持1位数字。
+// 2. versionCodeBase定义为：(<X> * 1000 + <Y> * 10 + <Z>
+// 示例：
+//   "5.3.4"   --> 5034
+//   "5.13.1"  --> 5131
+String versionNameBase = "8.21.0"
+int versionCodeBase = 8210
+boolean withBetaType = project.hasProperty("withBetaType") ? withBetaType.toBoolean() : false
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+
+        applicationId "com.android.starter"
+        versionName versionNameBase // + build type suffix
+        versionCode versionCodeBase * 10000 + calculatedVersionCode
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        resConfigs "en", "zh-rCN"
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+        manifestPlaceholders = [
+                GIT_COMMIT_SHA1 : gitLatestCommitSha1,
+                GETUI_APP_ID    : "aRp7u1m2w86LNNGqr90F36",
+                GETUI_APP_KEY   : "BdJj4K4tov5aHSDHUWd5rA",
+                GETUI_APP_SECRET: "Kbye3xkiCeAdZXsUo3Rku2",
+        ]
+
+        buildConfigField "boolean", "DEBUG_LOG", "false"
+        buildConfigField "boolean", "SDCARD_LOG", "false"
+        buildConfigField "boolean", "IS_RELEASE", "false"
+
+        // for product flavor 'region'
+        missingDimensionStrategy "region", "china", "awChina", "aw", "amap"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                //room的数据库概要、记录
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude 'lib/armeabi-v7a/libtts.so'
+        exclude 'lib/armeabi-v7a/libmobvoi_vad.so'
+        exclude 'lib/armeabi-v7a/libmobvoi_recognizer.so'
+        exclude 'config/**'
+
+        // 游泳识别目前在手机端不需要 BEGIN
+        exclude 'lib/**/libmobvoi_swimming.so'
+        // 游泳 END
+
+        // https://github.com/wasabeef/glide-transformations/issues/130
+        pickFirst 'lib/**/libRSSupport.so'
+        pickFirst 'lib/**/librsjni.so'
+        pickFirst 'lib/**/librsjni_androidx.so'
+    }
+
+    signingConfigs {
+        androidTestKey {
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "android.testkey"
+            keyPassword "android"
+        }
+
+        releaseKey {
+            Properties properties = new Properties()
+            properties.load(project.file('key.properties').newDataInputStream())
+            storeFile file(properties.getProperty('key.store'))
+            storePassword properties.getProperty('key.store.password')
+            keyAlias properties.getProperty('key.alias')
+            keyPassword properties.getProperty('key.alias.password')
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.releaseKey
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFile 'proguard-dontobfuscate-rules.pro'
+
+            versionNameSuffix "-debug-" + calculatedVersionCode
+
+            manifestPlaceholders.BUGLY_APP_VERSION = "${defaultConfig.versionName}-debug"
+
+            buildConfigField "boolean", "DEBUG_LOG", "true"
+        }
+
+        release {
+            signingConfig signingConfigs.releaseKey
+
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            versionNameSuffix "-" + calculatedVersionCode
+            manifestPlaceholders.BUGLY_APP_VERSION = "${defaultConfig.versionName}${versionNameSuffix}"
+            buildConfigField "boolean", "IS_RELEASE", "true"
+        }
+
+        if (withBetaType) {
+            beta {
+                initWith(release)
+                matchingFallbacks = ['release']
+
+                buildConfigField "boolean", "SDCARD_LOG", "true"
+
+                versionNameSuffix "-beta-" + calculatedVersionCode
+                manifestPlaceholders.BUGLY_APP_VERSION = "${defaultConfig.versionName}${versionNameSuffix}"
+                buildConfigField "boolean", "IS_RELEASE", "false"
+            }
+
+            alpha {
+                initWith(release)
+                matchingFallbacks = ['release']
+                buildConfigField "boolean", "SDCARD_LOG", "true"
+                versionNameSuffix "-alpha-" + calculatedVersionCode
+                manifestPlaceholders.BUGLY_APP_VERSION = "${defaultConfig.versionName}${versionNameSuffix}"
+                buildConfigField "boolean", "IS_RELEASE", "false"
+            }
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.mergeResources.doLast {
+            // 删除SpeechSDK的res/raw目录下的所有模型文件(model, model_auto, model_global, model_home)
+            // vpa没有启用离线功能，不需要也不会加载离线模型
+            def tree = fileTree(variant.mergeResources.outputDir)
+            tree.includes = ['model', 'model_auto', 'model_global', 'model_home'].collect {
+                "raw_${it}.flat"
+            }
+            tree.each { it.delete() }
+        }
+
+        if (variant.buildType.name != "debug") {
+            variant.outputs.each { output ->
+                output.outputFileName = "Assistant-${variant.versionName}-${variant.versionCode}" +
+                        "-${variant.flavorName}.apk"
+            }
+            variant.getAssembleProvider().configure() {
+                it.doLast {
+                    if (variant.buildType.minifyEnabled) {
+                        copy {
+                            from variant.mappingFile.getAbsolutePath()
+                            into "${rootProject.ext.apksOutDir}"
+                            rename {
+                                "Assistant-${variant.versionName}-${variant.versionCode}-mapping.txt"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+
+        abortOnError true
+
+        disable 'InvalidPackage' // exist in some third-party libraries, such as "okio", "retrofit"
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation deps.support.multidex
+    implementation deps.support.compat
+    implementation deps.support.supportV13
+    implementation deps.support.appcompat
+    implementation deps.support.design
+    implementation deps.support.cardview
+    implementation deps.support.recyclerview
+    implementation deps.support.constraintLayout
+
+    implementation deps.kotlin.stdlib
+    implementation deps.rx.rxjava
+    implementation deps.rx.rxandroid
+
+    // Dependencies for local unit tests
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockitoCore
+    testImplementation deps.test.hamcrestCore
+    testImplementation deps.test.hamcrestLibrary
+    testImplementation deps.test.powermockMockito
+    testImplementation deps.test.powermockJunit
+    testImplementation deps.leakcanaryRelease
+    implementation deps.kotlin.stdlib
+
+    androidTestImplementation deps.test.espressoCore
+}
+
+channel {
+    channelFile = file("${project.projectDir}/channel")
+    baseOutputDir = file("${rootProject.ext.apksOutDir}")
+    apkNameFormat = 'Assistant-${versionName}-${versionCode}-${flavorName}-${buildType}'
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${versions.protobuf}"
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {}
+            }
+        }
+    }
+}
+repositories {
+    mavenCentral()
+}
