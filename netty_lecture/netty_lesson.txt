@@ -168,22 +168,22 @@ Reactor 模式的角色构成:
 
 Reactor模式的流程
 
-1. 当应用向Initiation Dispatcher注册具体的事件处理器时，应用会标识出该事件处理器希望Initiation Dispatcher
-   在某个事件发生时向其通知的该事件，该事件与Handle关联。
+1. 当应用向Initiation Dispatcher注册具体的事件处理器时,应用会标识出该事件处理器希望Initiation Dispatcher
+   在某个事件发生时向其通知的该事件,该事件与Handle关联。
 
 2. Initiation Dispatcher会要求每个事件处理器向其传递内部的Handle。该Handle向操作系统标识了事件处理器。
 
-3. 当所有的事件处理器注册完毕后，应用会调用handle_events方法来启动Initiation Dispatcher的事件循环。
-   这时，Initiation Dispatcher会将每个注册的事件管理器的Handle合并起来，并使用同步事件分离器等待这些事件的发生。
-   比如说，TCP协议层会使用select同步事件分离器操作来等待客户端发送的数据到达连接的 socket handle 上
+3. 当所有的事件处理器注册完毕后,应用会调用handle_events方法来启动Initiation Dispatcher的事件循环。
+   这时,Initiation Dispatcher会将每个注册的事件管理器的Handle合并起来,并使用同步事件分离器等待这些事件的发生。
+   比如说,TCP协议层会使用select同步事件分离器操作来等待客户端发送的数据到达连接的 socket handle 上
 
-4. 当与某个事件源对应的Handle变为ready状态时（比如说，TCP socket变为等待读状态时），
+4. 当与某个事件源对应的Handle变为ready状态时（比如说,TCP socket变为等待读状态时）,
    同步事件分离器就会通知Initiation Dispatcher。
 
-5. Initiation Dispatcher会触发事件处理器的回调方法，从而响应这个处于ready状态的Handle。当事件发生时，
+5. Initiation Dispatcher会触发事件处理器的回调方法,从而响应这个处于ready状态的Handle。当事件发生时,
    Initiation Dispatcher会将被事件激活的Handle作为【key】来寻找并分发恰当的事件处理器回调方法。
 
-6. Initiation Dispatcher会回调事件处理器的handle_events回调方法来执行特定于应用的功能（开发者自己所编写的功能），
+6. Initiation Dispatcher会回调事件处理器的handle_events回调方法来执行特定于应用的功能（开发者自己所编写的功能）,
    从而响应这个事件。所发生的事件类型可以作为该方法参数并被该方法内部使用来执行额外的特定于服务的分离与分发。
 
 
@@ -198,3 +198,42 @@ Netty 线程模型
 4. 一个 Channel 在它的整个生命周期中只会注册在一个 EventLoop 上;
    所以 Channel 里面的那些 Handler 的方法只会由同一个线程执行, 不会产生多线程问题
 5. 一个 EventLoop 在运行过程当中, 会被分配给一个或者多个 Channel
+
+在Netty中, Channel的实现一定是线程安全的; 基于此, 我们可以存储一个Channel的引用, 并且在需要向远程端点发送数据时,
+通过这个引用来调用Channel相应的方法; 即便当时有很多线程都在使用它也不会出现多线程问题; 而且, 消息一定会按照顺序发送出去
+
+我们在业务开发中, 不要将长时间执行的耗时任务放入到EventLoop的执行队列中, 因为它将会一直阻塞该线程所对应的所有Channel上
+的其他执行任务, 如果我们需要进行阻塞调用或是耗时的操作(实际开发中很常见), 那么我们就需要使用一个专门的
+EventExecutor(业务线程池)
+
+JDK所提供的Future只能同过手工方式检查执行结果, 而这个操作是会阻塞的; Netty则对ChannelFuture进行了增强, 通过
+ChannelFutureListener以回调的方式来获取执行结果, 去除了手工检查阻塞的操作; 值得注意的是, ChannelFutureListener
+的operationComplete方法是由I/O线程执行的, 因此要注意的是不要在这里执行耗时操作, 否则需要通过另外的线程或线程池来执行
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
