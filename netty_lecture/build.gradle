@@ -1,14 +1,16 @@
 buildscript {
     repositories {
+        google()
+        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.5'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.12'
     }
 }
 
 plugins {
-    id "com.google.protobuf" version "0.8.5"
+    id "com.google.protobuf" version "0.8.12"
     id 'java'
 }
 //apply plugin: 'com.google.protobuf'
@@ -42,8 +44,10 @@ protobuf {
     }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
     google()
