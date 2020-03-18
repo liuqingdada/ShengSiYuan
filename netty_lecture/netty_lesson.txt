@@ -89,7 +89,7 @@ java.io
 
 java.nio
     3个核心概念: Selector、 Channel、 Buffer
-    java.nio中, 我们是面向块 (block) 或者换红区 (buffer) 编程的
+    java.nio中, 我们是面向块 (block) 或者缓冲区 (buffer) 编程的
 
 
     Selector 可以关联多个 Channel, 通过事件切换到不同的 Channel
@@ -217,6 +217,60 @@ ChannelHandlerContext中. 对于前一种方式来说, 消息会从ChannelPipeli
 1. ChannelHandlerContext与ChannelHandler之间的关联绑定关系是永远都不会发生改变的, 因此对其进行缓存是没有任何问题的
 2. 对于与Channel的同名方法来说, ChannelHandlerContext的方法将会产生更短的事件流,
    所以我们应该在可能的情况下利用这个特性来提升应用性能
+
+
+
+Netty ByteBuf中提供了三种缓冲区类型:
+1. Heap Buffer
+2. Direct Buffer
+3. Composite Buffer
+
+Heap Buffer(堆缓冲区)
+这是最常用的类型, ByteBuf将数据存储到JVM的堆空间中, 并且将实际的数据存放到 byte array 中来实现
+优点: 由于数据是存储在JVM的堆中,因此可以快速的创建与快速的释放, 并且它提供了直接访问内部字节数据的方法
+缺点: 每次读写数据时, 都需要先将数据复制到直接缓冲区中再进行网络传输
+
+Direct Buffer(直接缓冲区)
+在JVM堆之外直接分配内存空间, 直接缓冲区并不会占用堆的容量空间, 因为他是由操作系统在本地内存进行的数据分配
+优点: 在使用Socket进行数据传递时, 性能非常好, 因为数据直接位于操作系统的本地内存中,所以不需要从JVM将数据复制到
+     直接缓冲区中, 性能很好
+缺点: 因为直接缓冲区是直接在操作系统内存中, 所以内存空间的分配与释放要比堆空间更加复杂, 而且速度要慢一些
+
+总结:
+1. Netty通过提供内存池来解决这个问题. 直接缓冲区并不支持通过字节数组的方式来访问数据
+2. 对于后端的业务消息的编码来说, 推荐使用 HeapByteBuf
+3. 对于I/O通信线程在读写缓冲区时, 推荐使用 DirectByteBuf
+
+Composite Buffer(复合缓冲区)
+... ...
+
+JDK的ByteBuffer与Netty的ByteBuf直接的差异比对:
+1. Netty的ByteBuf采用了读写索引分离的策略
+2. 当读索引与写索引处于同一个位置时, 如果我们继续读取, 会抛出IndexOutOfBoundsException
+3. 对于ByteBuf的任何读写操作都会分别单独维护读索引与写索引
+4. ByteBuf会自动扩容, 最大的扩容限度是 maxCapacity 值
+
+JDK的ByteBuffer的缺点:
+1. ByteBuffer中存储数据的对象声明是final的, 也就是长度是固定不变的, 一旦分配好后不能动态扩容与收缩; 当待存储的
+   字节很大的时候就很有可能抛出IndexOutOfBoundsException; 如果要预防这个异常, 那就需要在存储之前完全确定好
+   待存储的字节大小; 如果ByteBuffer的空间不足, 我们只有一种解决方案: 创建一个全新的ByteBuffer对象, 然后将之前的
+   ByteBuffer中的数据复制过去, 这一切操作都需要由开发者自己来手动完成
+2. ByteBuffer只是用一个position指针来标识位置信息, 在进行读写切换时就需要调用flip方法或rewind方法, 使用不方便
+
+NettyByteBuf的优点:
+1. 存储字节的数组是动态的, 这里的动态性是体现在write方法中的, write方法在执行时会判断Buffer容量, 如果不足则自动扩容
+2. ByteBuf的读写索引是完全分开的, 使用起来很方便
+
+
+
+AtomicIntegerFeildUpdater要点总结:
+1. 更新器更新的必须是int类型变量, 不能是包装类型
+2. 更新器更新的必须是volatile类型变量, 确保线程之间共享变量时的立即可见性
+3. 变量不能是static的, 必须要是实例变量, 因为Unsafe.objectFieldOffset()方法不支持静态变量(CAS操作本质上是
+   通过对象实例的偏移量来直接进行赋值)
+4. 更新器只能修改它可见范围内的变量, 因为更新器是通过反射来得到这个变量, 如果变量不可见就报错
+
+如果要更新的变量时包装类型, 那么可以使用AtomicReferenceFieldUpdater来更新
 
 
 

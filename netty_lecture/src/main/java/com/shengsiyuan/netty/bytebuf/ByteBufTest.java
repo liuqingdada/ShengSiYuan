@@ -14,9 +14,9 @@ import io.netty.buffer.Unpooled;
 public class ByteBufTest {
     public static void main(String[] args) {
         ByteBuf byteBuf = Unpooled.buffer(10);
+        System.out.println(byteBuf.capacity());
+        System.out.println(byteBuf.maxCapacity());
         int writableBytes = byteBuf.writableBytes();
-        byteBuf.maxCapacity();
-        byteBuf.maxWritableBytes();
         for (int i = 0; i < writableBytes; i++) {
             byteBuf.writeByte(i);
         }
@@ -32,7 +32,7 @@ public class ByteBufTest {
         System.out.println("===========");
 
         ByteBuffer byteBuffer = ByteBuffer.allocate(100);
-        ByteBuf wrappedBuffer = Unpooled.wrappedBuffer(new ByteBuffer[]{byteBuffer});
+        ByteBuf wrappedBuffer = Unpooled.wrappedBuffer(byteBuffer);
 
         byteBuffer.put((byte) 0x10);
         while (wrappedBuffer.readableBytes() > 0) {
