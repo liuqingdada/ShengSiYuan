@@ -13,14 +13,10 @@ public class MyServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch.pipeline()
-          .addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,
-                                                    0,
-                                                    4,
-                                                    0,
-                                                    4))
-          .addLast(new LengthFieldPrepender(4))
-          .addLast(new StringDecoder(CharsetUtil.UTF_8))
-          .addLast(new StringEncoder(CharsetUtil.UTF_8))
-          .addLast(new MyServerHandler());
+                .addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4))
+                .addLast(new LengthFieldPrepender(4))
+                .addLast(new StringDecoder(CharsetUtil.UTF_8))
+                .addLast(new StringEncoder(CharsetUtil.UTF_8))
+                .addLast(new MyServerHandler());
     }
 }
