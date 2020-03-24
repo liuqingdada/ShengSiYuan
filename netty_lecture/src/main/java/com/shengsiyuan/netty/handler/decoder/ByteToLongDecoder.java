@@ -15,8 +15,15 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 public class ByteToLongDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(
-            ChannelHandlerContext ctx, ByteBuf in, List<Object> out
+            ChannelHandlerContext ctx,
+            ByteBuf in,
+            List<Object> out
     ) throws Exception {
+        System.out.println("decode invoked.");
+        System.out.println(in.readableBytes());
 
+        if (in.readableBytes() >= 8) {
+            out.add(in.readLong());
+        }
     }
 }

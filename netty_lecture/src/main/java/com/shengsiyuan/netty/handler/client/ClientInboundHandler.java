@@ -2,8 +2,6 @@ package com.shengsiyuan.netty.handler.client;
 
 import com.shengsiyuan.netty.handler.TaskManager;
 
-import java.time.LocalDateTime;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -25,7 +23,7 @@ public class ClientInboundHandler extends SimpleChannelInboundHandler<Long> {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ctx.writeAndFlush("from client: " + LocalDateTime.now());
+            ctx.writeAndFlush(System.currentTimeMillis());
         });
     }
 

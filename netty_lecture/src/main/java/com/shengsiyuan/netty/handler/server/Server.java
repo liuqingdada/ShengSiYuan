@@ -1,5 +1,8 @@
 package com.shengsiyuan.netty.handler.server;
 
+import com.shengsiyuan.netty.handler.decoder.ByteToLongDecoder;
+import com.shengsiyuan.netty.handler.encoder.LongToByteEncoder;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -37,7 +40,10 @@ public class Server {
     private static class ChildHandler extends ChannelInitializer<SocketChannel> {
         @Override
         protected void initChannel(SocketChannel ch) throws Exception {
-            ch.pipeline().addLast(new ServerInboundHandler());
+            ch.pipeline()
+                    .addLast(new ByteToLongDecoder())
+                    .addLast(new LongToByteEncoder())
+                    .addLast(new ServerInboundHandler());
         }
     }
 }

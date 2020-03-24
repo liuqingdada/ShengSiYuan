@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 public class TaskManager {
     private static final TaskManager ourInstance = new TaskManager();
 
-    static TaskManager getInstance() {
+    public static TaskManager getInstance() {
         return ourInstance;
     }
 

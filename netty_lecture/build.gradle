@@ -103,6 +103,10 @@ dependencies {
             // For Android client, use grpc-okhttp instead of grpc-netty-shaded
             // and grpc-protobuf-lite instead of grpc-protobuf:
     )
+    compile(
+            "org.slf4j:slf4j-api:1.7.30",
+            "org.slf4j:slf4j-log4j12:1.7.30"
+    )
 }
 
 //task wrapper(type: Wrapper) {
