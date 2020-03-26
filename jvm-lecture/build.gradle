@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'com.shengsiyuan'
+version '1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+        }
+    }
+    test {
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+}
