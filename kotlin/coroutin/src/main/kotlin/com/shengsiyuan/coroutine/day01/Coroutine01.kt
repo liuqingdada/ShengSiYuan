@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
  * 2020/3/15.
  * Email: 1239604859@qq.com
  *
- * 协成的取消与超时
+ * 协程的取消与超时
  */
 
 fun main() = runBlocking {

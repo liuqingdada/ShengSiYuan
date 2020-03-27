@@ -9,9 +9,9 @@ import kotlinx.coroutines.*
  *
  * kotlinx.coroutines包下的所有挂起函数都是可取消的
  *
- * 他们会检查协成的取消状态，当取消时就会抛出CancellationException
+ * 他们会检查协程的取消状态，当取消时就会抛出CancellationException
  *
- * 不过，如果协成正在处于某个计算过程中，并且没有检查取消状态，那么他是无法被取消的
+ * 不过，如果协程正在处于某个计算过程中，并且没有检查取消状态，那么他是无法被取消的
  */
 
 fun main() = runBlocking {
