@@ -16,7 +16,7 @@ import kotlin.system.measureTimeMillis
  * 区别在于，launch会返回一个Job，但是Job并不会持有任何结果值，而async会返回一个Deferred，这是一个轻量级的非阻塞的
  * future，它代表一个promise，可以在稍后提供一个结果值
  *
- * 可以通在一个deferred值上调用.await()方法来获取最终的结果值，Defferred也是个Job因此可以在需要时对其进行取消
+ * 可以通在一个deferred值上调用.await()方法来获取最终的结果值，Deferred也是个Job因此可以在需要时对其进行取消
  */
 
 fun main() = runBlocking {
