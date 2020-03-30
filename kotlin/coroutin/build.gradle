@@ -7,6 +7,8 @@ buildscript {
     apply from: "${rootDir}/ext.gradle"
 
     repositories {
+        google()
+        jcenter()
         mavenCentral()
     }
 
@@ -18,10 +20,14 @@ buildscript {
 group 'com.shengsiyuan'
 version '1.0'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 repositories {
+    google()
+    jcenter()
     mavenCentral()
 }
 
