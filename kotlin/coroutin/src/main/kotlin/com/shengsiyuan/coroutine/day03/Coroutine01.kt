@@ -28,7 +28,7 @@ import java.util.concurrent.Executors
  *
  *
  * 程序分析：
- * 1. 当通过launch来启动协程且不指定协程分发器时， 它会继承启动它的那个CoroutineScope的上下文与分发器，对该示例
+ * 1. 当通过launch来启动协程且不指定协程分发器时，它会继承启动它的那个CoroutineScope的上下文与分发器，对该示例
  *    来说，它会继承runBlocking的上下文，而runBlocking则是运行在main线程当中
  * 2. Dispatchers.Unconfined 是一种很特殊的协程分发器，它在该示例中也是运行咋main线程中，但实际上，其运行机制
  *    与不指定协程分发器时时完全不同的
