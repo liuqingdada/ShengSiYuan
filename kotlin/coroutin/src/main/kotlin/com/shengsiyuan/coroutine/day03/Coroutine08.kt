@@ -1,6 +1,8 @@
 package com.shengsiyuan.coroutine.day03
 
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 /**
@@ -15,5 +17,17 @@ private fun log(msg: String) {
 }
 
 fun main() = runBlocking(CoroutineName("main")) {
+    log("hello")
+    val s1 = async(CoroutineName("coroutine1")) {
+        delay(800)
+        log("coroutine1 log")
+        30
+    }
+    val s2 = async(CoroutineName("coroutine2")) {
+        delay(1000)
+        log("coroutine2 log")
+        5
+    }
 
+    log("result is ${s1.await() + s2.await()}")
 }
