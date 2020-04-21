@@ -7,6 +7,7 @@ package com.leetcode.binarytree
  */
 
 class TreeNode(var element: Int) {
+    var parent: TreeNode? = null
     var left: TreeNode? = null
     var right: TreeNode? = null
 }
