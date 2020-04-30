@@ -1,6 +1,11 @@
 package com.shengsiyuan.coroutine.day04
 
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 /**
  * 方法本身是阻塞的
@@ -26,8 +31,31 @@ private suspend fun flowMethod(): List<String> {
     return arrayListOf("Hello", "World", "Hello World")
 }
 
+private fun flow2(): Flow<Int> = flow {
+    for (i in 100..105) {
+        delay(100)
+        emit(i)
+    }
+}
+
 fun main() {
     listMethod().forEach { println(it) }
+    println("-----------")
+    sequenceMethod().forEach { println(it) }
+    println("-----------")
+
+    runBlocking {
+        flowMethod().forEach { println(it) }
+        println("==============")
+
+        launch {
+            repeat(4) {
+                println(it)
+                delay(200)
+            }
+        }
+        flow2().collect { println(it) }
+    }
 }
 
 
