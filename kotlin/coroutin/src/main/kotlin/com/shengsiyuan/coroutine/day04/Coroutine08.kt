@@ -1,11 +1,11 @@
 package com.shengsiyuan.coroutine.day04
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import kotlin.system.measureTimeMillis
 
 /**
  * Created by liuqing.yang
@@ -39,12 +39,30 @@ private fun test2(): Flow<Int> = flow {
     }
 }
 
+private fun test3(): Flow<Int> = flow {
+    (1..4).forEach {
+        Thread.sleep(100)
+        log("emit: $it")
+        emit(it)
+    }
+}.flowOn(Dispatchers.Default).onEach {
+    log("onEach: $it")
+}.flowOn(Dispatchers.IO)
+
 fun main() = runBlocking {
     test().collect {
         log("collect: $it")
     }
 
-    test2().collect {
-        log(it.toString())
+    val time = measureTimeMillis {
+        withContext(Dispatchers.Default) {
+            test3()
+//                    .buffer() // 如果是同一个协程，buffer 可以做缓冲；实际上，不同 flowOn 也是用到了 buffer
+                    .collect {
+                        delay(200)
+                        log(it.toString())
+                    }
+        }
     }
+    println(time)
 }
