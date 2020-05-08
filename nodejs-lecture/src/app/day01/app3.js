@@ -7,7 +7,7 @@ const server = http.createServer(function (req, resp) {
         data += chunk;
     });
 
-    console.log(data);
+    console.log("req data: " + data);
 
     req.on('end', function () {
         let method = req.method;
