@@ -9,6 +9,14 @@ buildscript {
             url 'https://repo.spring.io/release'
         }*/
 
+        maven {
+            url 'https://maven.aliyun.com/repository/google/'
+        }
+
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter/'
+        }
+
         mavenCentral()
 
         jcenter()
@@ -40,6 +48,14 @@ repositories {
     /*maven {
         url 'https://repo.spring.io/release'
     }*/
+
+    maven {
+        url 'https://maven.aliyun.com/repository/google/'
+    }
+
+    maven {
+        url 'https://maven.aliyun.com/repository/jcenter/'
+    }
 
     mavenCentral()
 
