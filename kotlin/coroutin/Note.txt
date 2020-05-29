@@ -1,0 +1,6 @@
+
+withContext: Calls the specified suspending block with a given coroutine context,
+             suspends until it completes, and returns the result
+
+coroutineScope: This function returns as soon as the given block and all its children coroutines are completed
+
