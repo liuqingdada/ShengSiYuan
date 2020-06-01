@@ -28,6 +28,7 @@ class MainListDataSource : PositionalDataSource<MainData>() {
     }
 
     private fun fetchData(start: Int, size: Int): List<MainData> {
+        Thread.sleep(1000)
         val end = start + size
         return (start until end).map { MainData(it, "Cooper $it") }
     }
@@ -35,12 +36,10 @@ class MainListDataSource : PositionalDataSource<MainData>() {
     class Factory : DataSource.Factory<Int, MainData>() {
         private val sourceLiveData = MutableLiveData<MainListDataSource>()
 
-        private var latestSource: MainListDataSource? = null
-
         override fun create(): DataSource<Int, MainData> {
-            latestSource = MainListDataSource()
+            val latestSource = MainListDataSource()
             sourceLiveData.postValue(latestSource)
-            return latestSource as MainListDataSource
+            return latestSource
         }
     }
 }

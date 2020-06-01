@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.Config
 import androidx.paging.toLiveData
 import com.android.cooper.app.pagingdemo.source.MainListDataSource
+import com.android.cooper.app.pagingdemo.source.MainListDataSource2
+import com.android.cooper.app.pagingdemo.source.MainListDataSource3
 
 /**
  * Created by liuqing.yang
@@ -19,5 +21,5 @@ class MainViewModel : ViewModel() {
         enablePlaceholders = false
     )
 
-    val pagingDataList = MainListDataSource.Factory().toLiveData(pagingConfig)
+    val pagingDataList = MainListDataSource3.Factory().toLiveData(pagingConfig)
 }
