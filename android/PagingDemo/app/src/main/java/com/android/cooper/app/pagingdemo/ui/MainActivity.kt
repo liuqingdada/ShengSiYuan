@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun registerComponent() {
         viewModle.pagingDataList.observe(this, Observer {
-            println(it)
             pageListAdapter.submitList(it)
         })
     }

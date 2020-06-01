@@ -3,6 +3,7 @@ package com.android.cooper.app.pagingdemo.source
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
+import com.android.cooper.app.pagingdemo.serialExecute
 import com.android.cooper.app.pagingdemo.ui.MainData
 
 /**
@@ -13,11 +14,17 @@ import com.android.cooper.app.pagingdemo.ui.MainData
 
 class MainListDataSource : PositionalDataSource<MainData>() {
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<MainData>) {
-        callback.onResult(fetchData(params.startPosition, params.loadSize))
+        serialExecute {
+            println("loadRange: ${params.startPosition}, ${params.loadSize}")
+            callback.onResult(fetchData(params.startPosition, params.loadSize))
+        }
     }
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<MainData>) {
-        callback.onResult(fetchData(params.requestedStartPosition, params.pageSize), 0)
+        serialExecute {
+            println("loadInitial: ${params.requestedStartPosition}, ${params.pageSize}")
+            callback.onResult(fetchData(params.requestedStartPosition, params.pageSize), 0)
+        }
     }
 
     private fun fetchData(start: Int, size: Int): List<MainData> {
