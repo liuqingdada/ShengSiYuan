@@ -55,3 +55,8 @@ dependencies {
     androidTestImplementation deps.test.powermockMockito
     androidTestImplementation deps.test.powermockJunit
 }
+
+repositories {
+    google()
+    jcenter()
+}

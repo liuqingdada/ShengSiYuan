@@ -2,4 +2,3 @@ include ':app'
 
 include ':AndroidCommon'
 project(':AndroidCommon').projectDir = file('../AndroidCommon')
-

@@ -19,9 +19,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.13"
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.12'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
         classpath 'com.leon.channel:plugin:2.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
