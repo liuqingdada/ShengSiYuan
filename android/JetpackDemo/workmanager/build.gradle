@@ -9,10 +9,11 @@ android {
 
     defaultConfig {
         applicationId "com.android.cooper.app.workmanager"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,16 +24,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    coreLibraryDesugaring deps.support.coreLibraryDesugaring
     implementation deps.kotlin.stdlib
     implementation deps.support.core
     implementation deps.support.appcompat
     implementation deps.support.constraintLayout
+    implementation deps.support.multidex
     implementation deps.work.runtime
     implementation deps.work.runtimeKtx
+
+    implementation 'com.yanzhenjie:permission:2.0.3'
 
     androidTestImplementation deps.test.junit
     androidTestImplementation deps.test.junitKtx

@@ -106,6 +106,7 @@ ext {
                     'coreUtils'        : "androidx.legacy:legacy-support-core-utils:1.0.0",
                     'coreUi'           : "androidx.legacy:legacy-support-core-ui:1.0.0",
                     'supportV13'       : "androidx.legacy:legacy-support-v13:1.0.0",
+                    'coreLibraryDesugaring' : 'com.android.tools:desugar_jdk_libs:1.0.5',
             ],
             'archCore': [
                     'common'           : "androidx.arch.core:core-common:${versions.archCore}",
