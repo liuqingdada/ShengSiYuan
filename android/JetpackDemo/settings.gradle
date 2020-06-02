@@ -1,3 +1,8 @@
-include ':workmanager'
-rootProject.name = "JetpackDemo"
 include ':paging'
+project(':paging').projectDir = file('paging')
+
+include ':workmanager'
+project(':workmanager').projectDir = file('workmanager')
+
+include ':AndroidCommon'
+project(':AndroidCommon').projectDir = file('AndroidCommon')

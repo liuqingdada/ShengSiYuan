@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: "${rootDir}/android_project_common.gradle"
+
+android {
+    compileSdkVersion versions.compileSdk
+
+    defaultConfig {
+        minSdkVersion 17
+
+        consumerProguardFiles 'consumer-proguard-rules.pro'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+
+        test.setRoot("tests/test")
+        androidTest.setRoot("tests/androidTest")
+    }
+}
+
+dependencies {
+    api deps.support.annotations // Support Annotations should be used in all projects
+    implementation deps.support.compat
+
+    // Dependencies for local unit tests
+    testImplementation deps.test.core
+    testImplementation deps.test.junit
+    testImplementation deps.test.truth
+    testImplementation deps.test.hamcrestCore
+    testImplementation deps.test.hamcrestLibrary
+    testImplementation deps.test.mockitoCore
+    testImplementation deps.test.powermockMockito
+    testImplementation deps.test.powermockJunit
+
+    // Android Testing Support Library's runner and rules
+    androidTestImplementation deps.test.supportRunner
+    androidTestImplementation deps.test.supportRules
+    androidTestImplementation deps.test.hamcrestCore
+    androidTestImplementation deps.test.hamcrestLibrary
+    androidTestImplementation deps.test.mockitoCore
+    androidTestImplementation deps.test.powermockMockito
+    androidTestImplementation deps.test.powermockJunit
+}
+
+repositories {
+    google()
+    jcenter()
+}

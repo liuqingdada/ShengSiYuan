@@ -1,0 +1,20 @@
+apply from: "${androidModuleCommon}"
+
+android {
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+
+        abortOnError true
+        ignoreWarnings isIgnoreLintWarnings()
+
+        error 'Recycle','Wakelock','DrawAllocation'
+
+        disable 'GradleDependency','OldTargetApi'
+        disable 'GoogleAppIndexingWarning'
+        disable 'IconMissingDensityFolder','IconDensities'
+        disable 'SmallSp','RtlHardcoded','RtlSymmetry','RelativeOverlap','UseCompoundDrawables'
+        disable 'ContentDescription','ClickableViewAccessibility'
+        disable 'InvalidPackage' // lint error in "Okio"
+    }
+}
