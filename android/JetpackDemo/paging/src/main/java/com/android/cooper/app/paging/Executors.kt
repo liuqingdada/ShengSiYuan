@@ -86,6 +86,6 @@ fun serialExecute(block: () -> Unit) {
     SERIAL_EXECUTOR.execute(block)
 }
 
-fun mainThread(block: () -> Unit) {
-    MAIN_HANDLER.post(block)
+fun mainThread(delayMillis: Long = 0, block: () -> Unit) {
+    MAIN_HANDLER.postDelayed(block, delayMillis)
 }

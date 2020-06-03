@@ -37,6 +37,8 @@ dependencies {
     implementation deps.paging.runtime
     implementation deps.paging.runtimeKtx
 
+    implementation project(path: ':AndroidCommon')
+
     androidTestImplementation deps.test.junit
     androidTestImplementation deps.test.junitKtx
     androidTestImplementation deps.test.espressoCore

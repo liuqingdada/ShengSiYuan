@@ -2,7 +2,9 @@ package com.android.cooper.app.workmanager.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.LifecycleOwner
 import com.android.cooper.app.workmanager.R
+import com.android.cooper.app.workmanager.task.TaskManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        UploadWorker(applicationContext)
+        TaskManager.submitUploadWork(this, this)
+        TaskManager.submitProgressWork(this, this)
     }
 }

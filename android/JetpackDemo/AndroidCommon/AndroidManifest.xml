@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.android.app.common">
 
     <application
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="UnusedAttribute">
 
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name="com.android.app.common.FileProvider"
             android:authorities="${applicationId}.file.path.share"
             android:exported="false"
             android:grantUriPermissions="true">
