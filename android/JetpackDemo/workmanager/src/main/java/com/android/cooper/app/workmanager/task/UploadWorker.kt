@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import com.android.app.common.utils.LogUtil
 
 /**
  * Created by cooper
@@ -36,8 +37,8 @@ class UploadWorker(
     }
 
     private fun uploadImage(uri: String?): String {
-        println(Thread.currentThread().name)
-        println("upload images...")
+        LogUtil.d(TAG, Thread.currentThread().name)
+        LogUtil.d(TAG, "upload images...")
         Thread.sleep(1000)
         return "{\"code\":200,\"msg\":\"操作成功\"}"
     }

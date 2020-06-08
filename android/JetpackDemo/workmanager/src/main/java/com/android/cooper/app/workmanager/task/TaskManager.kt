@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.work.*
+import com.android.app.common.utils.LogUtil
 import com.android.cooper.app.workmanager.utils.UriUtils
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -16,6 +17,8 @@ import java.util.concurrent.TimeUnit
  * Email: 1239604859@qq.com
  */
 object TaskManager {
+    private const val TAG = "TaskManager"
+
     fun submitUploadWork(context: Context, lifecycleOwner: LifecycleOwner) {
         val constraint = Constraints.Builder()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -42,11 +45,11 @@ object TaskManager {
             )
             .addTag(UploadWorker.TAG)
             .build()
-        println("submitUploadWork: ${req.id}")
+        LogUtil.d(TAG, "submitUploadWork: ${req.id}")
         WorkManager.getInstance(context)
             .getWorkInfoByIdLiveData(req.id)
             .observe(lifecycleOwner, Observer {
-                it?.run { println(this) }
+                it?.run { LogUtil.d(TAG, this.toString()) }
             })
         WorkManager.getInstance(context).enqueue(req)
     }
@@ -56,11 +59,11 @@ object TaskManager {
             .setInitialDelay(ProgressWorker.DELAY_DURARION, TimeUnit.MILLISECONDS)
             .addTag(ProgressWorker.TAG)
             .build()
-        println("submitProgressWork: ${req.id}")
+        LogUtil.d(TAG, "submitProgressWork: ${req.id}")
         WorkManager.getInstance(context)
             .getWorkInfoByIdLiveData(req.id)
             .observe(lifecycleOwner, Observer {
-                it?.run { println(this) }
+                it?.run { LogUtil.d(TAG, this.toString()) }
             })
         WorkManager.getInstance(context).enqueue(req)
     }
@@ -113,7 +116,7 @@ object TaskManager {
         val req = PeriodicWorkRequestBuilder<UploadWorker>(20L, TimeUnit.SECONDS)
             .setInitialDelay(UploadWorker.INITIAL_DELAY, TimeUnit.SECONDS)
             .build()
-        println("submitPeriodicWorker: ${req.id}")
+        LogUtil.d(TAG, "submitPeriodicWorker: ${req.id}")
         WorkManager.getInstance(context).enqueue(req)
     }
 }

@@ -1,11 +1,8 @@
-package com.android.app.common.log;
+package com.android.app.common.utils;
 
 import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.android.app.common.utils.IoUtils;
-import com.android.app.common.utils.LogUtil;
 
 import java.io.File;
 import java.io.FileWriter;

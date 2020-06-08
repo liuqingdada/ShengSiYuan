@@ -4,9 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.text.TextUtils
 import androidx.multidex.MultiDex
-import com.android.app.common.log.LogUtilTree
+import com.android.cooper.app.workmanager.log.LogUtilTree
 import com.android.app.common.utils.ApplicationUtils
-import com.android.app.common.utils.CrashHandler
+import com.android.cooper.app.workmanager.log.CrashHandler
 
 /**
  * Created by cooper

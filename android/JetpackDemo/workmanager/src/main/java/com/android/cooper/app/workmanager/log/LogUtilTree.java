@@ -1,10 +1,11 @@
-package com.android.app.common.log;
+package com.android.cooper.app.workmanager.log;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 
 import com.android.app.common.utils.ApplicationUtils;
+import com.android.app.common.utils.FileLogger;
 import com.android.app.common.utils.LogUtil;
 
 import java.io.File;

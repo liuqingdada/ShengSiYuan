@@ -1,4 +1,4 @@
-package com.android.app.common.utils;
+package com.android.cooper.app.workmanager.log;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Process;
 
-import com.android.app.common.log.LogUtilTree;
+import com.android.app.common.utils.LogUtil;
 
 import org.jetbrains.annotations.NotNull;
 

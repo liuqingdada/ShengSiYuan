@@ -5,7 +5,6 @@ import android.os.Build;
 import android.util.Log;
 
 import com.android.app.common.internalapi.SystemPropertiesIA;
-import com.android.app.common.log.FileLogger;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

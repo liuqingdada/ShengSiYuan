@@ -12,9 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        TaskManager.submitUploadWork(this, this)
-//        TaskManager.submitProgressWork(this, this)
-//        TaskManager.submitContinuationWorker(this)
+        TaskManager.submitUploadWork(this, this)
+        TaskManager.submitProgressWork(this, this)
+        TaskManager.submitContinuationWorker(this)
         TaskManager.submitPeriodicWorker(this)
     }
 }
