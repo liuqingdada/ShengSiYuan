@@ -3,7 +3,7 @@ package com.android.cooper.app.paging.source
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.android.cooper.app.paging.serialExecute
+import com.android.app.common.utils.serialExecute
 import com.android.cooper.app.paging.ui.MainData
 
 /**

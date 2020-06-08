@@ -1,4 +1,4 @@
-package com.android.cooper.app.paging
+package com.android.app.common.utils
 
 import android.os.Handler
 import android.os.Looper
@@ -86,6 +86,14 @@ fun serialExecute(block: () -> Unit) {
     SERIAL_EXECUTOR.execute(block)
 }
 
+fun serialExecute(r: Runnable) {
+    SERIAL_EXECUTOR.execute(r)
+}
+
 fun mainThread(delayMillis: Long = 0, block: () -> Unit) {
     MAIN_HANDLER.postDelayed(block, delayMillis)
+}
+
+fun mainThread(delayMillis: Long = 0, r: Runnable) {
+    MAIN_HANDLER.postDelayed(r, delayMillis)
 }
