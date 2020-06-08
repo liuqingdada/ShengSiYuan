@@ -60,37 +60,39 @@ public class FileLogger {
         }
         builder.append("\n");
 
-        writeLog(builder.toString());
+        if (ApplicationUtils.isMainThread()) {
+            ExecutorsKt.serialExecute(() -> writeLog(builder.toString()));
+        } else {
+            writeLog(builder.toString());
+        }
     }
 
     private synchronized void writeLog(String logLine) {
-        ExecutorsKt.serialExecute(() -> {
-            if (null == mFileWriter) {
-                if (!openFile()) {
+        if (null == mFileWriter) {
+            if (!openFile()) {
+                return;
+            }
+        }
+
+        try {
+            String day = getCurrentDay();
+            // If is another day, then create a new log file.
+            if (!day.equals(mCurrentDay)) {
+                mFileWriter.flush();
+                mFileWriter.close();
+                mFileWriter = null;
+
+                boolean success = openFile();
+                if (!success) {
                     return;
                 }
             }
 
-            try {
-                String day = getCurrentDay();
-                // If is another day, then create a new log file.
-                if (!day.equals(mCurrentDay)) {
-                    mFileWriter.flush();
-                    mFileWriter.close();
-                    mFileWriter = null;
-
-                    boolean success = openFile();
-                    if (!success) {
-                        return;
-                    }
-                }
-
-                mFileWriter.write(logLine);
-                mFileWriter.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+            mFileWriter.write(logLine);
+            mFileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean openFile() {
