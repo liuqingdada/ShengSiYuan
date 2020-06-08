@@ -5,10 +5,7 @@ import android.os.Build
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.work.Constraints
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.workDataOf
+import androidx.work.*
 import com.android.cooper.app.workmanager.utils.UriUtils
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -68,24 +65,40 @@ object TaskManager {
         WorkManager.getInstance(context).enqueue(req)
     }
 
+    /**
+     * 创建 OneTimeWorkRequest 链时，需要注意以下几点：
+     * 从属 OneTimeWorkRequest 仅在其所有父级 OneTimeWorkRequest 都成功完成（即返回 Result.success()）
+     * 时才会被解除阻塞（变为 ENQUEUED 状态）。
+     *
+     * 如果有任何父级 OneTimeWorkRequest 失败（返回 Result.failure()），则所有从属 OneTimeWorkRequest
+     * 也会被标记为 FAILED。
+     *
+     * 如果有任何父级 OneTimeWorkRequest 被取消，则所有从属 OneTimeWorkRequest 也会被标记为 CANCELLED。
+     * @param context Context
+     */
     fun submitContinuationWorker(context: Context) {
         val req1 = OneTimeWorkRequestBuilder<ProgressWorker>()
+            .setInputMerger(ArrayCreatingInputMerger::class)
             .setInitialDelay(ProgressWorker.DELAY_DURARION, TimeUnit.MILLISECONDS)
             .addTag(ProgressWorker.TAG)
             .build()
         val req2 = OneTimeWorkRequestBuilder<ProgressWorker>()
+            .setInputMerger(ArrayCreatingInputMerger::class)
             .setInitialDelay(ProgressWorker.DELAY_DURARION, TimeUnit.MILLISECONDS)
             .addTag(ProgressWorker.TAG)
             .build()
         val req3 = OneTimeWorkRequestBuilder<ProgressWorker>()
+            .setInputMerger(ArrayCreatingInputMerger::class)
             .setInitialDelay(ProgressWorker.DELAY_DURARION, TimeUnit.MILLISECONDS)
             .addTag(ProgressWorker.TAG)
             .build()
         val compress = OneTimeWorkRequestBuilder<UploadWorker>()
+            .setInputMerger(ArrayCreatingInputMerger::class)
             .setInitialDelay(UploadWorker.INITIAL_DELAY, TimeUnit.MILLISECONDS)
             .addTag(UploadWorker.TAG)
             .build()
         val upload = OneTimeWorkRequestBuilder<UploadWorker>()
+            .setInputMerger(ArrayCreatingInputMerger::class)
             .setInitialDelay(UploadWorker.INITIAL_DELAY, TimeUnit.MILLISECONDS)
             .addTag(UploadWorker.TAG)
             .build()
@@ -94,5 +107,13 @@ object TaskManager {
             .then(compress)
             .then(upload)
             .enqueue()
+    }
+
+    fun submitPeriodicWorker(context: Context) {
+        val req = PeriodicWorkRequestBuilder<UploadWorker>(20L, TimeUnit.SECONDS)
+            .setInitialDelay(UploadWorker.INITIAL_DELAY, TimeUnit.SECONDS)
+            .build()
+        println("submitPeriodicWorker: ${req.id}")
+        WorkManager.getInstance(context).enqueue(req)
     }
 }
