@@ -67,4 +67,32 @@ object TaskManager {
             })
         WorkManager.getInstance(context).enqueue(req)
     }
+
+    fun submitContinuationWorker(context: Context) {
+        val req1 = OneTimeWorkRequestBuilder<ProgressWorker>()
+            .setInitialDelay(ProgressWorker.DELAY_DURARION, TimeUnit.MILLISECONDS)
+            .addTag(ProgressWorker.TAG)
+            .build()
+        val req2 = OneTimeWorkRequestBuilder<ProgressWorker>()
+            .setInitialDelay(ProgressWorker.DELAY_DURARION, TimeUnit.MILLISECONDS)
+            .addTag(ProgressWorker.TAG)
+            .build()
+        val req3 = OneTimeWorkRequestBuilder<ProgressWorker>()
+            .setInitialDelay(ProgressWorker.DELAY_DURARION, TimeUnit.MILLISECONDS)
+            .addTag(ProgressWorker.TAG)
+            .build()
+        val compress = OneTimeWorkRequestBuilder<UploadWorker>()
+            .setInitialDelay(UploadWorker.INITIAL_DELAY, TimeUnit.MILLISECONDS)
+            .addTag(UploadWorker.TAG)
+            .build()
+        val upload = OneTimeWorkRequestBuilder<UploadWorker>()
+            .setInitialDelay(UploadWorker.INITIAL_DELAY, TimeUnit.MILLISECONDS)
+            .addTag(UploadWorker.TAG)
+            .build()
+        WorkManager.getInstance(context)
+            .beginWith(listOf(req1, req2, req3))
+            .then(compress)
+            .then(upload)
+            .enqueue()
+    }
 }

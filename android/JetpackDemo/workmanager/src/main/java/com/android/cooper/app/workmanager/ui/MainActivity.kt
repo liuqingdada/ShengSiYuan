@@ -14,5 +14,6 @@ class MainActivity : AppCompatActivity() {
 
         TaskManager.submitUploadWork(this, this)
         TaskManager.submitProgressWork(this, this)
+        TaskManager.submitContinuationWorker(this)
     }
 }
