@@ -60,11 +60,7 @@ public class FileLogger {
         }
         builder.append("\n");
 
-        if (ApplicationUtils.isMainThread()) {
-            ExecutorsKt.serialExecute(() -> writeLog(builder.toString()));
-        } else {
-            writeLog(builder.toString());
-        }
+        ExecutorsKt.serialExecute(() -> writeLog(builder.toString()));
     }
 
     private synchronized void writeLog(String logLine) {

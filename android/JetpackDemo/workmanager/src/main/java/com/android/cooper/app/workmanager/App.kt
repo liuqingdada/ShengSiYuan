@@ -7,6 +7,7 @@ import androidx.multidex.MultiDex
 import com.android.cooper.app.workmanager.log.LogUtilTree
 import com.android.app.common.utils.ApplicationUtils
 import com.android.cooper.app.workmanager.log.CrashHandler
+import com.android.cooper.app.workmanager.matrix.MatrixHelper
 
 /**
  * Created by cooper
@@ -23,16 +24,8 @@ class App : Application() {
         super.onCreate()
         ApplicationUtils.init(this)
 
-        val processNameSuffix = getCurrentProcessNameSuffix()
-        val isMainpProcess = TextUtils.isEmpty(processNameSuffix)
-        if (isMainpProcess) {
-            LogUtilTree(BuildConfig.DEBUG, processNameSuffix).init()
-        }
-        CrashHandler.getInstance().init(this)
-    }
+        LogUtilTree.main()
 
-    private fun getCurrentProcessNameSuffix(): String {
-        val processName = ApplicationUtils.getCurrentProcessName(this)
-        return ApplicationUtils.getCurrentProcessNameSuffix(processName)
+        MatrixHelper.main()
     }
 }

@@ -31,7 +31,7 @@ class SerialExecutor : Executor {
     private fun scheduleNext() {
         active = tasks.poll()
         active?.run {
-            serialPoolExecutor.execute(this)
+            threadPoolExecutor.execute(this)
         }
     }
 
@@ -46,7 +46,7 @@ class SerialExecutor : Executor {
         private var backupExecutor: ThreadPoolExecutor? = null
         private var backupExecutorQueue: LinkedBlockingQueue<Runnable>? = null
 
-        private var serialPoolExecutor: ThreadPoolExecutor = ThreadPoolExecutor(
+        var threadPoolExecutor: ThreadPoolExecutor = ThreadPoolExecutor(
             CORE_POOL_SIZE,
             MAXIMUM_POOL_SIZE,
             KEEP_ALIVE_SECONDS,
@@ -54,6 +54,7 @@ class SerialExecutor : Executor {
             SynchronousQueue(),
             SerialPolicy()
         )
+            private set
     }
 
     class SerialPolicy : RejectedExecutionHandler {
@@ -79,6 +80,7 @@ class SerialExecutor : Executor {
 }
 
 private val SERIAL_EXECUTOR = SerialExecutor()
+private val THREAD_POOL_EXECUTOR = SerialExecutor.threadPoolExecutor
 
 private val MAIN_HANDLER = Handler(Looper.getMainLooper())
 
@@ -96,4 +98,12 @@ fun mainThread(delayMillis: Long = 0, block: () -> Unit) {
 
 fun mainThread(delayMillis: Long = 0, r: Runnable) {
     MAIN_HANDLER.postDelayed(r, delayMillis)
+}
+
+fun execute(block: () -> Unit) {
+    THREAD_POOL_EXECUTOR.execute(block)
+}
+
+fun execute(r: Runnable) {
+    THREAD_POOL_EXECUTOR.execute(r)
 }

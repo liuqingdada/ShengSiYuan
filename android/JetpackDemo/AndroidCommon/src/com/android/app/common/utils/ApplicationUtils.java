@@ -74,11 +74,15 @@ public class ApplicationUtils {
 
         String processName = context.getPackageName();
         int pid = android.os.Process.myPid();
-        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo processInfo : manager.getRunningAppProcesses()) {
-            if (processInfo.pid == pid) {
-                processName = processInfo.processName;
-                break;
+        ActivityManager manager =
+                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager != null) {
+            for (ActivityManager.RunningAppProcessInfo processInfo : manager
+                    .getRunningAppProcesses()) {
+                if (processInfo.pid == pid) {
+                    processName = processInfo.processName;
+                    break;
+                }
             }
         }
 
@@ -124,7 +128,8 @@ public class ApplicationUtils {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo
-                    applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
+                    applicationInfo =
+                    packageManager.getApplicationInfo(context.getPackageName(), 0);
             return packageManager.getApplicationLabel(applicationInfo).toString();
         } catch (PackageManager.NameNotFoundException e) {
             LogUtil.e(TAG, "getAppName", e);

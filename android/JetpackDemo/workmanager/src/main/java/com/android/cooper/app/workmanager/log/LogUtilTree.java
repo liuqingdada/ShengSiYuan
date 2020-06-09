@@ -1,12 +1,13 @@
 package com.android.cooper.app.workmanager.log;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Environment;
 
 import com.android.app.common.utils.ApplicationUtils;
+import com.android.app.common.utils.ExecutorsKt;
 import com.android.app.common.utils.FileLogger;
 import com.android.app.common.utils.LogUtil;
+import com.android.cooper.app.workmanager.BuildConfig;
 
 import java.io.File;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class LogUtilTree {
     }
 
     public void init() {
-        AsyncTask.SERIAL_EXECUTOR.execute(() -> {
+        ExecutorsKt.serialExecute(() -> {
             if (LOG_DIR == null) {
                 return;
             }
@@ -62,5 +63,16 @@ public class LogUtilTree {
         } else {
             return null;
         }
+    }
+
+    public static void main(String... args) {
+        Context context = ApplicationUtils.getApplication();
+        String processName = ApplicationUtils.getCurrentProcessName(context);
+        String processNameSuffix = ApplicationUtils.getCurrentProcessNameSuffix(processName);
+        boolean isMainpProcess = ApplicationUtils.isMainProcess(context);
+        if (isMainpProcess) {
+            new LogUtilTree(BuildConfig.DEBUG, processNameSuffix).init();
+        }
+        CrashHandler.getInstance().init(context);
     }
 }
