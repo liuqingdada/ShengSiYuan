@@ -7,11 +7,9 @@
 # common ProGuard rules for all projects
 -keepattributes SourceFile,LineNumberTable
 
--dontwarn com.mobvoi.log.CommonLogConstants$Environment
-
 # Keep classes for JSON serialize/deserialize
--keep class com.mobvoi.android.common.json.JsonBean
--keepclassmembers class * implements com.mobvoi.android.common.json.JsonBean {
+-keep class com.android.common.json.JsonBean
+-keepclassmembers class * implements com.android.common.json.JsonBean {
     <fields>;
     # needed by inner class
     <init>();
