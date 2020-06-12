@@ -113,7 +113,12 @@ object TaskManager {
     }
 
     fun submitPeriodicWorker(context: Context) {
-        val req = PeriodicWorkRequestBuilder<UploadWorker>(20L, TimeUnit.SECONDS)
+        val req = PeriodicWorkRequestBuilder<UploadWorker>(
+            PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
+            TimeUnit.MILLISECONDS,
+            PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS,
+            TimeUnit.MILLISECONDS
+        )
             .setInitialDelay(UploadWorker.INITIAL_DELAY, TimeUnit.SECONDS)
             .build()
         LogUtil.d(TAG, "submitPeriodicWorker: ${req.id}")

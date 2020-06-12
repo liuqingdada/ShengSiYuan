@@ -17,10 +17,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        testWorker()
+        testWorker()
 //        testLog()
-
-        testANR()
+//        testANR()
     }
 
     private fun testWorker() {
@@ -28,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         TaskManager.submitProgressWork(this, this)
         TaskManager.submitContinuationWorker(this)
         TaskManager.submitPeriodicWorker(this)
+
     }
 
     private fun testLog() {

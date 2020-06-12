@@ -38,10 +38,6 @@ dependencies {
 
     implementation project(path: ':AndroidCommon')
 
-    androidTestImplementation deps.test.junit
-    androidTestImplementation deps.test.junitKtx
-    androidTestImplementation deps.test.espressoCore
-
     // Tencent matrix
     implementation group: "com.tencent.matrix", name: "matrix-commons", version: MATRIX_VERSION, changing: true
     implementation group: "com.tencent.matrix", name: "matrix-android-lib", version: MATRIX_VERSION, changing: true
@@ -52,12 +48,45 @@ dependencies {
     implementation group: "com.tencent.matrix", name: "matrix-io-canary", version: MATRIX_VERSION, changing: true
     implementation group: "com.tencent.matrix", name: "matrix-sqlite-lint-android-sdk", version: MATRIX_VERSION, changing: true
     releaseImplementation group: "com.tencent.matrix", name: "matrix-sqlite-lint-android-sdk-no-op", version: MATRIX_VERSION, changing: true
+
+    /* TEST START */
+    // Dependencies for local unit tests
+    testImplementation deps.test.core
+    testImplementation deps.test.coreKtx
+    testImplementation deps.test.junit
+    testImplementation deps.test.junitKtx
+    testImplementation deps.test.truth
+    testImplementation deps.test.hamcrestCore
+    testImplementation deps.test.hamcrestLibrary
+    testImplementation deps.test.mockitoCore
+    testImplementation deps.test.powermockMockito
+    testImplementation deps.test.powermockJunit
+
+    // Android Testing Support Library's runner and rules
+    androidTestImplementation deps.test.core
+    androidTestImplementation deps.test.coreKtx
+    androidTestImplementation deps.test.junit
+    androidTestImplementation deps.test.junitKtx
+    androidTestImplementation deps.test.truth
+    androidTestImplementation deps.test.hamcrestCore
+    androidTestImplementation deps.test.hamcrestLibrary
+    androidTestImplementation deps.test.mockitoCore
+    androidTestImplementation deps.test.powermockMockito
+    androidTestImplementation deps.test.powermockJunit
+    androidTestImplementation deps.test.espressoCore
+    androidTestImplementation deps.test.supportRunner
+    androidTestImplementation deps.test.supportRules
+
+    // Other Testing unit
+    androidTestImplementation deps.work.test
+    /* TEST END */
 }
 
 apply plugin: 'com.tencent.matrix-plugin'
 matrix {
     trace {
-        enable = true
+        // set true when test matrix
+        enable = false
         baseMethodMapFile = "${project.projectDir}/matrixTrace/methodMapping.txt"
         blackListFile = "${project.projectDir}/matrixTrace/blackMethodList.txt"
     }

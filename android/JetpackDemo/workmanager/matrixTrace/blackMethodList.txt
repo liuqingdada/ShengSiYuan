@@ -1,3 +1,7 @@
 [package]
 -keeppackage facebook/
 -keeppackage com/squareup/
+-keeppackage com/android/app/common/
+-keeppackage com/android/app/common/**
+-keeppackage com/android/cooper/app/workmanager/matrix/
+-keeppackage com/android/cooper/app/workmanager/matrix/**

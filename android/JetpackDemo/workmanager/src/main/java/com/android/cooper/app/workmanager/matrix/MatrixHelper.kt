@@ -2,7 +2,6 @@ package com.android.cooper.app.workmanager.matrix
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.android.app.common.utils.ApplicationUtils
 import com.android.app.common.utils.LogUtil
 import com.tencent.matrix.Matrix
