@@ -79,6 +79,31 @@ class CoroutineScopeTest {
         }
     }
 
+    @Test
+    fun test4() = runBlocking {
+        println("test start")
+        coroutineScope<Unit> {
+            launch {
+                delay(200)
+                println("launch 1")
+            }
+            launch {
+                delay(100)
+                println("launch 2")
+            }
+            // List<Deferred<String>>
+            val jobs = (0 until 10).map {
+                async {
+                    delay(100)
+                    "http://www.baidu.com"
+                }
+            }
+            val list = jobs.awaitAll()
+            println(list)
+        }
+        println("test end")
+    }
+
     private fun printThread() {
         println(Thread.currentThread().name)
     }

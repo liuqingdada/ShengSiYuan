@@ -20,6 +20,14 @@ fun main() = runBlocking {
 
         var i = 0
 
+        /*while (i < 20) { // 方式1
+            if (System.currentTimeMillis() >= nextPrintTime) {
+                println("job: I am sleeping ${i++}")
+                nextPrintTime += 500L
+            }
+            yield()
+        }*/
+
         while (isActive) { // 方式2
             if (System.currentTimeMillis() >= nextPrintTime) {
                 println("job: I am sleeping ${i++}")
