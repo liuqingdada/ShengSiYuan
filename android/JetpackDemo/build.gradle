@@ -3,11 +3,13 @@ buildscript {
     ext {
         androidProjectCommon = "${rootDir}/AndroidCommon/android_project_common.gradle"
         androidModuleCommon = "${rootDir}/AndroidCommon/android_module_common.gradle"
+        kotlin_version = '1.3.72'
     }
     apply from: "${androidProjectCommon}"
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:3.6.1"
@@ -23,6 +25,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         kotlinOptions {

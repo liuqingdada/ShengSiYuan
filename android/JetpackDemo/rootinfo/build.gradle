@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: "${rootDir}/android_project_common.gradle"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        applicationId "com.android.xiaomi.app.rootinfo"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        androidTestKey {
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "android.testkey"
+            keyPassword "android"
+        }
+
+        releaseKey {
+            Properties properties = new Properties()
+            properties.load(project.file('key.properties').newDataInputStream())
+            storeFile file(properties.getProperty('key.store'))
+            storePassword properties.getProperty('key.store.password')
+            keyAlias properties.getProperty('key.alias')
+            keyPassword properties.getProperty('key.alias.password')
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.releaseKey
+        }
+
+        release {
+            signingConfig signingConfigs.releaseKey
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation deps.kotlin.stdlib
+    implementation deps.support.core
+    implementation deps.support.appcompat
+    implementation deps.support.constraintLayout
+    implementation deps.support.multidex
+    implementation deps.work.runtime
+    implementation deps.work.runtimeKtx
+
+    implementation project(path: ':AndroidCommon')
+    implementation 'com.github.tamsiree.RxTool:RxKit:2.6.2'
+    implementation 'com.fanjun:keeplive:1.1.21'
+    implementation "com.amap.api:location:5.0.0"
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    /* TEST START */
+    // Dependencies for local unit tests
+    testImplementation deps.test.core
+    testImplementation deps.test.coreKtx
+    testImplementation deps.test.junit
+    testImplementation deps.test.junitKtx
+    testImplementation deps.test.truth
+    testImplementation deps.test.hamcrestCore
+    testImplementation deps.test.hamcrestLibrary
+    testImplementation deps.test.mockitoCore
+    testImplementation deps.test.powermockMockito
+    testImplementation deps.test.powermockJunit
+
+    // Android Testing Support Library's runner and rules
+    androidTestImplementation deps.test.core
+    androidTestImplementation deps.test.coreKtx
+    androidTestImplementation deps.test.junit
+    androidTestImplementation deps.test.junitKtx
+    androidTestImplementation deps.test.truth
+    androidTestImplementation deps.test.hamcrestCore
+    androidTestImplementation deps.test.hamcrestLibrary
+    androidTestImplementation deps.test.mockitoCore
+    androidTestImplementation deps.test.powermockMockito
+    androidTestImplementation deps.test.powermockJunit
+    androidTestImplementation deps.test.espressoCore
+    androidTestImplementation deps.test.supportRunner
+    androidTestImplementation deps.test.supportRules
+
+    // Other Testing unit
+    androidTestImplementation deps.work.test
+    /* TEST END */
+}
