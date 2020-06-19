@@ -56,7 +56,7 @@ public class LogUtilTree {
     private static String initLogDir() {
         boolean mounted = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         if (mounted) {
-            Context context = ApplicationUtils.getApplication();
+            Context context = ApplicationUtils.getApplication().getApplicationContext();
             File logDir = new File(context.getExternalFilesDir(null), "logs");
             return logDir.getAbsolutePath();
         } else {
@@ -65,7 +65,7 @@ public class LogUtilTree {
     }
 
     public static void main(String... args) {
-        Context context = ApplicationUtils.getApplication();
+        Context context = ApplicationUtils.getApplication().getApplicationContext();
         String processName = ApplicationUtils.getCurrentProcessName(context);
         String processNameSuffix = ApplicationUtils.getCurrentProcessNameSuffix(processName);
         boolean isMainpProcess = ApplicationUtils.isMainProcess(context);

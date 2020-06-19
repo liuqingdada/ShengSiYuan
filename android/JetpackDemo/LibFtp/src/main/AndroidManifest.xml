@@ -1,0 +1,118 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="be.ppareit.swiftp">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <application
+        android:requestLegacyExternalStorage="true"
+        tools:ignore="UnusedAttribute">
+
+        <activity
+            android:name="be.ppareit.swiftp.gui.MainActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/AppThemeDark">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".gui.AboutActivity"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:parentActivityName=".gui.MainActivity"
+            android:theme="@style/AppThemeDark" />
+
+        <activity
+            android:name=".gui.ManageUsersActivity"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:parentActivityName=".gui.MainActivity"
+            android:theme="@style/AppThemeDark" />
+
+        <service android:name="be.ppareit.swiftp.FsService" />
+
+        <service android:name="be.ppareit.swiftp.NsdService" />
+
+        <service android:name=".AutoConnect$BackgroundService" />
+
+        <service android:name="be.ppareit.swiftp.AutoConnect$StartServerService" />
+        <service android:name="be.ppareit.swiftp.AutoConnect$StopServerService" />
+
+        <receiver
+            android:name="be.ppareit.swiftp.gui.FsWidgetProvider"
+            android:exported="false"
+            android:icon="@mipmap/launcher"
+            android:label="@string/swiftp_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="be.ppareit.swiftp.FTPSERVER_STARTED" />
+                <action android:name="be.ppareit.swiftp.FTPSERVER_STOPPED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
+        <service android:name="be.ppareit.swiftp.gui.FsWidgetProvider$UpdateService" />
+
+        <!-- Tasker/Locale integration -->
+        <activity
+            android:name="be.ppareit.swiftp.locale.EditActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:icon="@drawable/widget_on"
+            android:label="@string/swiftp_name"
+            android:noHistory="true"
+            android:theme="@style/AppThemeDark"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="adjustResize">
+            <!-- this Intent filter allows the plug-in to be discovered by the host. -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="be.ppareit.swiftp.locale.FireReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".gui.FsTileService"
+            android:icon="@mipmap/ic_qs_ftp_server"
+            android:label="@string/swiftp_name"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+        </service>
+    </application>
+</manifest>

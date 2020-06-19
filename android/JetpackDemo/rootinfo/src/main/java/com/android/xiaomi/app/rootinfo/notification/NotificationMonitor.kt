@@ -28,7 +28,7 @@ class NotificationMonitor : NotificationListenerService() {
                 LogUtil.d(TAG, "already binded: ")
                 return
             }
-            val context = ApplicationUtils.getApplication()
+            val context = ApplicationUtils.getApplication().applicationContext
             context.packageManager.setComponentEnabledSetting(
                 ComponentName(
                     context,

@@ -60,10 +60,12 @@ dependencies {
     implementation deps.work.runtimeKtx
 
     implementation project(path: ':AndroidCommon')
+    implementation project(path: ':LibFtp')
     implementation 'com.github.tamsiree.RxTool:RxKit:2.6.2'
     implementation 'com.fanjun:keeplive:1.1.21'
-    implementation "com.amap.api:location:5.0.0"
+    implementation 'com.amap.api:location:5.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'io.netty:netty-all:4.1.38.Final'
 
     /* TEST START */
     // Dependencies for local unit tests
