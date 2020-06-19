@@ -36,7 +36,9 @@ import android.util.Log;
 public class NsdService extends Service {
     private static final String TAG = NsdService.class.getSimpleName();
 
-    private static final String FTP_SERVICE_TYPE= "_ftp._tcp.";
+    private static final String FTP_SERVICE_TYPE = "_ftp._tcp.";
+    private static final String HTTP_SERVICE_TYPE = "_http._tcp.";
+    private static final String PRINTER_SERVICE_TYPE = "_ipp._tcp.";
 
     private NsdManager mNsdManager = null;
 
@@ -101,7 +103,7 @@ public class NsdService extends Service {
 
         final NsdServiceInfo serviceInfo = new NsdServiceInfo();
         serviceInfo.setServiceName(serviceName);
-        serviceInfo.setServiceType(FTP_SERVICE_TYPE);
+        serviceInfo.setServiceType(HTTP_SERVICE_TYPE);
         serviceInfo.setPort(FsSettings.getPortNumber());
 
         new Thread(() -> {

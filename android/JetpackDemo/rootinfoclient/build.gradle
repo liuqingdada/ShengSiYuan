@@ -37,6 +37,7 @@ dependencies {
     implementation deps.work.runtimeKtx
 
     implementation project(path: ':AndroidCommon')
+    implementation 'com.github.rafakob:NsdHelper:0.1.4'
 
     /* TEST START */
     // Dependencies for local unit tests

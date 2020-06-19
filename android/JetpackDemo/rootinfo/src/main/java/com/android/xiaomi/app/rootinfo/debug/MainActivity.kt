@@ -1,15 +1,9 @@
 package com.android.xiaomi.app.rootinfo.debug
 
 import android.os.Bundle
-import android.os.FileUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.android.app.common.utils.ApplicationUtils
-import com.android.xiaomi.app.rootinfo.R
-import com.android.xiaomi.app.rootinfo.tools.ImageUtils
 import com.tamsiree.rxkit.RxActivityTool
-import com.tamsiree.rxkit.RxAppTool
-import java.io.File
-import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
 

@@ -16,8 +16,6 @@ import be.ppareit.swiftp.FsSettings
 import be.ppareit.swiftp.FtpInitializer
 import com.android.app.common.utils.ApplicationUtils
 import com.android.app.common.utils.LogUtil
-import com.android.xiaomi.app.rootinfo.location.ILocationManager
-import com.android.xiaomi.app.rootinfo.location.LocationInfo
 import com.android.xiaomi.app.rootinfo.location.LocationManager
 import com.tamsiree.rxkit.RxNetTool
 
@@ -68,9 +66,11 @@ class RootService {
 
     private fun startWorks() {
         LocationManager.getInstance().startLocation()
-        LocationManager.getInstance().addCallback(locationCallback)
 
-        context.registerReceiver(fsActionReceiver, IntentFilter(FsService.ACTION_STARTED))
+        val fsIntentFilter = IntentFilter()
+        fsIntentFilter.addAction(FsService.ACTION_STARTED)
+        fsIntentFilter.addAction(FsService.ACTION_STOPPED)
+        context.registerReceiver(fsActionReceiver, fsIntentFilter)
         FtpInitializer.onCreate()
 
         connectivityManager.registerNetworkCallback(
@@ -80,19 +80,9 @@ class RootService {
     }
 
     private fun stopWorks() {
-        LocationManager.getInstance().removeCallback(locationCallback)
-
         context.unregisterReceiver(fsActionReceiver)
 
         connectivityManager.unregisterNetworkCallback(networkCallback)
-    }
-
-    private val locationCallback = object : ILocationManager.LocationCallback {
-        override fun onLocationFail(errorCode: Int) {
-        }
-
-        override fun onLocationSuccess(locationInfo: LocationInfo) {
-        }
     }
 
     @Suppress("DEPRECATION")
@@ -116,8 +106,15 @@ class RootService {
 
     private val fsActionReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val ftpAddress = getFtpAddress()
-            Log.d(TAG, "onReceive: $ftpAddress")
+            Log.d(TAG, "onReceive: ${intent?.action}")
+            when (intent?.action) {
+                FsService.ACTION_STARTED -> {
+                    val ftpAddress = getFtpAddress()
+                    Log.d(TAG, "onReceive: $ftpAddress")
+                }
+                FsService.ACTION_STOPPED -> {
+                }
+            }
         }
     }
 
