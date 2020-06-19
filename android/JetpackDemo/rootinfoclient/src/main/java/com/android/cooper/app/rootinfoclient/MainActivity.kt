@@ -42,6 +42,11 @@ class MainActivity : AppCompatActivity(), NsdListener {
                 nsdHelper.startDiscovery(NsdType.HTTP)
             }
         }
+        btStop.setOnClickListener {
+            if (RxNetTool.isWifiConnected(it.context)) {
+                nsdHelper.stopDiscovery()
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -62,7 +67,7 @@ class MainActivity : AppCompatActivity(), NsdListener {
             val owner = owner ?: return
             when (msg.what) {
                 MSG_FIND_DEVICE -> {
-                    owner.tvInfo.append("${msg.obj}\n")
+                    owner.tvInfo.append("${msg.obj}\n\n")
                 }
             }
         }
