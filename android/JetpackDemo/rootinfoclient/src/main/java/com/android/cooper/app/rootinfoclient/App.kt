@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.android.app.common.utils.ApplicationUtils
+import com.tamsiree.rxkit.RxTool
 
 /**
  * Created by cooper
@@ -19,5 +20,12 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         ApplicationUtils.init(this)
+        runInMainProcess()
+    }
+
+    private fun runInMainProcess() {
+        if (ApplicationUtils.isMainProcess(this)) {
+            RxTool.init(this)
+        }
     }
 }

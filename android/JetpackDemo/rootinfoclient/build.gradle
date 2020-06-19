@@ -38,6 +38,7 @@ dependencies {
 
     implementation project(path: ':AndroidCommon')
     implementation 'com.github.rafakob:NsdHelper:0.1.4'
+    implementation 'com.github.tamsiree.RxTool:RxKit:2.6.2'
 
     /* TEST START */
     // Dependencies for local unit tests

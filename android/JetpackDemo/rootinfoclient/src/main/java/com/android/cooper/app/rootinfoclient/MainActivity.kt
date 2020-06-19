@@ -13,6 +13,7 @@ import com.rafakob.nsdhelper.NsdHelper
 import com.rafakob.nsdhelper.NsdListener
 import com.rafakob.nsdhelper.NsdService
 import com.rafakob.nsdhelper.NsdType
+import com.tamsiree.rxkit.RxNetTool
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -37,7 +38,9 @@ class MainActivity : AppCompatActivity(), NsdListener {
         setContentView(R.layout.activity_main)
 
         btScan.setOnClickListener {
-            nsdHelper.startDiscovery(NsdType.HTTP)
+            if (RxNetTool.isWifiConnected(it.context)) {
+                nsdHelper.startDiscovery(NsdType.HTTP)
+            }
         }
     }
 
