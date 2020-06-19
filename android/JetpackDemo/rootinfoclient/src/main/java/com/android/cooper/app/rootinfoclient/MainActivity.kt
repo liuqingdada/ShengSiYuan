@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), NsdListener {
     private val nsdHelper by lazy {
         NsdHelper(this, this).apply {
             isAutoResolveEnabled = true
-            setDiscoveryTimeout(30)
+            setDiscoveryTimeout(60)
         }
     }
 
