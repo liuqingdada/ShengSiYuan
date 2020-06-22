@@ -69,6 +69,14 @@ public class FileLogger {
             if (!openFile()) {
                 return;
             }
+        } else {
+            File logDirFile = new File(mLogDir);
+            if (!logDirFile.exists()) {
+                close();
+                if (!openFile()) {
+                    return;
+                }
+            }
         }
 
         try {
