@@ -1,4 +1,5 @@
 buildscript {
+    ext.kotlin_version = '1.3.72'
     repositories {
         google()
         jcenter()
@@ -6,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.12'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -13,6 +15,7 @@ plugins {
     id "com.google.protobuf" version "0.8.12"
     id 'java'
 }
+apply plugin: 'kotlin'
 //apply plugin: 'com.google.protobuf'
 
 group 'com.shengsiyuan'
@@ -84,29 +87,40 @@ sourceSets {
 dependencies {
     testCompile 'junit:junit:4.12'
 
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile 'net.vidageek:mirror:1.6.1'
-    compile 'io.netty:netty-all:4.1.31.Final'
+    implementation 'net.vidageek:mirror:1.6.1'
+    implementation 'io.netty:netty-all:4.1.31.Final'
 
-    compile(
+    implementation(
             'com.google.protobuf:protobuf-java:3.6.1',
             'com.google.protobuf:protobuf-java-util:3.6.1',
             //'com.google.protobuf:protobuf-lite:3.0.1'
     )
-    compile "org.apache.thrift:libthrift:0.11.0"
+    implementation "org.apache.thrift:libthrift:0.11.0"
 
-    compile(
+    implementation(
             'io.grpc:grpc-netty-shaded:1.15.1',
             'io.grpc:grpc-protobuf:1.15.1',
             'io.grpc:grpc-stub:1.15.1'
             // For Android client, use grpc-okhttp instead of grpc-netty-shaded
             // and grpc-protobuf-lite instead of grpc-protobuf:
     )
-    compile(
+    implementation(
             "org.slf4j:slf4j-api:1.7.30",
             "org.slf4j:slf4j-log4j12:1.7.30"
     )
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 //task wrapper(type: Wrapper) {
