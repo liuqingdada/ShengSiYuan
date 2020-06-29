@@ -1,7 +1,9 @@
 package com.shengsiyuan.coroutine.day04
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
+import java.lang.RuntimeException
 
 /**
  * Created by liuqing.yang
@@ -13,6 +15,7 @@ private fun test(): Flow<Int> = flow {
     repeat(4) {
         println("emit: $it")
         emit(it)
+//        throw RuntimeException("up stream")
     }
 }
 
@@ -27,6 +30,7 @@ fun main() = runBlocking {
     } catch (e: Exception) {
         println(e)
     }
+    println("=========================")
 
     test().catch {
         println(it)
@@ -36,7 +40,9 @@ fun main() = runBlocking {
         }
         "value -> $it"
     }.catch {
-        println(it)
+        println("catch $it")
+    }.onCompletion {
+        println("onComplete $it")
     }.collect {
         println(it)
     }

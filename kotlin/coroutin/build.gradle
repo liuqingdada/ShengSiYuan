@@ -9,7 +9,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        mavenCentral()
     }
 
     dependencies {
@@ -28,17 +27,10 @@ java {
 repositories {
     google()
     jcenter()
-    mavenCentral()
 }
 
 sourceSets {
-    main {
-        kotlin {
-            srcDirs = ['src/main/java', 'src/main/kotlin']
-        }
-        java {
-        }
-    }
+    main.kotlin.srcDirs += ['src/main/kotlin']
 }
 
 kapt {

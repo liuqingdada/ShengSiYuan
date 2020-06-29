@@ -21,9 +21,20 @@ fun main() = runBlocking {
         printCurrentThreadValue("launch a coroutine")
         yield()
         printCurrentThreadValue("coroutine after yield")
+        launch {
+            printCurrentThreadValue("run in child")
+        }
+    }
+    val job2 = launch(Dispatchers.Default) {
+        printCurrentThreadValue("run in other coroutine")
+    }
+    val job3 = launch {
+        printCurrentThreadValue("run in other2 coroutine")
     }
 
     job.join()
+    job2.join()
+    job3.join()
 
     printCurrentThreadValue("end main")
 
