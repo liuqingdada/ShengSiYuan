@@ -3,7 +3,6 @@ buildscript {
     ext {
         androidProjectCommon = "${rootDir}/../android_starter/AndroidCommon/android_project_common.gradle"
         androidModuleCommon = "${rootDir}/../android_starter/AndroidCommon/android_module_common.gradle"
-        kotlin_version = '1.3.72'
     }
     apply from: "${androidProjectCommon}"
     repositories {
@@ -33,11 +32,6 @@ allprojects {
         maven {
             url 'https://maven.google.com/'
             name 'Google'
-        }
-    }
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
     }
 }
