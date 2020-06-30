@@ -6,3 +6,4 @@ include ':workmanager'
 include ':LibFtp'
 
 include ':AndroidCommon'
+project(':AndroidCommon').projectDir = file('../android_starter/AndroidCommon')

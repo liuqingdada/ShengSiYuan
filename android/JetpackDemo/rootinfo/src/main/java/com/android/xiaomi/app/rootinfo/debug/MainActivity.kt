@@ -2,7 +2,7 @@ package com.android.xiaomi.app.rootinfo.debug
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.android.app.common.utils.ApplicationUtils
+import com.android.common.utils.ApplicationUtils
 import com.tamsiree.rxkit.RxActivityTool
 
 class MainActivity : AppCompatActivity() {

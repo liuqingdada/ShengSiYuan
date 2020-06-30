@@ -7,8 +7,8 @@ import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
-import com.android.app.common.utils.ApplicationUtils
-import com.android.app.common.utils.LogUtil
+import com.android.common.utils.ApplicationUtils
+import com.android.common.utils.LogUtil
 
 /**
  * Created by cooper

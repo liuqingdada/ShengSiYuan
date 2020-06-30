@@ -14,8 +14,8 @@ import android.util.Log
 import be.ppareit.swiftp.FsService
 import be.ppareit.swiftp.FsSettings
 import be.ppareit.swiftp.FtpInitializer
-import com.android.app.common.utils.ApplicationUtils
-import com.android.app.common.utils.LogUtil
+import com.android.common.utils.ApplicationUtils
+import com.android.common.utils.LogUtil
 import com.android.xiaomi.app.rootinfo.location.LocationManager
 import com.tamsiree.rxkit.RxNetTool
 

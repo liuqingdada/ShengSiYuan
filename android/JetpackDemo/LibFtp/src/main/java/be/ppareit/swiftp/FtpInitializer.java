@@ -23,7 +23,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
-import com.android.app.common.utils.ApplicationUtils;
+import com.android.common.utils.ApplicationUtils;
 
 import net.vrallev.android.cat.Cat;
 

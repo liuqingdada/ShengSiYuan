@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.app.common.utils.LogUtil;
+import com.android.common.utils.LogUtil;
 
 public class LocationPoint {
     private static final String TAG = "LocationPoint";

@@ -3,7 +3,7 @@ package com.android.cooper.app.workmanager.ui
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.appcompat.app.AppCompatActivity
-import com.android.app.common.utils.LogUtil
+import com.android.common.utils.LogUtil
 import com.android.cooper.app.workmanager.R
 import com.android.cooper.app.workmanager.task.TaskManager
 import java.util.concurrent.Executors

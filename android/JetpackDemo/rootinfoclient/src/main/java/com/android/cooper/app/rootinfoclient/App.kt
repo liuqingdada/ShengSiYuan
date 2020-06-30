@@ -3,7 +3,7 @@ package com.android.cooper.app.rootinfoclient
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
-import com.android.app.common.utils.ApplicationUtils
+import com.android.common.utils.ApplicationUtils
 import com.tamsiree.rxkit.RxTool
 
 /**

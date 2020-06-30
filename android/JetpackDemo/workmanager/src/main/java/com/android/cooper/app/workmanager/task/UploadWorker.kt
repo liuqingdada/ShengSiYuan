@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import com.android.app.common.utils.LogUtil
+import com.android.common.utils.LogUtil
 
 /**
  * Created by cooper

@@ -8,7 +8,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Process;
 
-import com.android.app.common.utils.LogUtil;
+import com.android.common.utils.LogUtil;
 
 import org.jetbrains.annotations.NotNull;
 

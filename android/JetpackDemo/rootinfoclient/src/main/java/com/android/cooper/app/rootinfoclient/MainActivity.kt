@@ -5,10 +5,10 @@ import android.os.Looper
 import android.os.Message
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.android.app.common.utils.LogUtil
-import com.android.app.common.utils.WeakHandler
-import com.android.app.common.utils.execute
-import com.android.app.common.utils.serialExecute
+import com.android.common.utils.LogUtil
+import com.android.common.utils.WeakHandler
+import com.android.common.utils.execute
+import com.android.common.utils.serialExecute
 import com.rafakob.nsdhelper.NsdHelper
 import com.rafakob.nsdhelper.NsdListener
 import com.rafakob.nsdhelper.NsdService

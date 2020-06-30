@@ -3,7 +3,7 @@ package com.android.xiaomi.app.rootinfo.location;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.android.app.common.utils.ApplicationUtils;
+import com.android.common.utils.ApplicationUtils;
 
 /**
  * 存储一些普通信息

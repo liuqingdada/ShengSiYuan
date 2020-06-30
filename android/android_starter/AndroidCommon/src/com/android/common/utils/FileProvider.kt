@@ -1,4 +1,4 @@
-package com.android.app.common;
+package com.android.common.utils;
 
 /**
  * Created by cooper

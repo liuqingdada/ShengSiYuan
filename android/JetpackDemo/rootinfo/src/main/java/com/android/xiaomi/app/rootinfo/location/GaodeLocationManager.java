@@ -10,8 +10,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.android.app.common.utils.ApplicationUtils;
-import com.android.app.common.utils.LogUtil;
+import com.android.common.utils.ApplicationUtils;
+import com.android.common.utils.LogUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

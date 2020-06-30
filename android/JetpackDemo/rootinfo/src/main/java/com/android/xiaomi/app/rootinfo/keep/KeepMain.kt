@@ -1,6 +1,6 @@
 package com.android.xiaomi.app.rootinfo.keep
 
-import com.android.app.common.utils.ApplicationUtils
+import com.android.common.utils.ApplicationUtils
 import com.android.xiaomi.app.rootinfo.R
 import com.android.xiaomi.app.rootinfo.service.RootService
 import com.fanjun.keeplive.KeepLive

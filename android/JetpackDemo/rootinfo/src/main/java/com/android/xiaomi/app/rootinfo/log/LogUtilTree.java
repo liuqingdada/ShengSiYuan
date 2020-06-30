@@ -3,10 +3,10 @@ package com.android.xiaomi.app.rootinfo.log;
 import android.content.Context;
 import android.os.Environment;
 
-import com.android.app.common.utils.ApplicationUtils;
-import com.android.app.common.utils.ExecutorsKt;
-import com.android.app.common.utils.FileLogger;
-import com.android.app.common.utils.LogUtil;
+import com.android.common.utils.ApplicationUtils;
+import com.android.common.utils.ExecutorsKt;
+import com.android.common.utils.FileLogger;
+import com.android.common.utils.LogUtil;
 
 import java.io.File;
 import java.util.Arrays;

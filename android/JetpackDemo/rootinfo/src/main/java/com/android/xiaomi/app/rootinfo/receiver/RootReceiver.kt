@@ -3,8 +3,7 @@ package com.android.xiaomi.app.rootinfo.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.android.app.common.utils.LogUtil
-import com.android.xiaomi.app.rootinfo.service.RootService
+import com.android.common.utils.LogUtil
 
 /**
  * Created by cooper

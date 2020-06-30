@@ -2,11 +2,9 @@ package com.android.cooper.app.workmanager
 
 import android.app.Application
 import android.content.Context
-import android.text.TextUtils
 import androidx.multidex.MultiDex
+import com.android.common.utils.ApplicationUtils
 import com.android.cooper.app.workmanager.log.LogUtilTree
-import com.android.app.common.utils.ApplicationUtils
-import com.android.cooper.app.workmanager.log.CrashHandler
 import com.android.cooper.app.workmanager.matrix.MatrixHelper
 
 /**

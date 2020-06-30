@@ -58,4 +58,11 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.junitKtx
+
+    androidTestImplementation deps.test.junit
+    androidTestImplementation deps.test.junitKtx
+    androidTestImplementation deps.test.espressoCore
 }
