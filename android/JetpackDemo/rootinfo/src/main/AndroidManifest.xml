@@ -46,19 +46,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoTitleBar">
 
+        <!-- app config: -->
         <activity
             android:name=".debug.MainActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:noHistory="true">
-
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
-
         <receiver
             android:name=".receiver.RootReceiver"
             android:directBootAware="true">
@@ -66,13 +64,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
-        </receiver> <!-- 设置key -->
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="ae1783dfc723f18996b1761e90a8fc3d" /> <!-- 定位需要的服务 适配Android Q需要加上android:foregroundServiceType="location" -->
-        <service
-            android:name="com.amap.api.location.APSService"
-            android:foregroundServiceType="location" />
+        </receiver>
         <service
             android:name=".notification.NotificationMonitor"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
@@ -80,9 +72,17 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
+        <!-- app config end: -->
+        <!-- amap config: -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ae1783dfc723f18996b1761e90a8fc3d" /> <!-- 定位需要的服务 适配Android Q需要加上android:foregroundServiceType="location" -->
+        <service
+            android:name="com.amap.api.location.APSService"
+            android:foregroundServiceType="location" />
+        <!-- amap config end: -->
+        <!-- keep service config: -->
         <receiver android:name="com.fanjun.keeplive.receiver.NotificationClickReceiver" />
-
         <activity
             android:name="com.fanjun.keeplive.activity.OnePixelActivity"
             android:excludeFromRecents="true"
@@ -97,6 +97,7 @@
         <service
             android:name="com.fanjun.keeplive.service.RemoteService"
             android:process=":remote" />
+        <!-- keep service config end: -->
     </application>
 
 </manifest>
