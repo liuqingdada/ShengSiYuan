@@ -34,6 +34,8 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
 
     <application
         android:name=".App"
@@ -43,22 +45,26 @@
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoTitleBar">
+
         <activity
             android:name=".debug.MainActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:noHistory="true">
 
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
-        <receiver android:name=".receiver.RootReceiver">
+        <receiver
+            android:name=".receiver.RootReceiver"
+            android:directBootAware="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver> <!-- 设置key -->
         <meta-data
@@ -74,6 +80,23 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <receiver android:name="com.fanjun.keeplive.receiver.NotificationClickReceiver" />
+
+        <activity
+            android:name="com.fanjun.keeplive.activity.OnePixelActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/onePixelActivity" />
+
+        <service android:name="com.fanjun.keeplive.service.LocalService" />
+        <service android:name="com.fanjun.keeplive.service.HideForegroundService" />
+        <service
+            android:name="com.fanjun.keeplive.service.JobHandlerService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="com.fanjun.keeplive.service.RemoteService"
+            android:process=":remote" />
     </application>
 
 </manifest>
