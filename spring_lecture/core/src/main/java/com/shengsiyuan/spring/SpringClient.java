@@ -53,5 +53,6 @@ public class SpringClient {
 
         System.out.println(student);
         System.out.println(student2);
+        System.out.println(student == student2);
     }
 }

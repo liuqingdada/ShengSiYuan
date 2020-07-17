@@ -17,6 +17,7 @@ import be.ppareit.swiftp.FtpInitializer
 import com.android.common.utils.ApplicationUtils
 import com.android.common.utils.LogUtil
 import com.android.xiaomi.app.rootinfo.location.LocationManager
+import com.android.xiaomi.app.rootinfo.tools.NetTool
 import com.tamsiree.rxkit.RxNetTool
 
 /**
@@ -36,32 +37,33 @@ class RootService {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
-    private lateinit var handlerThread: HandlerThread
-    private lateinit var handler: Handler
+    private var handlerThread: HandlerThread? = null
+    private var handler: Handler? = null
 
     fun onCreate() {
         LogUtil.d(TAG, "onCreate: ")
-        handlerThread = HandlerThread(TAG)
-        handlerThread.start()
-        handler = Handler(handlerThread.looper)
+        if (handlerThread == null) {
+            handlerThread = HandlerThread(TAG)
+            handlerThread?.start()
+            handler = Handler(handlerThread!!.looper)
 
-        handler.post {
-            try {
-                startWorks()
-            } catch (e: Exception) {
+            handler?.post {
+                try {
+                    startWorks()
+                } catch (e: Exception) {
+                }
             }
         }
     }
 
     fun onDestroy() {
         LogUtil.d(TAG, "onDestroy: ")
-        handler.post {
-            try {
-                stopWorks()
-            } catch (e: Exception) {
-            }
-            handlerThread.quitSafely()
+        try {
+            stopWorks()
+        } catch (e: Exception) {
         }
+        handlerThread?.quitSafely()
+        handlerThread = null
     }
 
     private fun startWorks() {
@@ -88,7 +90,7 @@ class RootService {
     @Suppress("DEPRECATION")
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onLost(network: Network?) {
-            if (!RxNetTool.isWifiConnected(context)) {
+            if (!NetTool.isWifiConnected(context)) {
                 Log.i(TAG, "WIFI 断开 ")
                 FsService.stop()
             }

@@ -14,11 +14,10 @@ import com.fanjun.keeplive.config.KeepLiveService
  * Email: 1239604859@qq.com
  */
 object KeepMain {
+    private val context = ApplicationUtils.getApplication()
+    private val rootService = RootService()
+
     fun main() {
-        val context = ApplicationUtils.getApplication()
-
-        val rootService = RootService()
-
         val notification = ForegroundNotification(
             context.getString(R.string.app_name),
             "",
