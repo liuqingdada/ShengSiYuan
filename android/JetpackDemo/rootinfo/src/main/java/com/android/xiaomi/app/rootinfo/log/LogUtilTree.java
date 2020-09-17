@@ -19,7 +19,7 @@ import java.util.Arrays;
  */
 public class LogUtilTree {
     private static final String LOG_FILE_PREFIX = "rootinfo";
-    private static final int MAX_LOG_FILE_COUNT = 20;
+    private static final int MAX_LOG_FILE_COUNT = 30;
     public static final String LOG_DIR;
 
     static {
@@ -28,10 +28,12 @@ public class LogUtilTree {
 
     public LogUtilTree(boolean debug, String processNameSuffix) {
         LogUtil.setDebug(debug);
-        LogUtil.setFileLogger(new FileLogger(LOG_DIR, LOG_FILE_PREFIX, processNameSuffix));
+        FileLogger fileLogger = new FileLogger(LOG_DIR, LOG_FILE_PREFIX, processNameSuffix);
+        fileLogger.setFileCreateListener(this::clean);
+        LogUtil.setFileLogger(fileLogger);
     }
 
-    public void init() {
+    public void clean() {
         ExecutorsKt.serialExecute(() -> {
             if (LOG_DIR == null) {
                 return;
@@ -70,7 +72,7 @@ public class LogUtilTree {
         String processNameSuffix = ApplicationUtils.getCurrentProcessNameSuffix(processName);
         boolean isMainpProcess = ApplicationUtils.isMainProcess(context);
         if (isMainpProcess) {
-            new LogUtilTree(true, processNameSuffix).init();
+            new LogUtilTree(true, processNameSuffix);
         }
         CrashHandler.getInstance().init(context);
     }

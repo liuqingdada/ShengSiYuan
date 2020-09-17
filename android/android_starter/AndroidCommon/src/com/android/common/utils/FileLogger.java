@@ -29,11 +29,16 @@ public class FileLogger {
 
     private static final int LOG_FILE_CREATE_FAIL_MAX_LOG_COUNT = 3;
     private int mLogFileCreateFailedCount;
+    private OnFileWiterCreateListener onFileWiterCreateListener;
 
     public FileLogger(String logDir, String logFileNamePrefix, String processNameSuffix) {
         mLogDir = logDir;
         mLogFileNamePrefix = logFileNamePrefix;
         mProcessNameSuffix = processNameSuffix;
+    }
+
+    public void setFileCreateListener(OnFileWiterCreateListener onFileWiterCreateListener) {
+        this.onFileWiterCreateListener = onFileWiterCreateListener;
     }
 
     public String getLogDir() {
@@ -120,6 +125,9 @@ public class FileLogger {
         try {
             File logFile = new File(mLogDir, composeFileName(mCurrentDay));
             mFileWriter = new FileWriter(logFile, true);
+            if (onFileWiterCreateListener != null) {
+                onFileWiterCreateListener.onCreate();
+            }
             return true;
         } catch (IOException e) {
             mLogFileCreateFailedCount++;
@@ -144,4 +152,8 @@ public class FileLogger {
         return mDayFormat.format(new Date());
     }
 
+    @FunctionalInterface
+    public interface OnFileWiterCreateListener {
+        void onCreate();
+    }
 }
