@@ -19,6 +19,12 @@ let objectTest = {
     printDate: function () {
         printDate()
     },
+    compareTest: function () {
+        compareTest()
+    },
+    ajaxTest: function () {
+        ajaxTest()
+    },
 }
 export default objectTest
 
@@ -54,8 +60,21 @@ function testTypeOf() {
     console.log(null == undefined)
     console.log(typeof function () {
     })
+    // not a number, JavaScript中,NaN是惟一一个和自己也不想等的值.
+    // 所以,也就不能使用等号运算符来判断一个值是否是NaN,不过有全局函数isNaN()来干这件事.
+    // 它会隐式的将它的参数转换成数字,所以即便参数是个不能转换成数字的字符串,它也会返回true(转换成了NaN)
+    console.log(isNaN("xyz"))
     console.log(NaN)
     console.log(Infinity)
+    // 用0作除数会产生另外一个特殊值Infinity:
+    console.log(3 / 0)
+    // 你不能想当然的猜测正无穷大或者负无穷大的计算结果:
+    console.log(Infinity + Infinity)
+    console.log(Infinity - Infinity)
+    console.log(Infinity * Infinity)
+    console.log(Infinity / Infinity)
+    console.log(typeof NaN)
+    console.log(typeof Infinity)
     console.log("John".constructor)
     console.log(false.constructor)
     console.log([1, 2, 3, 4].constructor)
@@ -89,10 +108,127 @@ function convert(x) {
     console.log(out)
     out = (100 + 23).toString()
     console.log(out)
+
+    // 将字符串转换为数字
+    out = Number("3.14")
+    console.log(out)
+    out = Number("")
+    console.log(out)
+    out = Number("  ")
+    console.log(out)
+    out = Number("99 88")
+    console.log(out)
+    out = Number("-99 88")
+    console.log(out)
+
+    // Operator + 可用于将变量转换为数字：
+    let y = "5"
+    let z = +y
+    console.log(z)
+    console.log(typeof z)
+
+    console.log(Number(false))
+    console.log(Number(true))
+    console.log(Number(new Date()))
+
+    // 自动转换类型
+    // 当 JavaScript 尝试操作一个 "错误" 的数据类型时，会自动转换为 "正确" 的数据类型
+    console.log(5 + null)
+    console.log("5" + null)
+    console.log("z" - null)
+    console.log("5" + 1)
+    console.log("5" - 1)
+    console.log("z" - 1)
 }
 
 function printDate() {
     const date = new Date()
-    console.log(date.getDate())
-    console.log(date.getDay())
+    console.log(date.getDate())         // 从 Date 对象返回一个月中的某一天 (1 ~ 31)
+    console.log(date.getDay())          // 从 Date 对象返回一周中的某一天 (0 ~ 6)
+    console.log(date.getFullYear())     // 从 Date 对象以四位数字返回年份
+    console.log(date.getHours())        // 返回 Date 对象的小时 (0 ~ 23)
+    console.log(date.getMilliseconds()) // 返回 Date 对象的毫秒(0 ~ 999)
+    console.log(date.getMinutes())      // 返回 Date 对象的分钟 (0 ~ 59)
+    console.log(date.getMonth())        // 从 Date 对象返回月份 (0 ~ 11)
+    console.log(date.getSeconds())      // 返回 Date 对象的秒数 (0 ~ 59)
+    console.log(date.getTime())         // 返回 1970 年 1 月 1 日至今的毫秒数
+    console.log("-----------")
+    console.log(date.getUTCHours())
+}
+
+function compareTest() {
+    let x = 0
+    let y = 0
+    let z = 0
+    if (x = 1) {
+        console.log(Boolean(x = -1))
+    }
+    // 在常规的比较中，数据类型是被忽略的
+    x = 10
+    y = "10"
+    console.log(x == y)
+    // 在严格的比较运算中，=== 为恒等计算符，同时检查表达式的值与类型
+    // noinspection JSIncompatibleTypesComparison
+    console.log(x === y)
+    //switch 语句会使用恒等计算符(===)进行比较
+    switch (x) {
+        case "10":
+            alert("World")
+            break
+        case 10:
+            console.log("switch 语句会使用恒等计算符(===)进行比较")
+            break
+        default:
+            throw new Error("IllegalStateException")
+    }
+
+    // JavaScript 中的所有数据都是以 64 位浮点型数据(float) 来存储。
+    // 所有的编程语言，包括 JavaScript，对浮点型数据的精确度都很难确定：
+    x = 0.1
+    y = 0.2
+    z = x + y
+    console.log(z === 0.3)
+    console.log(z)
+    z = (x * 10 + y * 10) / 10
+    console.log(z === 0.3)
+    console.log(z)
+
+    if (x === 19) ;
+    {
+        console.log("code block")
+    }
+
+    // 数组最后一个值的后面添加逗号虽然语法没有问题，但是在不同的浏览器可能得到不同的结果。
+    let colors = [5, 6, 7,]; //这样数组的长度可能为3 也可能为4
+    console.log("数组长度: " + colors.length)
+}
+
+function ajaxTest() {
+    setTimeout(() => {
+        console.log("Set timeout")
+    }, 3000)
+    console.log("after 1")
+
+    let xhr = new XMLHttpRequest()
+    xhr.onload = () => {
+        let resp = xhr.response
+        console.log(resp)
+    }
+    xhr.onerror = () => {
+        console.log("Requst http error")
+    }
+    xhr.open("GET", "https://www.runoob.com/try/ajax/ajax_info.txt", true)
+    xhr.send()
+}
+
+function promiseTest() {
+
+}
+
+function newTimeoutPromise(msg, delay) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+
+        })
+    })
 }
