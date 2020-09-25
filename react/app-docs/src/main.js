@@ -1,5 +1,4 @@
 import objectTest from "./object"
-const http = require('http');
 
 let main = {
     main: function () {
@@ -35,4 +34,6 @@ function startLocalTest() {
     objectTest.compareTest()
     console.log("\n\n")
     objectTest.ajaxTest()
+    console.log("\n\n")
+    objectTest.promiseTest()
 }

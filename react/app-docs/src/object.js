@@ -25,6 +25,9 @@ let objectTest = {
     ajaxTest: function () {
         ajaxTest()
     },
+    promiseTest: function () {
+        promiseTest()
+    },
 }
 export default objectTest
 
@@ -204,11 +207,6 @@ function compareTest() {
 }
 
 function ajaxTest() {
-    setTimeout(() => {
-        console.log("Set timeout")
-    }, 3000)
-    console.log("after 1")
-
     let xhr = new XMLHttpRequest()
     xhr.onload = () => {
         let resp = xhr.response
@@ -217,18 +215,31 @@ function ajaxTest() {
     xhr.onerror = () => {
         console.log("Requst http error")
     }
-    xhr.open("GET", "https://www.runoob.com/try/ajax/ajax_info.txt", true)
+    xhr.open("GET", "http://www.liulongbin.top:3005/api/getlunbo", true)
     xhr.send()
 }
 
 function promiseTest() {
-
+    print(1, 1000).then(() => {
+        return print(2, 2000)
+    }).then(() => {
+        print(3, 3000).then(() => {
+            return awaitTest()
+        })
+    })
 }
 
-function newTimeoutPromise(msg, delay) {
+async function awaitTest() {
+    await print(1, 1000)
+    await print(2, 2000)
+    await print(3, 3000)
+}
+
+function print(msg, delay) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-
-        })
+            console.log(msg)
+            resolve()
+        }, delay)
     })
 }
