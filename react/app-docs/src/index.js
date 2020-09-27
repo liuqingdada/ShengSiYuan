@@ -1,11 +1,28 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import main from "./main"
+import js from "./js/main"
+import ra, {Clock, Toggle} from "./react/main"
+
+
+// 在 JSX 语法中，你可以在大括号内放置任何有效的 JavaScript 表达式
+// JSX 也是一个表达式
+const element = ra.showTime(new Date().toLocaleTimeString())
+
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <Clock/>
+                <Toggle/>
+            </div>
+        )
+    }
+}
 
 ReactDOM.render(
-    <h1>Hello World!</h1>,
+    <App/>,
     document.getElementById("root"),
     () => {
-        main.main()
+        js.main()
     }
 )
