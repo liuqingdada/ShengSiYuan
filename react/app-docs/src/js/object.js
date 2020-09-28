@@ -29,6 +29,9 @@ let objectTest = {
     promiseTest: function () {
         promiseTest()
     },
+    mapTest: function () {
+        mapTest()
+    },
 }
 export default objectTest
 
@@ -243,4 +246,10 @@ function print(msg, delay) {
             resolve()
         }, delay)
     })
+}
+
+function mapTest() {
+    const nums = [1, 2, 3, 4, 5]
+    const doubled = nums.map(it => it * 2)
+    console.debug(doubled)
 }

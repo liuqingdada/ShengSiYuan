@@ -1,7 +1,9 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import js from "./js/main"
-import ra, {Clock, Toggle} from "./react/main"
+import ra, {
+    Clock, Toggle, ListView, NameForm, EssayForm, FlavorForm, Reservation
+} from "./react/main"
 
 
 // 在 JSX 语法中，你可以在大括号内放置任何有效的 JavaScript 表达式
@@ -14,6 +16,11 @@ class App extends React.Component {
             <div>
                 <Clock/>
                 <Toggle/>
+                <ListView/>
+                <NameForm/>
+                <EssayForm/>
+                <FlavorForm/>
+                <Reservation/>
             </div>
         )
     }

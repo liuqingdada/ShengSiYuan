@@ -38,4 +38,6 @@ function startLocalTest() {
     objectTest.ajaxTest()
     console.debug("\n\n")
     objectTest.promiseTest()
+    console.debug("\n\n")
+    objectTest.mapTest()
 }

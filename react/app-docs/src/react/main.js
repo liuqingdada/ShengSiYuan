@@ -80,7 +80,7 @@ class App extends React.Component {
 
 export class Clock extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             date: new Date(),
         }
@@ -114,7 +114,7 @@ export class Clock extends React.Component {
     tick() {
         const date = new Date()
         const offset = 1000 - date.getMilliseconds()
-        console.log(TAG, offset)
+        //console.log(TAG, offset)
         /**
          * 因为 this.props 和 this.state 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。
          * 要解决这个问题，可以让 setState() 接收一个函数而不是一个对象。
@@ -132,7 +132,7 @@ export class Clock extends React.Component {
 
 export class Toggle extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             isToggleOn: true
         }
@@ -185,3 +185,218 @@ export class Toggle extends React.Component {
         )
     }
 }
+
+/**
+ * 一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串。通常，我们使用数据中的 id 来作为元素的 key
+ *
+ * 当元素没有确定 id 的时候，万不得已你可以使用元素索引 index 作为 key：
+ * 如果列表项目的顺序可能会变化，我们不建议使用索引来用作 key 值，因为这样做会导致性能变差，还可能引起组件状态的问题
+ *
+ * 如果你选择不指定显式的 key 值，那么 React 将默认使用索引用作为列表项目的 key 值。
+ */
+export class ListView extends React.Component {
+    render() {
+        const data = [1, 2, 3, 4, 5]
+        const items = data.map((value, index) =>
+            <li key={index}>
+                {"index: " + index + ", value: " + value}
+            </li>
+        )
+        return <ul>{items}</ul>
+    }
+}
+
+export class NameForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: ""
+        }
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        })
+    }
+
+    handleSubmit(event) {
+        alert("提交的名字: " + this.state.value)
+        /**
+         * 在 React 中另一个不同点是你不能通过返回 false 的方式阻止默认行为。你必须显式的使用 preventDefault
+         */
+        event.preventDefault()
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    名字:
+                    <input type="text" value={this.state.value} onChange={this.handleChange}/>
+                </label>
+                <input type="submit" value="提交"/>
+            </form>
+        )
+    }
+}
+
+export class EssayForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: "请撰写一篇关于你喜欢的 DOM 元素的文章."
+        }
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        })
+    }
+
+    handleSubmit(event) {
+        alert("提交的文章: " + this.state.value)
+        event.preventDefault()
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    文章:
+                    <textarea value={this.state.value} onChange={this.handleChange}/>
+                </label>
+                <input type="submit" value="提交"/>
+            </form>
+        )
+    }
+}
+
+export class FlavorForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: "coconut"
+        }
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        })
+        console.log(event)
+        console.log(this.state)
+    }
+
+    handleSubmit(event) {
+        alert("你喜欢的风味是: " + this.state.value)
+        event.preventDefault()
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    选择你喜欢的风味:
+                    <select value={this.state.value} onChange={this.handleChange}>
+                        <option value="grapefruit">葡萄柚</option>
+                        <option value="lime">酸橙</option>
+                        <option value="coconut">椰子</option>
+                        <option value="mango">芒果</option>
+                    </select>
+                </label>
+                <input type="submit" value="提交"/>
+            </form>
+        )
+    }
+}
+
+export class Reservation extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isGoing: true,
+            numberOfGuests: 2,
+        }
+        this.handleInputChange = this.handleInputChange.bind(this)
+    }
+
+    /**
+     * 当需要处理多个 input 元素时，我们可以给每个元素添加 name 属性，并让处理函数根据 event.target.name 的值选择要执行的操作
+     * @param event
+     */
+    handleInputChange(event) {
+        const target = event.target
+        const value = target.type === "checkbox" ? target.checked : target.value
+        const name = target.name
+        console.log(TAG, value, name)
+        this.setState({
+            [name]: value
+        })
+    }
+
+    render() {
+        return (
+            <form>
+                <label>
+                    参与:
+                    <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange}/>
+                </label>
+                <br/>
+                <label>
+                    来宾人数:
+                    <input
+                        name="numberOfGuests"
+                        type="number"
+                        value={this.state.numberOfGuests}
+                        onChange={this.handleInputChange}/>
+                </label>
+            </form>
+        )
+    }
+}
+
+export class BoilingVerdict extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            celsius: 0
+        }
+    }
+
+    render() {
+        let info
+        if (this.props.celsius >= 100) {
+            info = "The water would boil."
+        } else {
+            info = "The water would not boil."
+        }
+        return <p>{info}</p>
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
