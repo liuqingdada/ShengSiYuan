@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import js from "./js/main"
 import ra, {
-    Clock, Toggle, ListView, NameForm, EssayForm, FlavorForm, Reservation
+    Clock, Toggle, ListView, NameForm, EssayForm, FlavorForm, Reservation, Calculator
 } from "./react/main"
 
 
@@ -21,6 +21,7 @@ class App extends React.Component {
                 <EssayForm/>
                 <FlavorForm/>
                 <Reservation/>
+                <Calculator/>
             </div>
         )
     }
