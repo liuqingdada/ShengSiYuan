@@ -73,6 +73,12 @@ class ExecutorsTest {
          */
         fun next() {
             send()
+
+            // 如果此时没有数据了
+            // 证明进入 IDLE 状态
+            if (packages.isEmpty()) {
+                idle.compareAndSet(false, true)
+            }
         }
 
         fun putData(list: List<ByteArray>) {
@@ -85,12 +91,6 @@ class ExecutorsTest {
             val first = packages.poll()
             if (first != null && first.isNotEmpty()) {
                 println("send ble data ${first[0]}")
-            }
-
-            // 如果此时没有数据了
-            // 证明进入 IDLE 状态
-            if (packages.isEmpty()) {
-                idle.compareAndSet(false, true)
             }
         }
     }
