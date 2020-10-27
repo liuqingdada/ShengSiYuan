@@ -1,7 +1,7 @@
 ext {
     versions = [
-            "kotlin"               : "1.3.72",
-            "kotlinxCoroutinesCore": "1.3.7",
-            "nettyAll"             : "4.1.31.Final"
+            "kotlin"               : "1.4.10",
+            "kotlinxCoroutinesCore": "1.4.0",
+            "nettyAll"             : "4.1.53.Final"
     ]
 }
