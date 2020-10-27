@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -23,6 +24,8 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Hello from './HelloWorld';
+import PizzaTranslator from './PizzaTranslator';
 
 const App: () => React$Node = () => {
   return (
@@ -39,6 +42,12 @@ const App: () => React$Node = () => {
             </View>
           )}
           <View style={styles.body}>
+            {/**/}
+            {/**/}
+            <Hello />
+            <PizzaTranslator />
+            {/**/}
+            {/**/}
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
