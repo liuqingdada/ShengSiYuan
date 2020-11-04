@@ -1,11 +1,14 @@
 package com.android.xiaomi.app.rootinfo.notification
 
+import android.app.NotificationManager
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.IBinder
+import android.provider.Settings
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import com.android.common.utils.ApplicationUtils
 import com.android.common.utils.LogUtil
@@ -18,17 +21,78 @@ import com.android.common.utils.LogUtil
 class NotificationMonitor : NotificationListenerService() {
     companion object {
         private const val TAG = "NotificationMonitor"
+
+        private const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
+        private const val ENABLED_NOTIFICATION_LISTENERS_VALIDATOR = ":"
+
         private const val QQ_PKG = "com.tencent.mobileqq"
         private const val WX_PKG = "com.tencent.mm"
         private val SPECIAL_NOTI = arrayListOf(WX_PKG, QQ_PKG)
+
+        private val context = ApplicationUtils.getApplication().applicationContext
         private var isBinded = false
 
         fun triggerNotificationService() {
+            if (!isNotificationListenerAccessGranted()) {
+                openNotificationListener()
+            }
+            bindService()
+        }
+
+        private fun isNotificationListenerAccessGranted(): Boolean {
+            val nm = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val isNotificationListenerAccessGranted = nm.isNotificationListenerAccessGranted(
+                ComponentName(
+                    context,
+                    NotificationMonitor::class.java
+                )
+            )
+            LogUtil.d(
+                TAG,
+                "isNotificationListenerAccessGranted: $isNotificationListenerAccessGranted"
+            )
+            return isNotificationListenerAccessGranted
+        }
+
+        private fun isEnable(): Boolean {
+            val packageName = context.packageName
+            val flat = Settings.Secure.getString(
+                context.contentResolver, ENABLED_NOTIFICATION_LISTENERS
+            )
+            LogUtil.d(TAG, "isEnable: $flat")
+            if (!flat.isNullOrBlank()) {
+                val names = flat.split(ENABLED_NOTIFICATION_LISTENERS_VALIDATOR)
+                names.forEach {
+                    val component = ComponentName.unflattenFromString(it)
+                    if (component != null) {
+                        if (packageName == component.packageName) {
+                            return true
+                        }
+                    }
+                }
+            }
+            return false
+        }
+
+        private fun openNotificationPolicy() {
+            context.startActivity(Intent().apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                action = Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS
+            })
+        }
+
+        private fun openNotificationListener() {
+            context.startActivity(Intent().apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
+            })
+        }
+
+        private fun bindService() {
             if (isBinded) {
                 LogUtil.d(TAG, "already binded: ")
                 return
             }
-            val context = ApplicationUtils.getApplication().applicationContext
             context.packageManager.setComponentEnabledSetting(
                 ComponentName(
                     context,
@@ -41,7 +105,7 @@ class NotificationMonitor : NotificationListenerService() {
                     NotificationMonitor::class.java
                 ), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
             )
-            LogUtil.d(TAG, "triggerNotificationService success: ")
+            LogUtil.d(TAG, "bindService: ")
         }
     }
 
