@@ -1,0 +1,22 @@
+
+task t1 {
+    dependsOn 't2'
+    doFirst {
+        println 'hello do first'
+    }
+    doLast {
+        println 'hello do last'
+    }
+}
+
+task(t2) {
+    doLast {
+        println 't2 do last'
+    }
+}
+
+task('t3') {
+    doLast {
+        println 't3 do last'
+    }
+}
