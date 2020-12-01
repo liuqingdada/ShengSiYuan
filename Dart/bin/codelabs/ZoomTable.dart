@@ -139,6 +139,13 @@ class FirstTwoLetters {
 }
 
 // Const 构造方法
+// const 关键字不仅仅可以用来定义常量，还可以用来创建 常量值，该常量值可以赋予给任何变量。
+// 你也可以将构造函数声明为 const 的，这种类型的构造函数创建的对象是不可改变的。
+// 使用初始化表达式为常量赋值可以省略掉关键字 const，比如常量 baz 的赋值就省略掉了 const
+// 没有使用final或const修饰的变量的值是可以被更改的，即使这些变量之前引用过 const 的值
+var foo = const [];
+final bar = const [];
+const baz = []; // 相当于 `const []`
 // 如果你的类生成的对象永远都不会更改，则可以让这些对象成为编译时常量。
 // 为此，请定义 const 构造方法并确保所有实例变量都是 final 的
 class ImmutablePoint {
