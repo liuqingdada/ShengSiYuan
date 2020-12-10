@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:flutter_app/Counter.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,12 +31,31 @@ class RandomWordsState extends State<RandomWords> {
   final saved = Set<WordPair>();
   final biggerFont = TextStyle(fontSize: 18.0);
 
+  final List<Choice> choices = <Choice>[
+    Choice(checked: false, title: 'Counter', icon: Icons.add),
+    Choice(checked: false, title: 'test1', icon: Icons.add),
+    Choice(checked: false, title: 'test2', icon: Icons.add),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
-        actions: [IconButton(icon: Icon(Icons.list), onPressed: pushSaved)],
+        actions: [
+          IconButton(icon: Icon(Icons.list), onPressed: pushSaved),
+          PopupMenuButton<Choice>(
+            offset: const Offset(0, 1000),
+            onSelected: onMenuSelected,
+            itemBuilder: (BuildContext context) => choices.map((e) {
+              return CheckedPopupMenuItem<Choice>(
+                value: e,
+                checked: e.checked,
+                child: Text(e.title),
+              );
+            }).toList(),
+          ),
+        ],
       ),
       body: buildSuggestions(),
     );
@@ -63,6 +83,24 @@ class RandomWordsState extends State<RandomWords> {
         },
       ),
     );
+  }
+
+  void onMenuSelected(Choice choice) {
+    setState(() {
+      choices.forEach((it) => {it.checked = false});
+      choice.checked = true;
+    });
+    switch (choice.title) {
+      case 'Counter':
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) {
+            return Counter();
+          }),
+        );
+        break;
+      default:
+        break;
+    }
   }
 
   Widget buildSuggestions() {
@@ -99,4 +137,12 @@ class RandomWordsState extends State<RandomWords> {
       },
     );
   }
+}
+
+class Choice {
+  bool checked;
+  final String title;
+  final IconData icon;
+
+  Choice({this.checked, this.title, this.icon});
 }
