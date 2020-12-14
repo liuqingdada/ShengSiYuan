@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter_app/Counter.dart';
+import 'package:flutter_app/ShoppingList.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,8 +34,8 @@ class RandomWordsState extends State<RandomWords> {
 
   final List<Choice> choices = <Choice>[
     Choice(checked: false, title: 'Counter', icon: Icons.add),
-    Choice(checked: false, title: 'test1', icon: Icons.add),
-    Choice(checked: false, title: 'test2', icon: Icons.add),
+    Choice(checked: false, title: 'Shopping', icon: Icons.shopping_cart),
+    Choice(checked: false, title: 'test2', icon: Icons.shop),
   ];
 
   @override
@@ -96,6 +97,18 @@ class RandomWordsState extends State<RandomWords> {
           MaterialPageRoute(builder: (context) {
             return Counter();
           }),
+        );
+        break;
+      case 'Shopping':
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => ShoppingList(
+                    products: [
+                      Product(name: 'Eggs'),
+                      Product(name: 'Flour'),
+                      Product(name: 'Chocolate chips'),
+                    ],
+                  )),
         );
         break;
       default:

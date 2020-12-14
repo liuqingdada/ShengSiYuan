@@ -1,5 +1,6 @@
 package com.android.cooper.app.paging.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -31,6 +32,12 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         recyclerView.adapter = pageListAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        btGraph.setOnClickListener {
+            Intent(it.context, GraphActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 
     private fun registerComponent() {
