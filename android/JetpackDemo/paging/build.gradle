@@ -42,6 +42,7 @@ dependencies {
     implementation deps.paging.runtimeKtx
 
     implementation project(path: ':AndroidCommon')
+    implementation 'top.zibin:Luban:1.1.8'
 
     testImplementation deps.test.junit
     testImplementation deps.test.junitKtx

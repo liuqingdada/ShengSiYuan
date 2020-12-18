@@ -19,7 +19,7 @@ import java.util.Arrays;
  * 如果要用 Timber, 可以在这里实现 Timber.Tree
  */
 public class LogUtilTree {
-    private static final String LOG_FILE_PREFIX = "workmanager";
+    private static final String LOG_FILE_PREFIX = "tvassistant";
     private static final int MAX_LOG_FILE_COUNT = 20;
     public static final String LOG_DIR;
 
@@ -58,7 +58,7 @@ public class LogUtilTree {
         boolean mounted = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         if (mounted) {
             Context context = ApplicationUtils.getApplication().getApplicationContext();
-            File logDir = new File(context.getExternalFilesDir(null), "workmanager/log");
+            File logDir = new File(context.getExternalFilesDir(null), "tvassistant/log");
             return logDir.getAbsolutePath();
         } else {
             return null;

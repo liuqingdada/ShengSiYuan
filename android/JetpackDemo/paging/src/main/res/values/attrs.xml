@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DrawingPath2">
+        <attr name="fillType" format="enum">
+            <enum name="WINDING" value="0"/>
+            <enum name="EVEN_ODD" value="1"/>
+            <enum name="INVERSE_WINDING" value="2"/>
+            <enum name="INVERSE_EVEN_ODD" value="3"/>
+        </attr>
+    </declare-styleable>
+</resources>

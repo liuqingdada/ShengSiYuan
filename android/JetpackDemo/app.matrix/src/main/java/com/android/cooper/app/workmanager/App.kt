@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.android.common.utils.ApplicationUtils
 import com.android.cooper.app.workmanager.log.LogUtilTree
+import com.android.cooper.app.workmanager.matrix.MatrixHelper
 
 /**
  * Created by cooper
@@ -22,5 +23,7 @@ class App : Application() {
         ApplicationUtils.init(this)
 
         LogUtilTree.main()
+
+        MatrixHelper.main()
     }
 }

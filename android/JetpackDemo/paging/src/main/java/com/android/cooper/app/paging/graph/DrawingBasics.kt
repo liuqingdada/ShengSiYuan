@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
-import android.view.View
 
 /**
  * Created by cooper
@@ -16,8 +16,9 @@ class DrawingBasics @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : Graph(context, attrs, defStyleAttr) {
     private val paint = Paint()
+    private val roundRect = RectF()
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -62,5 +63,17 @@ class DrawingBasics @JvmOverloads constructor(
         canvas?.drawPoint(100F, 500F, paint)
         paint.strokeWidth = 20F
         canvas?.drawPoint(300F, 500F, paint)
+
+        paint.style = Paint.Style.STROKE
+        canvas?.drawRect(100F, 500F, 400F, 800F, paint)
+        paint.style = Paint.Style.FILL
+        canvas?.drawRect(600F, 500F, 900F, 800F, paint)
+
+        roundRect.set(100F, 900F, 300F, 1200F)
+        canvas?.drawRoundRect(roundRect, 30F, 30F, paint)
     }
+
+    override fun maxWidth(): Int = 1300
+
+    override fun maxHeight(): Int = 1300
 }
