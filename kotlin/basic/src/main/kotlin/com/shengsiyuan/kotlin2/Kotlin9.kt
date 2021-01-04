@@ -27,3 +27,8 @@ fun main() {
     val upper2 = UpperBoundsClass2<String>()
 }
 
+fun <E> copyWhenGreater(list: List<E>, threshold: E): List<String>
+        where E : CharSequence,
+              E : Comparable<E> {
+    return list.filter { it > threshold }.map { it.toString() }
+}

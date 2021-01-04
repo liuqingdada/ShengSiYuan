@@ -3,6 +3,7 @@ buildscript {
     ext {
         androidProjectCommon = "${rootDir}/../android_starter/AndroidCommon/android_project_common.gradle"
         androidModuleCommon = "${rootDir}/../android_starter/AndroidCommon/android_module_common.gradle"
+        kotlin_version = '1.4.21'
     }
     apply from: "${androidProjectCommon}"
     repositories {

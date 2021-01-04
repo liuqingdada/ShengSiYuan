@@ -1,16 +1,18 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+}
 apply from: "${rootDir}/android_project_common.gradle"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.android.cooper.app.paging"
+        applicationId "com.android.cooper.app.navigation"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -29,18 +31,17 @@ dependencies {
     implementation deps.support.core
     implementation deps.support.appcompat
     implementation deps.support.constraintLayout
-    implementation deps.support.recyclerview
-    implementation deps.paging.common
-    implementation deps.paging.commonKtx
-    implementation deps.paging.runtime
-    implementation deps.paging.runtimeKtx
+    implementation deps.support.design
+    implementation deps.navigation.fragmentKtx
+    implementation deps.navigation.uiKtx
+    implementation deps.navigation.dynamicFeatures
 
     implementation project(path: ':AndroidCommon')
-    implementation 'top.zibin:Luban:1.1.8'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation deps.test.junit
     testImplementation deps.test.junitKtx
-
     androidTestImplementation deps.test.junit
     androidTestImplementation deps.test.junitKtx
     androidTestImplementation deps.test.espressoCore

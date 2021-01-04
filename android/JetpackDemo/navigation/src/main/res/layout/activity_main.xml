@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!--
+        android:name 属性包含 NavHost 实现的类名称。
+        app:navGraph 属性将 NavHostFragment 与导航图相关联。
+                     导航图会在此 NavHostFragment 中指定用户可以导航到的所有目的地。
+        app:defaultNavHost="true" 属性确保您的 NavHostFragment 会拦截系统返回按钮。
+                                  请注意，只能有一个默认 NavHost。如果同一布局（例如，双窗格布局
+                                  中有多个宿主，请务必仅指定一个默认 NavHost。
+    -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
