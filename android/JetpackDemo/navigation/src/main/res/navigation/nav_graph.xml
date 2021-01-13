@@ -7,16 +7,30 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.android.cooper.app.navigation.MainFragment"
+        android:name="com.android.cooper.app.navigation.home.HomeFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_secondaryFragment"
             app:destination="@id/secondaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/secondaryFragment"
-        android:name="com.android.cooper.app.navigation.SecondaryFragment"
+        android:name="com.android.cooper.app.navigation.home.SecondaryFragment"
         android:label="fragment_secondary"
         tools:layout="@layout/fragment_secondary" />
+    <navigation
+        android:id="@+id/navigation"
+        app:startDestination="@id/splashFragment">
+        <fragment
+            android:id="@+id/splashFragment"
+            android:name="com.android.cooper.app.navigation.splash.SplashFragment"
+            android:label="fragment_splash"
+            tools:layout="@layout/fragment_splash" />
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.android.cooper.app.navigation.login.LoginFragment"
+            android:label="fragment_login"
+            tools:layout="@layout/fragment_login" />
+    </navigation>
 </navigation>
