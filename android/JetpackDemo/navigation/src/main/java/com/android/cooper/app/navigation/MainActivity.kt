@@ -1,12 +1,8 @@
 package com.android.cooper.app.navigation
 
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import com.android.common.utils.ApplicationUtils
-import com.android.cooper.app.navigation.R
 
 /**
  * https://developer.android.com/guide/navigation
