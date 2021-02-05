@@ -1,9 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Student struct {
 	Lat, Long float64
+	name      string
 }
 
 func main() {
@@ -12,6 +16,7 @@ func main() {
 	m["Bell Labs"] = Student{
 		40.48433,
 		-74.39967,
+		"suhen",
 	}
 	fmt.Println(m["Bell Labs"])
 
@@ -24,4 +29,9 @@ func main() {
 		},
 	}
 	fmt.Println(m)
+
+	delete(m, "Bell")
+	elem, ok := m["Bell"]
+	fmt.Println(elem, ok)
+	fmt.Printf("Fields are: %q\n", strings.Fields("  foo bar  baz   "))
 }
