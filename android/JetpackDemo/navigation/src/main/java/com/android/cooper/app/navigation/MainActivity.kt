@@ -3,6 +3,7 @@ package com.android.cooper.app.navigation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.android.cooper.app.navigation.databinding.ActivityMainBinding
 
 /**
  * https://developer.android.com/guide/navigation
@@ -20,9 +21,18 @@ import androidx.navigation.fragment.NavHostFragment
  * 在具有多个 Activity 目的地的应用中，每个 Activity 均拥有其自己的导航图。
  */
 class MainActivity : AppCompatActivity() {
+    private val binding by viewBinding<ActivityMainBinding>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        // 1. 最原始的方式
+        // setContentView(R.layout.activity_main)
+        // 2. ViewBinding 的基本用法
+        // val binding = ActivityMainBinding.inflate(layoutInflater)
+        // setContentView(binding.root)
+        // 3. 基于第二种方式，利用 Kotlin 的属性代理
+        binding.root
+
         val host = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         host.navController
     }

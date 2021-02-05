@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
 }
 apply from: "${rootDir}/android_project_common.gradle"
 
@@ -22,6 +21,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    // 视图绑定功能可按模块启用
+    viewBinding {
+        enabled = true
     }
 }
 

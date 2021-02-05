@@ -1,34 +1,19 @@
 package com.android.cooper.app.navigation.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.cooper.app.navigation.R
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.android.cooper.app.navigation.databinding.FragmentMainBinding
+import com.android.cooper.app.navigation.viewBinding
 
-class HomeFragment : Fragment() {
-    companion object {
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+class HomeFragment : Fragment(R.layout.fragment_main) {
+    private val binding by viewBinding<FragmentMainBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btNav.setOnClickListener {
+        binding.btNav.setOnClickListener {
             findNavController().navigate(R.id.secondaryFragment)
         }
         //btNav.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.secondaryFragment))
