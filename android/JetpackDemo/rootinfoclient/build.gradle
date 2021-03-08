@@ -1,12 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: "${rootDir}/android_project_common.gradle"
+apply from: "${rootDir}/module_plugin.gradle"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.0"
-
     defaultConfig {
         applicationId "com.android.cooper.app.rootinfoclient"
         minSdkVersion 21

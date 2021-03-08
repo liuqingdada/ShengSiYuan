@@ -8,3 +8,6 @@ include ':LibFtp'
 
 include ':AndroidCommon'
 project(':AndroidCommon').projectDir = file('../android_starter/AndroidCommon')
+
+include ':LibDataStore'
+project(':LibDataStore').projectDir = file('../android_starter/LibDataStore')

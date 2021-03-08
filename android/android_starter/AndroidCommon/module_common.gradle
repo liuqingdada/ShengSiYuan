@@ -1,0 +1,25 @@
+/**
+ * File: 'module_common.gradle'
+ * All android projects can copy and include this file.
+ */
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        // fix More than one file was found with OS independent
+        // path 'META-INF/library_release.kotlin_module'
+        freeCompilerArgs += ['-module-name', "$GROUP_ID.$ARTIFACT_ID"]
+    }
+}

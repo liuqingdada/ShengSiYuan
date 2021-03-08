@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "${rootDir}/module_plugin.gradle"
+
+android {
+    defaultConfig {
+        minSdkVersion 17
+
+        consumerProguardFiles 'consumer-proguard-rules.pro'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.junitKtx
+
+    androidTestImplementation deps.test.junit
+    androidTestImplementation deps.test.junitKtx
+    androidTestImplementation deps.test.espressoCore
+}

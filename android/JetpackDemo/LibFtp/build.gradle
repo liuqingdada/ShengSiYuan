@@ -1,12 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply from: "${rootDir}/android_project_common.gradle"
+apply from: "${rootDir}/module_plugin.gradle"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.0"
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29

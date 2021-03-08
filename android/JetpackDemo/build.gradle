@@ -1,8 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        androidProjectCommon = "${rootDir}/../android_starter/AndroidCommon/android_project_common.gradle"
-        androidModuleCommon = "${rootDir}/../android_starter/AndroidCommon/android_module_common.gradle"
+        androidProjectCommon = "${rootDir}/../android_starter/AndroidCommon/project_common.gradle"
+        androidModuleCommon = "${rootDir}/../android_starter/AndroidCommon/module_common.gradle"
         kotlin_version = '1.4.21'
     }
     apply from: "${androidProjectCommon}"
@@ -40,4 +40,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
     // Workaround fix android plugin bug that default proguard file may not been generated
     delete "${rootProject.rootDir}/.gradle"
+}
+
+ext {
+    GROUP_ID = 'com.cooper'
+    ARTIFACT_ID = 'demo.jetpack'
 }
