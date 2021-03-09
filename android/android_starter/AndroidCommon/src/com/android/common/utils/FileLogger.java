@@ -11,8 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import timber.log.Timber;
-
 public class FileLogger {
     private static final String TAG = "FileLogger";
 
@@ -115,7 +113,7 @@ public class FileLogger {
             if (!logDirFile.mkdirs()) {
                 mLogFileCreateFailedCount++;
                 if (mLogFileCreateFailedCount <= LOG_FILE_CREATE_FAIL_MAX_LOG_COUNT) {
-                    Timber.tag(TAG).w("Cannot create dir: %s", mLogDir);
+                    LogUtil.w(TAG, "Cannot create dir: %s", mLogDir);
                 }
                 return false;
             }

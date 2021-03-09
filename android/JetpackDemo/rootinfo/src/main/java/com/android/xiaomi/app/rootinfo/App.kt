@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.android.common.utils.ApplicationUtils
 import com.android.common.utils.LogUtil
+import com.android.common.utils.ProcessUtil
 import com.android.common.utils.serialExecute
 import com.android.xiaomi.app.rootinfo.keep.KeepMain
 import com.android.xiaomi.app.rootinfo.location.LocationManager
@@ -31,7 +32,7 @@ class App : Application() {
     }
 
     private fun runInMainProcess() {
-        if (ApplicationUtils.isMainProcess(this)) {
+        if (ProcessUtil.isMainProcess(this)) {
             LogUtilTree.main()
 
             RxTool.init(this)

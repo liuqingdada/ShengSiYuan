@@ -2,6 +2,8 @@ package com.android.cooper.app.navigation
 
 import android.app.Application
 import com.android.common.utils.ApplicationUtils
+import com.android.cooper.app.navigation.log.LogTreeConfig
+import com.android.lib.datastore.DataStoreManager
 
 /**
  * Created by cooper
@@ -12,5 +14,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         ApplicationUtils.init(this)
+        LogTreeConfig.main()
+        DataStoreManager.init()
     }
 }

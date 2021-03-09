@@ -42,48 +42,6 @@ public class ApplicationUtils {
         return sHandler;
     }
 
-    public static boolean isMainThread() {
-        return Looper.myLooper() == Looper.getMainLooper();
-    }
-
-    public static boolean isMainProcess(@NonNull Context context) {
-        return isMainProcess(getCurrentProcessName(context));
-    }
-
-    public static boolean isMainProcess(String processName) {
-        return TextUtils.isEmpty(getCurrentProcessNameSuffix(processName));
-    }
-
-    @NonNull
-    public static String getCurrentProcessNameSuffix(@NonNull String processName) {
-        String suffix = "";
-        int index = processName.lastIndexOf(':');
-        if (index > 0 && index + 1 < processName.length()) {
-            suffix = processName.substring(index + 1);
-        }
-        return suffix;
-    }
-
-    @NonNull
-    public static String getCurrentProcessName(@NonNull Context context) {
-        if (!TextUtils.isEmpty(sProcessName)) {
-            return sProcessName;
-        }
-
-        String processName = context.getPackageName();
-        int pid = android.os.Process.myPid();
-        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo processInfo : manager.getRunningAppProcesses()) {
-            if (processInfo.pid == pid) {
-                processName = processInfo.processName;
-                break;
-            }
-        }
-
-        sProcessName = processName;
-        return processName;
-    }
-
     public static String getAppVersionName() {
         Preconditions.checkNotNull(sApp);
         return getAppVersionName(sApp);

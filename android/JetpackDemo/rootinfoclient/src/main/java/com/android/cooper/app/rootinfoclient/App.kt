@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.android.common.utils.ApplicationUtils
+import com.android.common.utils.ProcessUtil
 import com.tamsiree.rxkit.RxTool
 
 /**
@@ -24,7 +25,7 @@ class App : Application() {
     }
 
     private fun runInMainProcess() {
-        if (ApplicationUtils.isMainProcess(this)) {
+        if (ProcessUtil.isMainProcess(this)) {
             RxTool.init(this)
         }
     }

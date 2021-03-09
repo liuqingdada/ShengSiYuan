@@ -4,11 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.android.common.utils.LogUtil
 import com.android.cooper.app.navigation.R
 import com.android.cooper.app.navigation.databinding.FragmentMainBinding
 import com.android.cooper.app.navigation.viewBinding
+import com.android.lib.datastore.DataStoreManager
 
 class HomeFragment : Fragment(R.layout.fragment_main) {
+    companion object {
+        private const val TAG = "HomeFragment"
+        private const val KEY = "home"
+    }
+
     private val binding by viewBinding<FragmentMainBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -17,5 +24,8 @@ class HomeFragment : Fragment(R.layout.fragment_main) {
             findNavController().navigate(R.id.secondaryFragment)
         }
         //btNav.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.secondaryFragment))
+
+        DataStoreManager.get().putInt(TAG, KEY, 100)
+        LogUtil.d(TAG, "${DataStoreManager.get().getInt(TAG, KEY, -1)}")
     }
 }

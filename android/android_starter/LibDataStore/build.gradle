@@ -15,6 +15,9 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    implementation project(':AndroidCommon')
+    implementation 'com.tencent:mmkv-static:1.2.7'
+
     testImplementation deps.test.junit
     testImplementation deps.test.junitKtx
 

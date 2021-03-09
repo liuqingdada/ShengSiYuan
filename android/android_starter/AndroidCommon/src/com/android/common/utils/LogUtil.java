@@ -1,11 +1,7 @@
 package com.android.common.utils;
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.android.common.internalapi.SystemPropertiesIA;
 
@@ -13,14 +9,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Locale;
 
-import timber.log.Timber;
-
-/**
- * LogUtil is designed to work in JVM. So, no Android specific things allowed.
- */
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class LogUtil {
-    private static final String GLOBAL_LOG_TAG = "MobvoiGlobalDebug";
+    private static final String GLOBAL_LOG_TAG = "AndroidGlobalDebug";
 
     private static boolean sJvmLogger = false;
 
@@ -240,7 +230,6 @@ public class LogUtil {
             logToFile(tag, msg, tr);
         }
 
-        @SuppressLint("LogNotTimber")
         private static boolean isLoggable(String tag, int level) {
             boolean isLoggable = false;
             try {
@@ -256,11 +245,7 @@ public class LogUtil {
         }
     }
 
-    public static class TimberTree extends Timber.Tree {
-        @Override
-        protected void log(int priority, @Nullable String tag, @NonNull String message,
-                           @Nullable Throwable t) {
-            LogUtil.log(priority, tag, message, t);
-        }
+    public static class Dir {
+        public static String LOG_DIR;
     }
 }

@@ -7,6 +7,7 @@ import com.android.common.utils.ApplicationUtils;
 import com.android.common.utils.ExecutorsKt;
 import com.android.common.utils.FileLogger;
 import com.android.common.utils.LogUtil;
+import com.android.common.utils.ProcessUtil;
 
 import java.io.File;
 import java.util.Arrays;
@@ -68,9 +69,9 @@ public class LogUtilTree {
 
     public static void main(String... args) {
         Context context = ApplicationUtils.getApplication().getApplicationContext();
-        String processName = ApplicationUtils.getCurrentProcessName(context);
-        String processNameSuffix = ApplicationUtils.getCurrentProcessNameSuffix(processName);
-        boolean isMainpProcess = ApplicationUtils.isMainProcess(context);
+        String processName = ProcessUtil.getCurrentProcessName(context);
+        String processNameSuffix = ProcessUtil.getCurrentProcessNameSuffix(context);
+        boolean isMainpProcess = ProcessUtil.isMainProcess(context);
         if (isMainpProcess) {
             new LogUtilTree(true, processNameSuffix);
         }

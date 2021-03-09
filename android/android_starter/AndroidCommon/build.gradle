@@ -33,7 +33,6 @@ android {
 dependencies {
     api deps.support.annotations // Support Annotations should be used in all projects
     implementation deps.support.compat
-    implementation deps.timber
 
     /* TEST START */
     // Dependencies for local unit tests
