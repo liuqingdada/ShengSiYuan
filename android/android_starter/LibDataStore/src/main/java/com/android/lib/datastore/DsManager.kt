@@ -10,7 +10,7 @@ import com.tencent.mmkv.MMKV
  * 21-3-8.
  * Email: 1239604859@qq.com
  */
-object DataStoreManager {
+object DsManager {
     private var delegate: DataStore? = null
 
     private var delegateFlag = DataStoreDelegate.MMKV

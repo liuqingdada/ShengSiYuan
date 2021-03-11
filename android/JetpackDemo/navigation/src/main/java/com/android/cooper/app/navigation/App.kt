@@ -3,7 +3,7 @@ package com.android.cooper.app.navigation
 import android.app.Application
 import com.android.common.utils.ApplicationUtils
 import com.android.cooper.app.navigation.log.LogTreeConfig
-import com.android.lib.datastore.DataStoreManager
+import com.android.lib.datastore.DsManager
 
 /**
  * Created by cooper
@@ -15,6 +15,6 @@ class App : Application() {
         super.onCreate()
         ApplicationUtils.init(this)
         LogTreeConfig.main()
-        DataStoreManager.init()
+        DsManager.init()
     }
 }

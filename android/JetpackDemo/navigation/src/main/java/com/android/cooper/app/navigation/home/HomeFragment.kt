@@ -8,7 +8,7 @@ import com.android.common.utils.LogUtil
 import com.android.cooper.app.navigation.R
 import com.android.cooper.app.navigation.databinding.FragmentMainBinding
 import com.android.cooper.app.navigation.viewBinding
-import com.android.lib.datastore.DataStoreManager
+import com.android.lib.datastore.DsManager
 
 class HomeFragment : Fragment(R.layout.fragment_main) {
     companion object {
@@ -25,7 +25,7 @@ class HomeFragment : Fragment(R.layout.fragment_main) {
         }
         //btNav.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.secondaryFragment))
 
-        DataStoreManager.get().putInt(TAG, KEY, 100)
-        LogUtil.d(TAG, "${DataStoreManager.get().getInt(TAG, KEY, -1)}")
+        DsManager.get().putInt(TAG, KEY, 100)
+        LogUtil.d(TAG, "${DsManager.get().getInt(TAG, KEY, -1)}")
     }
 }
