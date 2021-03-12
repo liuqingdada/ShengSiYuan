@@ -1,7 +1,6 @@
 package be.ppareit.swiftp.gui;
 
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -10,7 +9,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
-import be.ppareit.swiftp.BuildConfig;
+import com.android.common.utils.ApplicationUtils;
+
 import be.ppareit.swiftp.FsSettings;
 import be.ppareit.swiftp.R;
 
@@ -35,10 +35,10 @@ public class AboutActivity extends AppCompatActivity {
         }
 
         TextView packageNameText = (TextView) findViewById(R.id.about_package_name);
-        packageNameText.setText(BuildConfig.APPLICATION_ID + " (" + BuildConfig.FLAVOR + ")");
+        packageNameText.setText(getPackageName());
 
         TextView versionInfoText = (TextView) findViewById(R.id.about_version_info);
-        versionInfoText.setText(BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")");
+        versionInfoText.setText(ApplicationUtils.getAppVersionName() + " - " + ApplicationUtils.getAppVersionCode());
     }
 
     @Override

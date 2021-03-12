@@ -11,3 +11,6 @@ project(':AndroidCommon').projectDir = file('../android_starter/AndroidCommon')
 
 include ':LibDataStore'
 project(':LibDataStore').projectDir = file('../android_starter/LibDataStore')
+
+include ':webp'
+project(':webp').projectDir = file('./plugin/webp')

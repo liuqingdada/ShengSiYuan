@@ -1,0 +1,66 @@
+plugins {
+    id 'groovy'
+    id 'maven'
+    id 'java'
+    id 'kotlin'
+    id 'kotlin-kapt'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += []
+        }
+        kotlin {
+            srcDirs += ['src/main/kotlin', 'src/main/java']
+        }
+    }
+    test {
+        java {
+            srcDirs += []
+        }
+        kotlin {
+            srcDirs += ['src/main/kotlin', 'src/main/java']
+        }
+    }
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+
+dependencies {
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.reflect
+
+    implementation localGroovy()
+    implementation gradleApi()
+
+    //noinspection AnnotationProcessorOnCompilePath
+    implementation "com.google.auto.service:auto-service:1.0-rc7"
+    kapt "com.google.auto.service:auto-service:1.0-rc7"
+    compileOnly 'com.android.tools.build:gradle:4.1.2'
+    testCompileOnly 'com.android.tools.build:gradle:4.1.2'
+
+    testImplementation deps.test.kotlin
+    testImplementation deps.test.kotlin_junit
+}
+
+// upload to Local
+group "com.android.plugin"
+version "1.0.0"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+        }
+    }
+}

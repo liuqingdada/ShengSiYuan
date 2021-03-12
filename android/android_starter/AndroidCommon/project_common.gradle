@@ -126,7 +126,9 @@ ext {
             // Android official support
             'kotlin': [
                     'stdlib'           : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+                    'reflect'          : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
                     'stdlib_jdk8'      : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
+                    'reflect_jdk8'     : "org.jetbrains.kotlin:kotlin-reflect-jdk8:${versions.kotlin}",
             ],
             'support': [
                     // core
@@ -251,6 +253,8 @@ ext {
                     'mockk'            : "io.mockk:mockk:${versions.mockk}",
                     'mockkAndroid'     : "io.mockk:mockk-android:${versions.mockk}",
                     'robolectric'      : "org.robolectric:robolectric:${versions.robolectric}",
+                    'kotlin'           : "org.jetbrains.kotlin:kotlin-test:${versions.kotlin}",
+                    'kotlin_junit'     : "org.jetbrains.kotlin:kotlin-test-junit:${versions.kotlin}",
             ],
 
             // google

@@ -33,6 +33,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.common.utils.ApplicationUtils;
+
 import net.vrallev.android.cat.Cat;
 
 import java.util.Arrays;
@@ -134,8 +136,9 @@ public class MainActivity extends AppCompatActivity {
             String subject = "FTP Server feedback";
             String message = "Device: " + Build.MODEL + "\n" +
                     "Android version: " + VERSION.RELEASE + "-" + VERSION.SDK_INT + "\n" +
-                    "Application: " + BuildConfig.APPLICATION_ID + " (" + BuildConfig.FLAVOR + ")\n" +
-                    "Application version: " + BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + "\n" +
+                    "Application: " + getPackageName() + "\n" +
+                    "Application version: " + ApplicationUtils.getAppVersionName() + " - " +
+                    ApplicationUtils.getAppVersionCode() + "\n" +
                     "Feedback: \n_";
 
             Intent emailIntent = new Intent(Intent.ACTION_SEND);

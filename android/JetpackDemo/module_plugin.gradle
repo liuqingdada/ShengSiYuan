@@ -3,3 +3,9 @@ apply from: "${androidModuleCommon}"
 android {
 }
 
+apply plugin: 'com.android.plugin.webp'
+convert2WebpConfig {
+    enableWhenDebug true
+    maxSize 10 * 1024 * 1024 // 10M
+    //whiteList ["xxx.png","xxx.png"]
+}
