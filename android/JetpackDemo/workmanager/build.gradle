@@ -38,6 +38,7 @@ dependencies {
     implementation deps.work.runtimeKtx
 
     implementation project(path: ':AndroidCommon')
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
     /* TEST START */
     // Dependencies for local unit tests
