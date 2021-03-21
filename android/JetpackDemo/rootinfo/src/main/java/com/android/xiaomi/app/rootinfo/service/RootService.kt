@@ -89,14 +89,14 @@ class RootService {
 
     @Suppress("DEPRECATION")
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
-        override fun onLost(network: Network?) {
+        override fun onLost(network: Network) {
             if (!NetTool.isWifiConnected(context)) {
                 Log.i(TAG, "WIFI 断开 ")
                 FsService.stop()
             }
         }
 
-        override fun onAvailable(network: Network?) {
+        override fun onAvailable(network: Network) {
             val networkInfo = connectivityManager.getNetworkInfo(network)
             val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
             if (networkCapabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {

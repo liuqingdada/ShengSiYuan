@@ -70,7 +70,7 @@ public class LogUtilTree {
     public static void main(String... args) {
         Context context = ApplicationUtils.getApplication().getApplicationContext();
         String processName = ProcessUtil.getCurrentProcessName(context);
-        String processNameSuffix = ProcessUtil.getCurrentProcessNameSuffix(context);
+        String processNameSuffix = ProcessUtil.getCurrentProcessNameSuffix(processName);
         boolean isMainpProcess = ProcessUtil.isMainProcess(context);
         if (isMainpProcess) {
             new LogUtilTree(true, processNameSuffix);
