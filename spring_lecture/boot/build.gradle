@@ -98,5 +98,9 @@ dependencies {
             "org.jetbrains.kotlin:kotlin-reflect",
             "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     )
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+    implementation(
+            'mysql:mysql-connector-java:8.0.23',
+            'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4',
+            'com.github.pagehelper:pagehelper:5.2.0'
+    )
 }

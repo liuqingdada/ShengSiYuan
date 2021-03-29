@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * Email: 1239604859@qq.com
  */
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Component
 public class KafkaProducer {
 

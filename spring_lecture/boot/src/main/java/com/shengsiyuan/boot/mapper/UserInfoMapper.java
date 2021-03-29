@@ -1,7 +1,10 @@
 package com.shengsiyuan.boot.mapper;
 
 import com.shengsiyuan.boot.domain.UserInfo;
-import org.apache.ibatis.annotations.Mapper;import org.apache.ibatis.annotations.Param;import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created by cooper
@@ -26,4 +29,8 @@ public interface UserInfoMapper {
     List<UserInfo> findByAge(@Param("age") String age);
 
     int insertList(@Param("list") List<UserInfo> list);
+
+    List<UserInfo> findByIdGreaterThanOrderById(@Param("minId") Integer minId);
+
+
 }

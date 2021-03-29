@@ -10,14 +10,18 @@ spring:
       charset: utf-8
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 192.168.31.134:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 192.168.31.134:9092
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-
+  datasource:
+    url: jdbc:mysql://192.168.31.134:3306/lw_test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: cooper
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 server:
   port: 8899
@@ -34,3 +38,6 @@ suhenConfig:
 #    root: debug
 #  file:
 #    path: logs/suhenAppLog
+mybatis:
+  type-aliases-package: com.shengsiyuan.boot
+  mapper-locations: classpath:mapperxml/*.xml

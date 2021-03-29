@@ -50,4 +50,14 @@ public class UserInfo implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }
