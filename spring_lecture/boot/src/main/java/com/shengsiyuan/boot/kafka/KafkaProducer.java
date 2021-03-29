@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaProducer {
 
-    private Gson mGson = new Gson();
+    private final Gson mGson = new Gson();
 
     @Autowired
     private KafkaTemplate<String, String> mKafkaTemplate;

@@ -1,5 +1,6 @@
 package com.shengsiyuan.boot.init;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
@@ -16,10 +17,10 @@ import javax.servlet.annotation.HandlesTypes;
 
 @HandlesTypes(WebApplicationInitializer.class)
 public class NettyInitializer implements WebApplicationInitializer {
-    private static Logger logger = LoggerFactory.getLogger(NettyInitializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(NettyInitializer.class);
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(@NotNull ServletContext servletContext) throws ServletException {
         logger.debug("netty initializer startup.");
     }
 }

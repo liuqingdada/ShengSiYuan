@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaConsumer {
-    private static Logger logger = LoggerFactory.getLogger(KafkaConsumer.class);
+    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumer.class);
 
     @KafkaListener(topics = {Kafka.KafkaTopic.SUHEN_TOPIC}, groupId = Kafka.KafkaGroup.SUHEN)
     public void obtainMessage(ConsumerRecord<String, String> consumerRecord) {

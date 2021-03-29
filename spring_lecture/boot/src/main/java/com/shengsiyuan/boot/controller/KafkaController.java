@@ -24,7 +24,7 @@ import java.util.Date;
 @RestController
 @RequestMapping(value = "/kafka", produces = MediaType.APPLICATION_JSON_VALUE)
 public class KafkaController {
-    private static Logger logger = LoggerFactory.getLogger(KafkaController.class);
+    private static final Logger logger = LoggerFactory.getLogger(KafkaController.class);
 
     @Autowired
     private KafkaProducer mKafkaProducer;

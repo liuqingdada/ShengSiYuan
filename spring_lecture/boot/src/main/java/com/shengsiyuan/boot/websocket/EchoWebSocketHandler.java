@@ -1,5 +1,6 @@
 package com.shengsiyuan.boot.websocket;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
  */
 
 public class EchoWebSocketHandler extends TextWebSocketHandler {
-    private static Logger logger = LoggerFactory.getLogger(EchoWebSocketHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(EchoWebSocketHandler.class);
 
     private EchoService echoService;
 
@@ -23,7 +24,7 @@ public class EchoWebSocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(@NotNull WebSocketSession session) throws Exception {
         logger.debug("连接建立");
     }
 
@@ -35,12 +36,12 @@ public class EchoWebSocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(@NotNull WebSocketSession session, @NotNull CloseStatus status) throws Exception {
         logger.debug("连接关闭");
     }
 
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+    public void handleTransportError(WebSocketSession session, @NotNull Throwable exception) throws Exception {
         session.close(CloseStatus.SERVER_ERROR);
     }
 }
