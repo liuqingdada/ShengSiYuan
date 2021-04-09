@@ -87,7 +87,6 @@ class RootService {
         connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
-    @Suppress("DEPRECATION")
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onLost(network: Network) {
             if (!NetTool.isWifiConnected(context)) {
