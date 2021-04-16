@@ -34,5 +34,5 @@ object DsManager {
         }
     }
 
-    fun get(): DataStore = delegate!!
+    fun delegate(): DataStore = delegate!!
 }

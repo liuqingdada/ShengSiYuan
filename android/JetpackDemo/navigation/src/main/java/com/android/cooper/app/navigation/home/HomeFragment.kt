@@ -25,7 +25,7 @@ class HomeFragment : Fragment(R.layout.fragment_main) {
         }
         //btNav.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.secondaryFragment))
 
-        DsManager.get().putInt(TAG, KEY, 100)
-        LogUtil.d(TAG, "${DsManager.get().getInt(TAG, KEY, -1)}")
+        DsManager.delegate().putInt(TAG, KEY, 100)
+        LogUtil.d(TAG, "${DsManager.delegate().getInt(TAG, KEY, -1)}")
     }
 }

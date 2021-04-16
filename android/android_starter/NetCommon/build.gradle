@@ -13,9 +13,25 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-
     implementation project(':AndroidCommon')
-    implementation 'com.tencent:mmkv-static:1.2.7'
+    // kotlin and androidx
+    implementation(
+            deps.kotlin.stdlib,
+            deps.kotlin.coroutines,
+    )
+    // rxjava gson okhttp retrofit
+    implementation(
+            deps.rx2.rxjava,
+            deps.rx2.rxkotlin,
+            deps.rx2.rxandroid,
+            deps.gson,
+            deps.okhttp,
+            deps.okhttpLogging,
+            deps.retrofit,
+            deps.retrofitGson,
+            deps.retrofitRxjava,
+            //deps.retrofitProtobuf,
+    )
 
     testImplementation deps.test.junit
     testImplementation deps.test.junitKtx

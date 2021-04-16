@@ -1,6 +1,7 @@
 package com.android.common.utils
 
 import android.os.Handler
+import android.os.HandlerThread
 import android.os.Looper
 import java.util.*
 import java.util.concurrent.*
@@ -41,6 +42,8 @@ class SerialExecutor : Executor {
         private const val BACKUP_POOL_SIZE = 5
         private const val KEEP_ALIVE_SECONDS: Long = 3
 
+        val workThread = HandlerThread("SerialExecutor-Work")
+
         // Used only for rejected executions.
         // Initialization protected by sRunOnSerialPolicy lock.
         private var backupExecutor: ThreadPoolExecutor? = null
@@ -55,6 +58,10 @@ class SerialExecutor : Executor {
             SerialPolicy()
         )
             private set
+
+        init {
+            workThread.start()
+        }
     }
 
     class SerialPolicy : RejectedExecutionHandler {
@@ -84,24 +91,18 @@ private val THREAD_POOL_EXECUTOR = SerialExecutor.threadPoolExecutor
 
 private val MAIN_HANDLER = Handler(Looper.getMainLooper())
 
-fun serialExecute(block: () -> Unit) {
-    SERIAL_EXECUTOR.execute(block)
-}
+private val WORK_HANDLER = Handler(SerialExecutor.workThread.looper)
 
 fun serialExecute(r: Runnable) {
     SERIAL_EXECUTOR.execute(r)
-}
-
-fun mainThread(delayMillis: Long = 0, block: () -> Unit) {
-    MAIN_HANDLER.postDelayed(block, delayMillis)
 }
 
 fun mainThread(delayMillis: Long = 0, r: Runnable) {
     MAIN_HANDLER.postDelayed(r, delayMillis)
 }
 
-fun execute(block: () -> Unit) {
-    THREAD_POOL_EXECUTOR.execute(block)
+fun workThread(delayMillis: Long = 0, r: Runnable) {
+    WORK_HANDLER.postDelayed(r, delayMillis)
 }
 
 fun execute(r: Runnable) {

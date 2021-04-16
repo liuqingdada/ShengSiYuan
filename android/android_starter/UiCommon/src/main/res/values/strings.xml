@@ -1,0 +1,32 @@
+<resources>
+    <string name="notification_channel_group_general">常规通知</string>
+    <string name="notification_channel_group_message">消息提醒</string>
+    <string name="notification_channel_group_device">设备</string>
+    <string name="notification_channel_group_other">其他</string>
+
+    <!--group_general-->
+    <string name="notification_channel_push">运营活动消息</string>
+    <string name="notification_channel_account">账号提醒</string>
+    <string name="notification_channel_media">播放控制</string>
+    <string name="notification_channel_location">定位、导航通知</string>
+    <string name="notification_channel_agenda">日程提醒</string>
+
+    <!--group_message-->
+    <string name="notification_channel_sms">短信</string>
+    <string name="notification_channel_call">电话</string>
+    <string name="notification_channel_qq">QQ</string>
+    <string name="notification_channel_wechat">微信</string>
+    <string name="notification_channel_forum">论坛消息</string>
+
+    <!--group_device-->
+    <string name="notification_channel_bluetooth">蓝牙配对</string>
+    <string name="notification_channel_sync">数据同步</string>
+
+    <!--group_other-->
+    <string name="notification_channel_other">其他通知</string>
+
+    <string name="notification_channel_location_desc">关闭后将无法接受导航信息推送，请谨慎操作</string>
+    <string name="notification_channel_push_desc">提醒消息及运营活动推送</string>
+    <string name="notification_channel_agenda_desc">日程、闹钟、备忘提醒消息</string>
+    <string name="notification_channel_forum_desc">关注、粉丝、好友消息推送</string>
+</resources>

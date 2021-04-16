@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+apply from: "${rootDir}/module_plugin.gradle"
+
+android {
+    defaultConfig {
+        minSdkVersion 17
+        consumerProguardFiles 'consumer-proguard-rules.pro'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':AndroidCommon')
+    // kotlin and androidx
+    implementation(
+            deps.kotlin.stdlib,
+            deps.kotlin.coroutines,
+            deps.support.core,
+            deps.support.appcompat,
+            deps.support.constraintLayout,
+            deps.support.design,
+            deps.support.recyclerview,
+            deps.lifecycle.runtime_ktx,
+    )
+    // miuix
+    implementation(
+            miuix.folme,
+            miuix.appcompat,
+            miuix.springback,
+            miuix.nestHeader,
+    )
+    implementation deps.mvrx
+    implementation deps.mvrxjava
+    implementation deps.epoxy
+    api 'me.xuexuan:fragmentationx:1.0.6'
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.junitKtx
+
+    androidTestImplementation deps.test.junit
+    androidTestImplementation deps.test.junitKtx
+    androidTestImplementation deps.test.espressoCore
+}

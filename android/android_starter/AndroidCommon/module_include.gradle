@@ -1,0 +1,42 @@
+
+/**
+ * <p>Create "include.properties" file in project root directory, the content as follow:</p>
+ * <p># module 是 Module 的名称，如果想配置多个Module为Application类型，用','隔开</p>
+ * <p>applications=module</p>
+ */
+static findProperty(String propertiesFile, String propertyName) {
+    if (propertiesFile != null) {
+        Properties properties = new Properties()
+        InputStream inputStream = new File(propertiesFile).newDataInputStream()
+        properties.load(inputStream)
+        def propertyValue = properties.getProperty(propertyName)
+        return propertyValue == null ? "" : propertyValue
+    }
+    return ""
+}
+
+static getApps(Project project) {
+    return findProperty(
+            project.getProjectDir().absolutePath + '/include.properties', 'applications'
+    ).split(",")
+}
+
+static isApp(Project project, String modulelName) {
+    def array = getApps(project)
+    for (int i = 0; i < array.length; i++) {
+        if (array[i].trim() == modulelName) {
+            return true
+        }
+    }
+    return false
+}
+
+static runHost(Project project) {
+    def array = getApps(project)
+    return array == null || array.length == 0
+}
+
+ext {
+    isApp = this.&isApp
+    runHost = this.&runHost
+}
