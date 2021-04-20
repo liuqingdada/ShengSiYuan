@@ -123,6 +123,8 @@ ext {
             'amap3dmap'        : "6.4.1",
             'amaplocation'     : "4.2.0",
             'utilcodex'        : "1.30.6",
+            'arouter'          : "1.5.1",
+            'arouter_register' : "1.0.2",
     ]
 
     deps = [
@@ -359,6 +361,11 @@ ext {
             'amaplocation'             : "com.amap.api:location:${versions.amaplocation}",
             'xxpermissions'            : "com.hjq:xxpermissions:10.5",
             'utilcodex'                : "com.blankj:utilcodex:${versions.utilcodex}",
+            'arouter': [
+                    'api'              : "com.alibaba:arouter-api:${versions.arouter}",
+                    'compiler'         : "com.alibaba:arouter-compiler:${versions.arouter}",
+                    'register'         : "com.alibaba:arouter-register:${versions.arouter_register}",
+            ],
     ]
 
     // legacy

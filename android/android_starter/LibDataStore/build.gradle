@@ -6,7 +6,6 @@ apply from: "${rootDir}/module_plugin.gradle"
 
 android {
     defaultConfig {
-        minSdkVersion 17
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
 }

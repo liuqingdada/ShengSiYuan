@@ -1,13 +1,16 @@
-
 /**
- * <p>Create "include.properties" file in project root directory, the content as follow:</p>
- * <p># module 是 Module 的名称，如果想配置多个Module为Application类型，用','隔开</p>
- * <p>applications=module</p>
+ * <p>Add the following content to local.properties file:</p>
+ * <p># app 是 Module 的名称，如果想配置多个Module为Application类型，用','隔开</p>
+ * <p>applications=app</p>
  */
 static findProperty(String propertiesFile, String propertyName) {
     if (propertiesFile != null) {
         Properties properties = new Properties()
-        InputStream inputStream = new File(propertiesFile).newDataInputStream()
+        def file = new File(propertiesFile)
+        if (!file.exists()) {
+            return ""
+        }
+        InputStream inputStream = file.newDataInputStream()
         properties.load(inputStream)
         def propertyValue = properties.getProperty(propertyName)
         return propertyValue == null ? "" : propertyValue
@@ -17,26 +20,24 @@ static findProperty(String propertiesFile, String propertyName) {
 
 static getApps(Project project) {
     return findProperty(
-            project.getProjectDir().absolutePath + '/include.properties', 'applications'
+            project.getProjectDir().absolutePath + '/local.properties', 'applications'
     ).split(",")
 }
 
 static isApp(Project project, String modulelName) {
     def array = getApps(project)
     for (int i = 0; i < array.length; i++) {
-        if (array[i].trim() == modulelName) {
+        def p = array[i].trim()
+        if (p == null || p.isBlank()) {
+            continue
+        }
+        if (p == modulelName) {
             return true
         }
     }
     return false
 }
 
-static runHost(Project project) {
-    def array = getApps(project)
-    return array == null || array.length == 0
-}
-
 ext {
     isApp = this.&isApp
-    runHost = this.&runHost
 }

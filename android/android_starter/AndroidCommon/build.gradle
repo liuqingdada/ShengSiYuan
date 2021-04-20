@@ -8,7 +8,6 @@ android {
     compileSdkVersion versions.compileSdk
 
     defaultConfig {
-        minSdkVersion 17
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
 

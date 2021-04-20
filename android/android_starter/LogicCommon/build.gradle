@@ -8,6 +8,14 @@ android {
     defaultConfig {
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
+    buildTypes {
+        release {
+            buildConfigField "boolean", "IS_DEBUG", "false"
+        }
+        debug {
+            buildConfigField "boolean", "IS_DEBUG", "true"
+        }
+    }
     buildFeatures {
         viewBinding true
     }
@@ -20,24 +28,18 @@ dependencies {
     implementation(
             deps.kotlin.stdlib,
             deps.kotlin.coroutines,
-            deps.support.core,
+            deps.startup.runtime,
             deps.support.appcompat,
-            deps.support.constraintLayout,
-            deps.support.design,
-            deps.support.recyclerview,
-            deps.lifecycle.runtime_ktx,
+            deps.support.multidex,
     )
-    // miuix
-    implementation(
-            miuix.folme,
-            miuix.appcompat,
-            miuix.springback,
-            miuix.nestHeader,
-    )
+    implementation project(':LibDataStore')
+    implementation project(':NetCommon')
+    implementation project(':UiCommon')
     implementation deps.mvrx
-    implementation deps.mvrxjava
-    implementation deps.epoxy
-    api 'me.xuexuan:fragmentationx:1.0.6'
+    implementation deps.arouter.api
+
+    implementation 'me.weishu:free_reflection:3.0.1'
+    implementation deps.xxpermissions
 
     testImplementation deps.test.junit
     testImplementation deps.test.junitKtx
