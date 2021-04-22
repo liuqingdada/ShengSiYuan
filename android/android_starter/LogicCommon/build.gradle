@@ -29,8 +29,12 @@ dependencies {
             deps.kotlin.stdlib,
             deps.kotlin.coroutines,
             deps.startup.runtime,
+            deps.tracingKtx,
             deps.support.appcompat,
             deps.support.multidex,
+    )
+    debugImplementation(
+            deps.leakcanary,
     )
     implementation project(':LibDataStore')
     implementation project(':NetCommon')

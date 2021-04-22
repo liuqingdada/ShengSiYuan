@@ -56,6 +56,7 @@ ext {
             'paging'           : "2.1.1",
             'work'             : "2.3.4",
             'startup'          : "1.0.0",
+            'tracing'          : "1.0.0",
 
             // test
             'junit'            : "4.13.2",
@@ -81,7 +82,7 @@ ext {
             'guava'            : "30.1-android",
 
             // debug
-            'leakcanary'       : "1.6.3",
+            'leakcanary'       : "2.7",
             'blockCanary'      : "1.5.0",
             'ktlint'           : "0.29.0",
 
@@ -230,6 +231,8 @@ ext {
             'startup': [
                     'runtime'          : "androidx.startup:startup-runtime:${versions.startup}",
             ],
+            'tracing'                  : "androidx.tracing:tracing:${versions.tracing}",
+            'tracingKtx'               : "androidx.tracing:tracing-ktx:${versions.tracing}",
 
             // test
             'test': [
@@ -291,8 +294,7 @@ ext {
             'guava'                    : "com.google.guava:guava:${versions.guava}",
 
             // debug
-            "leakcanaryDebug"          : "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}",
-            "leakcanaryRelease"        : "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanary}",
+            "leakcanary"               : "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}",
             "blockcanaryDebug"         : "com.github.markzhai:blockcanary-android:${versions.blockCanary}",
             "blockcanaryRelease"       : "com.github.markzhai:blockcanary-no-op:${versions.blockCanary}",
             'stetho'                   : "com.facebook.stetho:stetho:1.5.0",

@@ -20,6 +20,6 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
         // fix More than one file was found with OS independent
         // path 'META-INF/library_release.kotlin_module'
-        freeCompilerArgs += ['-module-name', "$GROUP_ID.$ARTIFACT_ID"]
+        freeCompilerArgs += ['-module-name', "$GROUP_ID.$ARTIFACT_ID.$name"]
     }
 }
