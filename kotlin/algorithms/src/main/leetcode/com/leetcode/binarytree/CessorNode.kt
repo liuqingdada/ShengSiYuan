@@ -27,44 +27,57 @@ class CessorNode {
         return pre?.parent
     }
 
-    fun preForEach(node: TreeNode): List<Int> {
-        val ret = ArrayList<Int>()
+    fun preorder(root: TreeNode) {
         val stack = Stack<TreeNode>()
-
-        var curr: TreeNode? = node
-        while (curr != null || stack.isNotEmpty()) {
-            while (curr != null) {
-                ret.add(curr.element)
-
-                stack.push(curr)
-                curr = curr.left
-            }
-
-            if (stack.isNotEmpty()) {
-                val pop = stack.pop()
-                curr = pop?.right
-            }
+        stack.push(root)
+        while (stack.isNotEmpty()) {
+            val curr = stack.pop()
+            println(curr)
+            curr?.right?.let { stack.push(it) }
+            curr?.left?.let { stack.push(it) }
         }
-
-        return ret
     }
 
-    fun midForEach(node: TreeNode): List<Int> {
-        val ret = ArrayList<Int>()
+    fun inorder(root: TreeNode) {
         val stack = Stack<TreeNode>()
-
-        var curr: TreeNode? = node
+        var curr: TreeNode? = root
         while (curr != null || stack.isNotEmpty()) {
-            while (curr != null) {
+            curr = if (curr != null) {
                 stack.push(curr)
-                curr = curr.left
-            }
-            if (stack.isNotEmpty()) {
-                val pop = stack.pop()
-                ret.add(pop.element)
-                curr = pop?.right
+                curr.left
+            } else {
+                val tmp = stack.pop()
+                println(tmp)
+                tmp.right
             }
         }
-        return ret
+    }
+
+    fun postorder(root: TreeNode) {
+        val stack = Stack<TreeNode>()
+        val ret = Stack<TreeNode>()
+        var curr: TreeNode? = root
+
+        stack.push(curr)
+        while (stack.isNotEmpty()) {
+            curr = stack.pop()
+            ret.push(curr)
+
+            curr?.left?.let { stack.push(it) }
+            curr?.right?.let { stack.push(it) }
+        }
+        while (ret.isNotEmpty()) {
+            println(ret.pop())
+        }
+    }
+
+    fun levelOrder(root: TreeNode) {
+        val queue = LinkedList<TreeNode>()
+        queue.offer(root)
+        while (queue.isNotEmpty()) {
+            val head = queue.poll()
+            head?.left?.let { queue.offer(it) }
+            head?.right?.let { queue.offer(it) }
+        }
     }
 }
