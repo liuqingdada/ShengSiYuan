@@ -47,11 +47,34 @@ class AVL {
         }
     }
 
-    private fun rotateLeft(node: AvlNode) {
+    private fun rotateLeft(g: AvlNode) {
+        val root = g.parent
+        val p = g.right
+        val pc = p?.left
 
+        g.right = pc
+        p?.left = g
+        p?.parent = root
+        when {
+            g.isLeftChild() -> {
+                root?.left = p
+            }
+            g.isRightChild() -> {
+                root?.right = p
+            }
+            else -> {
+                p?.parent = null
+            }
+        }
+
+        pc?.parent = g
+        g.parent = p
+
+        g.updateHeight()
+        p?.updateHeight()
     }
 
-    private fun rotateRight(node: AvlNode) {
+    private fun rotateRight(g: AvlNode) {
 
     }
 }
