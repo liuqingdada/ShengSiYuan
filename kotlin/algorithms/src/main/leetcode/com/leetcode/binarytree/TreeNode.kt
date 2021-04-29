@@ -8,6 +8,15 @@ package com.leetcode.binarytree
 
 class TreeNode(e: Int) : TN<TreeNode>(e)
 
+class RBNode(e: Int) : TN<RBNode>(e) {
+    companion object {
+        const val RED = false
+        const val BLACK = true
+    }
+
+    var color: Boolean = RED
+}
+
 class AvlNode(e: Int) : TN<AvlNode>(e) {
     var height = 1
 
@@ -44,4 +53,9 @@ open class TN<T : TN<T>>(var element: Int) {
     fun isLeaf() = left == null && right == null
     fun isLeftChild() = parent != null && this == parent!!.left
     fun isRightChild() = parent != null && this == parent!!.right
+    fun sibling(): T? {
+        if (isLeftChild()) return parent?.right
+        if (isRightChild()) return parent?.left
+        return null
+    }
 }

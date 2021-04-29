@@ -55,6 +55,8 @@ class AVL {
         g.right = pc
         p?.left = g
         p?.parent = root
+        pc?.parent = g
+        g.parent = p
         when {
             g.isLeftChild() -> {
                 root?.left = p
@@ -67,14 +69,33 @@ class AVL {
             }
         }
 
-        pc?.parent = g
-        g.parent = p
-
         g.updateHeight()
         p?.updateHeight()
     }
 
     private fun rotateRight(g: AvlNode) {
+        val root = g.parent
+        val p = g.left
+        val pc = p?.right
 
+        g.left = pc
+        p?.right = g
+        p?.parent = root
+        pc?.parent = g
+        g.parent = p
+        when {
+            g.isLeftChild() -> {
+                root?.left = g
+            }
+            g.isRightChild() -> {
+                root?.right = g
+            }
+            else -> {
+                p?.parent = null
+            }
+        }
+
+        g.updateHeight()
+        p?.updateHeight()
     }
 }
