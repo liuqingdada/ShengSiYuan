@@ -8,7 +8,7 @@ package com.leetcode.linkedlist
 // https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
 
 class DuplicateLinked {
-    fun deleteDuplicates(head: ListNode): ListNode? {
+    fun deleteDuplicates(head: ListNode): ListNode {
         var cur: ListNode? = head
 
         while (cur != null) {

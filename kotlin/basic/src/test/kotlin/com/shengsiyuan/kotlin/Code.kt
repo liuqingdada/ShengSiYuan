@@ -116,4 +116,12 @@ class Code {
         val noNullList1: List<String> = nullList.requireNoNulls()
         val noNullList2: List<String> = nullList.filterNotNull()
     }
+
+    @Test
+    fun number() {
+        println(Int.MAX_VALUE)
+        println(Int.MIN_VALUE)
+        val i: Int = Int.MAX_VALUE + 1
+        println(i)
+    }
 }
