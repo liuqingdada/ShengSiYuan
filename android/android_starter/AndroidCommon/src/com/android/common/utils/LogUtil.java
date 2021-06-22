@@ -109,6 +109,10 @@ public class LogUtil {
         log(Log.INFO, tag, msg, null);
     }
 
+    public static void i(String tag, String msg, Throwable tr) {
+        log(Log.INFO, tag, msg, tr);
+    }
+
     /**
      * Record logs using String#format()
      */

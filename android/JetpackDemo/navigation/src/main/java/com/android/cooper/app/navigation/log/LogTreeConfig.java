@@ -40,7 +40,7 @@ public class LogTreeConfig {
 
     private static String initLogDir() {
         File logDir;
-        if (XXPermissions.isGrantedPermission(getContext(), Permission.Group.STORAGE)) {
+        if (XXPermissions.isGranted(getContext(), Permission.MANAGE_EXTERNAL_STORAGE)) {
             logDir = new File(Environment.getExternalStorageDirectory(), LOG_BASE_DIR);
         } else {
             logDir = new File(ApplicationUtils.getApplication().getFilesDir(), "logs");

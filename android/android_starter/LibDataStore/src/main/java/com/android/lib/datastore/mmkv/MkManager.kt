@@ -121,6 +121,11 @@ internal object MkManager {
         return defValue
     }
 
+    fun allKeys(fileName: String, defValue: Array<String>, mode: Int): Array<String> {
+        open(fileName, mode)?.allKeys()?.let { return it }
+        return defValue
+    }
+
     fun <T : Parcelable> getParcelable(fileName: String, key: String, defValue: T, mode: Int): T {
         open(fileName, mode)?.decodeParcelable(key, defValue.javaClass, defValue)?.let { return it }
         return defValue

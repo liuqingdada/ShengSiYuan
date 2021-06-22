@@ -22,6 +22,18 @@ internal class MkDelegate : DataStore {
         return MkManager.edit(fileName, mode)
     }
 
+    override fun registerOnSharedPreferenceChangeListener(
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
+    }
+
+    override fun unregisterOnSharedPreferenceChangeListener(
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
+    }
+
     override fun getString(fileName: String, key: String, defValue: String?, mode: Int): String? {
         return MkManager.getString(fileName, key, defValue, mode)
     }
@@ -69,6 +81,14 @@ internal class MkDelegate : DataStore {
         return MkManager.getParcelable(fileName, key, defValue, mode)
     }
 
+    override fun getAll(prefsName: String): Map<String, *> {
+        return hashMapOf<String, String>()
+    }
+
+    override fun allKeys(fileName: String, defValue: Array<String>, mode: Int): Array<String> {
+        return MkManager.allKeys(fileName, defValue, mode)
+    }
+
     override fun putString(fileName: String, key: String, value: String, mode: Int) {
         MkManager.putString(fileName, key, value, mode)
     }
@@ -94,7 +114,7 @@ internal class MkDelegate : DataStore {
     }
 
     override fun putStringSet(fileName: String, key: String, value: Set<String>, mode: Int) {
-        TODO("Not yet implemented")
+        MkManager.putStringSet(fileName, key, value, mode)
     }
 
     override fun <T : Parcelable> putParcelable(

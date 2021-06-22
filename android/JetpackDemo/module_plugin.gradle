@@ -1,6 +1,12 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
 apply from: "${androidModuleCommon}"
 
 android {
+    defaultConfig {
+        minSdkVersion 21
+    }
 }
 
 apply plugin: 'com.android.plugin.webp'

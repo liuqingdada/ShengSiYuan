@@ -1,20 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply from: "${rootDir}/module_plugin.gradle"
 
 android {
     defaultConfig {
         applicationId "com.android.xiaomi.app.rootinfo"
-        minSdkVersion 24
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     signingConfigs {
         androidTestKey {
             storeFile file("debug.keystore")
@@ -22,7 +16,6 @@ android {
             keyAlias "android.testkey"
             keyPassword "android"
         }
-
         releaseKey {
             Properties properties = new Properties()
             properties.load(project.file('key.properties').newDataInputStream())
@@ -32,21 +25,15 @@ android {
             keyPassword properties.getProperty('key.alias.password')
         }
     }
-
     buildTypes {
         debug {
             signingConfig signingConfigs.releaseKey
         }
-
         release {
             signingConfig signingConfigs.releaseKey
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    lintOptions {
-        abortOnError false
     }
 }
 
@@ -93,8 +80,8 @@ dependencies {
     androidTestImplementation deps.test.powermockMockito
     androidTestImplementation deps.test.powermockJunit
     androidTestImplementation deps.test.espressoCore
-    androidTestImplementation deps.test.supportRunner
-    androidTestImplementation deps.test.supportRules
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
 
     // Other Testing unit
     androidTestImplementation deps.work.test

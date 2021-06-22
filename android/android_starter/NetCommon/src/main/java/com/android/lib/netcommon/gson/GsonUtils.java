@@ -2,6 +2,8 @@ package com.android.lib.netcommon.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
@@ -41,6 +43,19 @@ public class GsonUtils {
 
     public static <T> T fromMap(Map<String, Object> map, Class<T> type) {
         return getGson().fromJson(getGson().toJson(map), type);
+    }
+
+    public static boolean validate(String jsonStr) {
+        JsonElement jsonElement;
+        try {
+            jsonElement = JsonParser.parseString(jsonStr);
+        } catch (Exception e) {
+            return false;
+        }
+        if (jsonElement == null) {
+            return false;
+        }
+        return jsonElement.isJsonObject();
     }
 
     private GsonUtils() {

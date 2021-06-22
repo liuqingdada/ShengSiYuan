@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
 }
 apply from: "${rootDir}/module_plugin.gradle"
 
@@ -27,16 +26,20 @@ dependencies {
             deps.support.recyclerview,
             deps.lifecycle.runtime_ktx,
     )
-    // miuix
     implementation(
-            miuix.folme,
-            miuix.appcompat,
-            miuix.springback,
-            miuix.nestHeader,
+            deps.mvrx,
+            deps.mvrxjava,
+            deps.epoxy,
     )
-    implementation deps.mvrx
-    implementation deps.mvrxjava
-    implementation deps.epoxy
+    implementation(
+            deps.agentweb.core,
+            deps.agentweb.sonic,
+            deps.gson,
+    )
+    api(
+            deps.immersionbar.common,
+            deps.immersionbar.ktx,
+    )
     api 'me.xuexuan:fragmentationx:1.0.6'
 
     testImplementation deps.test.junit

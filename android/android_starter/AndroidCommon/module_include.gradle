@@ -32,7 +32,7 @@ static isApp(Project project, String modulelName) {
         if (p == null || p.isBlank()) {
             continue
         }
-        if (p == modulelName) {
+        if (p.equalsIgnoreCase(modulelName)) {
             return true
         }
     }

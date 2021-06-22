@@ -17,6 +17,16 @@ interface DataStore {
 
     fun edit(fileName: String, mode: Int = SINGLE_PROCESS_MODE): SharedPreferences.Editor?
 
+    fun registerOnSharedPreferenceChangeListener(
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    )
+
+    fun unregisterOnSharedPreferenceChangeListener(
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    )
+
     fun getString(
         fileName: String,
         key: String,
@@ -67,6 +77,14 @@ interface DataStore {
         defValue: T,
         mode: Int = SINGLE_PROCESS_MODE
     ): T
+
+    fun getAll(prefsName: String): Map<String, *>
+
+    fun allKeys(
+        fileName: String,
+        defValue: Array<String>,
+        mode: Int = SINGLE_PROCESS_MODE
+    ): Array<String>
 
     fun putString(fileName: String, key: String, value: String, mode: Int = SINGLE_PROCESS_MODE)
 

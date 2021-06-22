@@ -1,6 +1,7 @@
 package com.android.lib.uicommon
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -9,14 +10,20 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.airbnb.mvrx.Mavericks
 import com.android.common.utils.ApplicationUtils
+import com.android.lib.uicommon.support.BaseFragment
+import com.android.lib.uicommon.utils.PackageUtils
+import java.util.concurrent.locks.Lock
 import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
 /**
@@ -30,6 +37,26 @@ inline fun <reified T : Activity> Context.startActivity() {
     startActivity(Intent(this, T::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     })
+}
+
+fun Context.moveTaskToFront() {
+    val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    var hasApp = false
+    try {
+        for (it in am.getRunningTasks(128)) {
+            if (it.topActivity?.packageName == packageName) {
+                hasApp = true
+                am.moveTaskToFront(it.id, 0)
+                break
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    if (!hasApp) {
+        val className = PackageUtils.getLauncherClassName(this, packageName)
+        PackageUtils.startComponent(this, packageName, className)
+    }
 }
 
 inline fun <reified T : Activity> Fragment.startActivity() {
@@ -90,7 +117,12 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
         if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
             error("Cannot access view bindings. View lifecycle is ${lifecycle.currentState}")
         }
-        binding = bindMethod.invoke(null, thisRef.requireView()) as T
+        val contentView = if (thisRef is BaseFragment) {
+            thisRef.contentView
+        } else {
+            thisRef.requireView()
+        }
+        binding = bindMethod.invoke(null, contentView) as T
         return binding!!
     }
 }
@@ -146,3 +178,22 @@ class ViewHolderDelegate<T : ViewBinding>(
         return binding!!
     }
 }
+
+inline fun <T> lock(lock: Lock, body: () -> T): T {
+    lock.lock()
+    try {
+        return body()
+    } finally {
+        lock.unlock()
+    }
+}
+
+fun <T : Any> getClassFromKt(kClass: KClass<T>) = kClass.java
+
+fun <T : Any> getKClass(clazz: Class<T>) = clazz.kotlin
+
+fun <T : Any> getKProperty() = ::x
+
+private const val x = 0
+
+fun <T : ComponentActivity> T._activityArgsProvider(): Any? = intent?.extras?.get(Mavericks.KEY_ARG)

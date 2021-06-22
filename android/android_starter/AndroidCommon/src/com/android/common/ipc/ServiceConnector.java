@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import com.android.common.utils.CollectionUtils;
 import com.android.common.utils.LogUtil;
 import com.android.common.utils.Preconditions;
 import com.android.common.utils.WeakListenerManager;
@@ -131,7 +132,8 @@ public abstract class ServiceConnector<IServiceInterface> {
         Intent intent = getServiceIntent();
         List<ResolveInfo>
                 servicesList = mAppContext.getPackageManager().queryIntentServices(intent, 0);
-        return servicesList.size() > 0 && selectTargetService(servicesList) != null;
+        return CollectionUtils.isNotEmpty(servicesList) &&
+                selectTargetService(servicesList) != null;
     }
 
     public static String stateToStr(@ConnectState int state) {
@@ -178,7 +180,7 @@ public abstract class ServiceConnector<IServiceInterface> {
         Intent intent = getServiceIntent();
         List<ResolveInfo>
                 servicesList = mAppContext.getPackageManager().queryIntentServices(intent, 0);
-        if (servicesList.size() == 0) {
+        if (CollectionUtils.isEmpty(servicesList)) {
             LogUtil.w(TAG, "[%s] no service component available, cannot connect", mServiceName);
             updateConnectState(STATE_DISCONNECTED);
             return;

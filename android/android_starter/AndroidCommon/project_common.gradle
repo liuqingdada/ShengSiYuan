@@ -14,14 +14,14 @@ allprojects {
                     } else {
                         details.useVersion versions.supportLib
                     }
+                } else if (details.requested.group == 'androidx.activity') {
+                    details.useVersion versions.appcompat
                 } else if (details.requested.group == 'androidx.arch.core') {
                     details.useVersion versions.archCore
-                } else if (details.requested.group == 'androidx.lifecycle') {
-                    details.useVersion versions.lifecycle
                 } else if (details.requested.group == 'androidx.room') {
                     details.useVersion versions.room
-                }  else if (details.requested.group == 'junit') {
-                    details.useVersion versions.junit
+                } else if (details.requested.group == 'org.jetbrains.kotlin') {
+                    details.useVersion versions.kotlin
                 }
             }
         }
@@ -49,8 +49,8 @@ ext {
             'swiperefreshlayout':"1.0.0",
             'vectorDrawable'   : "1.1.0",
             'archCore'         : "2.1.0",
-            'lifecycle'        : "2.3.0",
-            'room'             : "2.2.5",
+            'lifecycle'        : "2.3.1",
+            'room'             : "2.3.0",
             'sqlite'           : "2.1.0",
             'navigation'       : "2.3.3",
             'paging'           : "2.1.1",
@@ -97,14 +97,17 @@ ext {
             'volley'           : "1.0.0",
             'okhttp'           : "4.9.1",
             'retrofit'         : "2.9.0",
-            'glide'            : "4.10.0",
+            'glide'            : "4.12.0",
             'glideTrans'       : "4.0.0",
+            'netty'            : "4.1.65.Final",
+            'nordicScanner'    : "1.4.3",
 
             // UI
             'epoxy'            : "4.4.4",   // AirBnb 出品，大幅减少复杂 RecyclerView 的样板代码
-            'mvrx'             : "2.1.0",   // AirBnb 出品，响应式架构
-            'lottie'           : "2.8.0",   // AirBnb 出品，实现复杂动画
+            'mvrx'             : "2.2.0",   // AirBnb 出品，响应式架构
+            'lottie'           : "3.7.0",   // AirBnb 出品，实现复杂动画
             'adapterHelper'    : "2.9.30",
+            'immersionbar'     : "3.0.0",
 
             // rx
             'rxjava2'          : "2.2.21",
@@ -120,12 +123,15 @@ ext {
 
             // others
             'zxing'            : "3.3.0",
-            'filedownloader'   : "1.7.4",
+            'filedownloader'   : "1.7.7",
             'amap3dmap'        : "6.4.1",
             'amaplocation'     : "4.2.0",
             'utilcodex'        : "1.30.6",
             'arouter'          : "1.5.1",
             'arouter_register' : "1.0.2",
+            'liveEventBus'     : "1.8.0",
+            'agentweb'         : "4.1.9-androidx",
+            "sonic"            : "3.1.0",
     ]
 
     deps = [
@@ -196,6 +202,7 @@ ext {
                     'runtime'          : "androidx.room:room-runtime:${versions.room}",
                     'compiler'         : "androidx.room:room-compiler:${versions.room}",
                     'rxjava'           : "androidx.room:room-rxjava2:${versions.room}",
+                    'roomktx'          : "androidx.room:room-ktx:${versions.roomktx}",
                     'testing'          : "androidx.room:room-testing:${versions.room}",
             ],
             'sqlite': [
@@ -324,6 +331,8 @@ ext {
             'glideProcessor'           : "com.github.bumptech.glide:compiler:${versions.glide}",
             'glideOkhttp'              : "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar",
             'glideTrans'               : "jp.wasabeef:glide-transformations:${versions.glideTrans}",
+            'netty'                    : "io.netty:netty-all:${versions.netty}",
+            'nordicScanner'            : "no.nordicsemi.android.support.v18:scanner:${versions.nordicScanner}",
 
             // UI
             'epoxy'                    : "com.airbnb.android:epoxy:${versions.epoxy}", // aar 179K
@@ -333,6 +342,11 @@ ext {
             'mvrxjava'                 : "com.airbnb.android:mavericks-rxjava2:${versions.mvrx}",
             'lottie'                   : "com.airbnb.android:lottie:${versions.lottie}", // aar 289K
             'adapterHelper'            : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.adapterHelper}",
+            'immersionbar': [
+                    'common'           : 'com.gyf.immersionbar:immersionbar:3.0.0',
+                    'components'       : 'com.gyf.immersionbar:immersionbar-components:3.0.0',
+                    'ktx'              : 'com.gyf.immersionbar:immersionbar-ktx:3.0.0',
+            ],
 
             // rx
             'rx2': [
@@ -361,20 +375,28 @@ ext {
             'filedownloader'           : "com.liulishuo.filedownloader:library:${versions.filedownloader}",
             'amap3dmap'                : "com.amap.api:3dmap:${versions.amap3dmap}",
             'amaplocation'             : "com.amap.api:location:${versions.amaplocation}",
-            'xxpermissions'            : "com.hjq:xxpermissions:10.5",
+            'xxpermissions'            : "com.github.getActivity:XXPermissions:11.5",
+            'xpopup'                   : "com.github.li-xiaojun:XPopup:2.3.4",
             'utilcodex'                : "com.blankj:utilcodex:${versions.utilcodex}",
+            'appStarter'               : "com.github.NoEndToLF:AppStartFaster:1.0.3",
             'arouter': [
                     'api'              : "com.alibaba:arouter-api:${versions.arouter}",
                     'compiler'         : "com.alibaba:arouter-compiler:${versions.arouter}",
                     'register'         : "com.alibaba:arouter-register:${versions.arouter_register}",
             ],
+            'liveEventBus'             : "io.github.jeremyliao:live-event-bus-x:${versions.liveEventBus}",
+            'agentweb' : [
+                    'core'             : "com.github.Justson.AgentWeb:agentweb-core:${versions.agentweb}",
+                    'filechooser'      : "com.github.Justson.AgentWeb:agentweb-filechooser:${versions.agentweb}",
+                    'downloader'       : "com.github.Justson:Downloader:${versions.agentweb}",
+                    'sonic'            : "com.tencent.sonic:sdk:${versions.sonic}",
+            ],
+
     ]
 
-    // legacy
-    deps.support.compat = deps.support.core
-    deps.test.supportRules = deps.test.rules
-    deps.test.supportRunner = deps.test.runner
-
+    miuis = [
+            'passport_ui'      : "3.4.5",
+    ]
     miuix = [
             appcompat           : 'miuix.appcompat:appcompat:1.1.0-beta14',
             core                : 'miuix.core:core:1.1.0-beta03',
@@ -391,5 +413,7 @@ ext {
             smooth              : 'miuix.smooth:smooth-ui:1.0.0-beta03',
             viewPager           : 'miuix.viewpager:viewpager:1.1.0-beta02',
             pinyin              : 'miuix.pinyin:pinyin:1.0.0-beta03',
+            // Account
+            'passport_ui'       : "com.xiaomi.account:passportsdk-client-ui:${miuis.passport_ui}",
     ]
 }

@@ -3,15 +3,15 @@ package com.android.cooper.app.paging.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.cooper.app.paging.R
+import com.android.cooper.app.paging.databinding.ActivityMainBinding
 import com.android.cooper.app.paging.model.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import com.android.lib.uicommon.viewBinding
 
 class MainActivity : AppCompatActivity() {
-
+    private val binding by viewBinding<ActivityMainBinding>()
     private val pageListAdapter = MainPageListAdapter()
 
     private val viewModle by lazy {
@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        recyclerView.adapter = pageListAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = pageListAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        btGraph.setOnClickListener {
+        binding.btGraph.setOnClickListener {
             Intent(it.context, GraphActivity::class.java).apply {
                 startActivity(this)
             }
@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun registerComponent() {
-        viewModle.pagingDataList.observe(this, Observer {
+        viewModle.pagingDataList.observe(this) {
             pageListAdapter.submitList(it)
-        })
+        }
     }
 }

@@ -1,13 +1,11 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
 }
 apply from: "${rootDir}/module_plugin.gradle"
 
 android {
     defaultConfig {
         applicationId "com.android.cooper.app.navigation"
-        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -22,9 +20,6 @@ android {
     // Migrate from Kotlin synthetics to Jetpack view binding
     buildFeatures {
         viewBinding true
-    }
-    viewBinding {
-        enabled = true
     }
 }
 

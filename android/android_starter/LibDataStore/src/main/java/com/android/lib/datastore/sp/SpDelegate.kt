@@ -27,6 +27,20 @@ internal class SpDelegate : DataStore {
         return SpManager.edit(context, fileName)
     }
 
+    override fun registerOnSharedPreferenceChangeListener(
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
+        SpManager.registerOnSharedPreferenceChangeListener(context, prefsName, listener)
+    }
+
+    override fun unregisterOnSharedPreferenceChangeListener(
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
+        SpManager.unregisterOnSharedPreferenceChangeListener(context, prefsName, listener)
+    }
+
     override fun getString(fileName: String, key: String, defValue: String?, mode: Int): String? {
         return SpManager.getString(context, fileName, key, defValue)
     }
@@ -72,6 +86,14 @@ internal class SpDelegate : DataStore {
         mode: Int
     ): T {
         throw UnsupportedOperationException("Sp unsupport parcelable")
+    }
+
+    override fun getAll(prefsName: String): Map<String, *> {
+        return SpManager.getAll(context, prefsName)
+    }
+
+    override fun allKeys(fileName: String, defValue: Array<String>, mode: Int): Array<String> {
+        return arrayOf()
     }
 
     override fun putString(fileName: String, key: String, value: String, mode: Int) {

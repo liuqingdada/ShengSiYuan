@@ -58,12 +58,12 @@ import java.util.List;
 import java.util.Set;
 
 import be.ppareit.android.DynamicMultiSelectListPreference;
-import be.ppareit.swiftp.FtpInitializer;
 import be.ppareit.swiftp.AutoConnect;
 import be.ppareit.swiftp.FsService;
 import be.ppareit.swiftp.FsSettings;
+import be.ppareit.swiftp.FtpInitializer;
 import be.ppareit.swiftp.R;
-import lombok.val;
+import be.ppareit.swiftp.server.FtpUser;
 
 /**
  * This is the main activity for swiftp, it enables the user to start the server service
@@ -125,8 +125,8 @@ public class PreferenceFragment
                 pref -> {
                     Cat.d("autoconnect populate listener");
 
-                    val appContext = getActivity().getApplicationContext();
-                    val wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                    Context appContext = getActivity().getApplicationContext();
+                    WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                     List<WifiConfiguration> configs = wifiManager.getConfiguredNetworks();
                     if (configs == null) {
                         Cat.e("Unable to receive wifi configurations, bark at user and bail");
@@ -263,9 +263,9 @@ public class PreferenceFragment
             return true;
         });
 
-        val showNotificationIconPref = findPref("show_notification_icon_preference");
+        Preference showNotificationIconPref = findPref("show_notification_icon_preference");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val appearanceScreen = (PreferenceScreen) findPreference("appearance_screen");
+            PreferenceScreen appearanceScreen = (PreferenceScreen) findPreference("appearance_screen");
             appearanceScreen.removePreference(showNotificationIconPref);
         }
         showNotificationIconPref.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -298,7 +298,7 @@ public class PreferenceFragment
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestAccessCoarseLocationPermission() {
-        val permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
+        String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
         requestPermissions(permissions, ACCESS_COARSE_LOCATION_REQUEST_CODE);
     }
 
@@ -384,14 +384,14 @@ public class PreferenceFragment
      * multiple users, refer to the list.
      */
     private void updateUsersPref() {
-        val manageUsersPref = findPref("manage_users");
-        val users = FsSettings.getUsers();
+        Preference manageUsersPref = findPref("manage_users");
+        List<FtpUser> users = FsSettings.getUsers();
         switch (users.size()) {
             case 0:
                 manageUsersPref.setSummary(R.string.manage_users_no_users);
                 break;
             case 1:
-                val user = users.get(0);
+                FtpUser user = users.get(0);
                 manageUsersPref.setSummary(user.getUsername() + ":" + user.getPassword());
                 break;
             default:

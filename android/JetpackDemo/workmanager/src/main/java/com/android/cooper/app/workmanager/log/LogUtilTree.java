@@ -7,6 +7,7 @@ import com.android.common.utils.ApplicationUtils;
 import com.android.common.utils.ExecutorsKt;
 import com.android.common.utils.FileLogger;
 import com.android.common.utils.LogUtil;
+import com.android.common.utils.ProcessUtil;
 import com.android.cooper.app.workmanager.BuildConfig;
 
 import java.io.File;
@@ -48,6 +49,7 @@ public class LogUtilTree {
                 );
                 int size = logFiles.length;
                 for (int i = MAX_LOG_FILE_COUNT; i < size; i++) {
+                    //noinspection ResultOfMethodCallIgnored
                     logFiles[i].delete();
                 }
             }
@@ -68,7 +70,7 @@ public class LogUtilTree {
     public static void main(String... args) {
         Context context = ApplicationUtils.getApplication().getApplicationContext();
         String processName = ProcessUtil.getCurrentProcessName(context);
-        String processNameSuffix = ProcessUtil.getCurrentProcessNameSuffix(context);
+        String processNameSuffix = ProcessUtil.getCurrentProcessNameSuffix(processName);
         boolean isMainpProcess = ProcessUtil.isMainProcess(context);
         if (isMainpProcess) {
             new LogUtilTree(BuildConfig.DEBUG, processNameSuffix).init();

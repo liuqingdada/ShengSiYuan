@@ -28,7 +28,6 @@ import com.android.common.utils.ApplicationUtils;
 import net.vrallev.android.cat.Cat;
 
 import be.ppareit.swiftp.gui.FsWidgetProvider;
-import lombok.val;
 
 public class FtpInitializer {
 
@@ -78,7 +77,7 @@ public class FtpInitializer {
     public static boolean isPackageInstalled(String packageName) {
         try {
             Context context = getAppContext();
-            val packageManager = context.getPackageManager();
+            PackageManager packageManager = context.getPackageManager();
             packageManager.getPackageInfo(packageName, 0);
         } catch (NameNotFoundException e) {
             return false;

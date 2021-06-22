@@ -5,22 +5,22 @@ import android.os.Looper
 import android.os.Message
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.android.common.utils.LogUtil
 import com.android.common.utils.WeakHandler
-import com.android.common.utils.execute
 import com.android.common.utils.serialExecute
+import com.android.cooper.app.rootinfoclient.databinding.ActivityMainBinding
+import com.android.lib.uicommon.viewBinding
 import com.rafakob.nsdhelper.NsdHelper
 import com.rafakob.nsdhelper.NsdListener
 import com.rafakob.nsdhelper.NsdService
 import com.rafakob.nsdhelper.NsdType
 import com.tamsiree.rxkit.RxNetTool
-import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity(), NsdListener {
     companion object {
         private const val TAG = "MainActivity"
     }
+
+    private val binding by viewBinding<ActivityMainBinding>()
 
     private val uiHandler by lazy {
         UiHandler(this, Looper.getMainLooper())
@@ -37,12 +37,12 @@ class MainActivity : AppCompatActivity(), NsdListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btScan.setOnClickListener {
+        binding.btScan.setOnClickListener {
             if (RxNetTool.isWifiConnected(it.context)) {
                 nsdHelper.startDiscovery(NsdType.HTTP)
             }
         }
-        btStop.setOnClickListener {
+        binding.btStop.setOnClickListener {
             if (RxNetTool.isWifiConnected(it.context)) {
                 nsdHelper.stopDiscovery()
             }
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), NsdListener {
         looper: Looper
     ) : WeakHandler<MainActivity>(owner, looper) {
         companion object {
-            const val MSG_FIND_DEVICE = 0x01;
+            const val MSG_FIND_DEVICE = 0x01
         }
 
         override fun handleMessage(msg: Message) {
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), NsdListener {
             val owner = owner ?: return
             when (msg.what) {
                 MSG_FIND_DEVICE -> {
-                    owner.tvInfo.append("${msg.obj}\n\n")
+                    owner.binding.tvInfo.append("${msg.obj}\n\n")
                 }
             }
         }

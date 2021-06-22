@@ -3,6 +3,8 @@ package com.android.common.utils
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
+import kotlinx.coroutines.*
+import java.lang.Runnable
 import java.util.*
 import java.util.concurrent.*
 
@@ -49,7 +51,7 @@ class SerialExecutor : Executor {
         private var backupExecutor: ThreadPoolExecutor? = null
         private var backupExecutorQueue: LinkedBlockingQueue<Runnable>? = null
 
-        var threadPoolExecutor: ThreadPoolExecutor = ThreadPoolExecutor(
+        private var threadPoolExecutor: ThreadPoolExecutor = ThreadPoolExecutor(
             CORE_POOL_SIZE,
             MAXIMUM_POOL_SIZE,
             KEEP_ALIVE_SECONDS,
@@ -57,11 +59,15 @@ class SerialExecutor : Executor {
             SynchronousQueue(),
             SerialPolicy()
         )
-            private set
 
         init {
             workThread.start()
         }
+
+        val MAIN_HANDLER = Handler(Looper.getMainLooper())
+        val SERIAL_EXECUTOR = SerialExecutor()
+        val THREAD_POOL_EXECUTOR = threadPoolExecutor
+        val WORK_HANDLER = Handler(workThread.looper)
     }
 
     class SerialPolicy : RejectedExecutionHandler {
@@ -86,25 +92,31 @@ class SerialExecutor : Executor {
     }
 }
 
-private val SERIAL_EXECUTOR = SerialExecutor()
-private val THREAD_POOL_EXECUTOR = SerialExecutor.threadPoolExecutor
-
-private val MAIN_HANDLER = Handler(Looper.getMainLooper())
-
-private val WORK_HANDLER = Handler(SerialExecutor.workThread.looper)
-
 fun serialExecute(r: Runnable) {
-    SERIAL_EXECUTOR.execute(r)
+    SerialExecutor.SERIAL_EXECUTOR.execute(r)
 }
 
 fun mainThread(delayMillis: Long = 0, r: Runnable) {
-    MAIN_HANDLER.postDelayed(r, delayMillis)
+    SerialExecutor.MAIN_HANDLER.postDelayed(r, delayMillis)
 }
 
 fun workThread(delayMillis: Long = 0, r: Runnable) {
-    WORK_HANDLER.postDelayed(r, delayMillis)
+    SerialExecutor.WORK_HANDLER.postDelayed(r, delayMillis)
 }
 
 fun execute(r: Runnable) {
-    THREAD_POOL_EXECUTOR.execute(r)
+    SerialExecutor.THREAD_POOL_EXECUTOR.execute(r)
+}
+
+fun timeout(
+    scope: CoroutineScope,
+    delayMillis: Long,
+    before: suspend () -> Unit,
+    after: suspend () -> Unit
+): Job {
+    return scope.launch(Dispatchers.Default) {
+        before()
+        delay(delayMillis)
+        after()
+    }
 }

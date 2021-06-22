@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         if (VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return;
         }
-        val permissions = new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
+        String[] permissions = new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
         requestPermissions(permissions, PERMISSIONS_REQUEST_CODE);
     }
 
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode != PERMISSIONS_REQUEST_CODE) {
             Cat.e("Unhandled request code");
             return;
@@ -114,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
             for (int result : grantResults) {
                 if (result != PERMISSION_GRANTED) {
                     Toast.makeText(this, R.string.unable_to_proceed_no_permissions,
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_LONG
+                    ).show();
                     finish();
                 }
             }

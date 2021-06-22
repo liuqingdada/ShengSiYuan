@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.android.common.utils.ApplicationUtils
 import com.android.lib.uicommon.R
 
@@ -20,21 +21,21 @@ object NotificationCompatHelper {
 
     class Builder(
         ctx: Context,
-        @ChannelIds private val channelId: String
+        @ChannelIds private val channelId: String,
+        private val importance: Int = NotificationManagerCompat.IMPORTANCE_UNSPECIFIED,
     ) : NotificationCompat.Builder(ctx, channelId) {
         override fun build(): Notification {
-            ensureChannelInit(channelId)
+            ensureChannelInit(channelId, importance)
             return super.build()
         }
     }
 
-    private fun ensureChannelInit(@ChannelIds id: String) {
+    private fun ensureChannelInit(@ChannelIds id: String, importance: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val groupId = getChannelGroup(id)
-            val m =
-                context().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val m = context().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             createNotificationChannelGroup(groupId, m)
-            createNotificationChannel(id, groupId, m)
+            createNotificationChannel(id, groupId, m, importance)
         }
     }
 
@@ -51,7 +52,8 @@ object NotificationCompatHelper {
     private fun createNotificationChannel(
         @ChannelIds id: String,
         @ChannelGoup groupId: String,
-        manager: NotificationManager
+        manager: NotificationManager,
+        importance: Int,
     ) {
         val channel = NotificationChannel(
             id,
@@ -59,6 +61,7 @@ object NotificationCompatHelper {
             NotificationManager.IMPORTANCE_DEFAULT
         )
         channel.description = getChannelDesc(id)
+        channel.importance = importance
         channel.group = groupId
         manager.createNotificationChannel(channel)
     }

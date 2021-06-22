@@ -9,6 +9,9 @@ include ':LibFtp'
 include ':AndroidCommon'
 project(':AndroidCommon').projectDir = file('../android_starter/AndroidCommon')
 
+include ':UiCommon'
+project(':UiCommon').projectDir = file('../android_starter/UiCommon')
+
 include ':LibDataStore'
 project(':LibDataStore').projectDir = file('../android_starter/LibDataStore')
 

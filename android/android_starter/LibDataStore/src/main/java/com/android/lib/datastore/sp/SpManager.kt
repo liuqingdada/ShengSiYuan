@@ -13,6 +13,22 @@ internal object SpManager {
         return cxt.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
     }
 
+    fun registerOnSharedPreferenceChangeListener(
+        cxt: Context,
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
+        open(cxt, prefsName).registerOnSharedPreferenceChangeListener(listener)
+    }
+
+    fun unregisterOnSharedPreferenceChangeListener(
+        cxt: Context,
+        prefsName: String,
+        listener: SharedPreferences.OnSharedPreferenceChangeListener
+    ) {
+        open(cxt, prefsName).unregisterOnSharedPreferenceChangeListener(listener)
+    }
+
     fun edit(cxt: Context, prefsName: String): SharedPreferences.Editor {
         return open(cxt, prefsName).edit()
     }
@@ -53,6 +69,10 @@ internal object SpManager {
     ): Set<String> {
         open(cxt, prefsName).getStringSet(key, defValue)?.let { return it }
         return defValue
+    }
+
+    fun getAll(cxt: Context, prefsName: String): Map<String, *> {
+        return open(cxt, prefsName).all
     }
 
     fun putString(cxt: Context, prefsName: String, key: String, value: String) {

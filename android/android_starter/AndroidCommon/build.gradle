@@ -1,12 +1,9 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
 }
 apply from: "${rootDir}/module_plugin.gradle"
 
 android {
-    compileSdkVersion versions.compileSdk
-
     defaultConfig {
         consumerProguardFiles 'consumer-proguard-rules.pro'
     }
@@ -30,7 +27,11 @@ android {
 
 dependencies {
     api deps.support.annotations // Support Annotations should be used in all projects
-    implementation deps.support.compat
+    implementation deps.support.core
+    implementation deps.support.appcompat
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.coroutines
+    implementation deps.utilcodex
 
     /* TEST START */
     // Dependencies for local unit tests
@@ -57,12 +58,7 @@ dependencies {
     androidTestImplementation deps.test.powermockMockito
     androidTestImplementation deps.test.powermockJunit
     androidTestImplementation deps.test.espressoCore
-    androidTestImplementation deps.test.supportRunner
-    androidTestImplementation deps.test.supportRules
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
     /* TEST END */
-}
-
-repositories {
-    google()
-    jcenter()
 }

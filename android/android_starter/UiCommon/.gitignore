@@ -32,3 +32,4 @@ proguard/
 # Mac OS
 .DS_Store
 
+.cxx

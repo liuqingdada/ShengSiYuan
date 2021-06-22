@@ -1,32 +1,21 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
 }
 apply from: "${rootDir}/module_plugin.gradle"
 
 android {
     defaultConfig {
         applicationId "com.android.cooper.app.workmanager"
-        minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    lintOptions {
-        abortOnError false
     }
 }
 
@@ -41,7 +30,7 @@ dependencies {
     implementation deps.work.runtimeKtx
 
     implementation project(path: ':AndroidCommon')
-    implementation("com.squareup.okhttp3:okhttp:4.9.0") // https://www.jianshu.com/p/9456864d4a3d
+    implementation("com.squareup.okhttp3:okhttp:4.9.1") // https://www.jianshu.com/p/9456864d4a3d
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
@@ -70,8 +59,8 @@ dependencies {
     androidTestImplementation deps.test.powermockMockito
     androidTestImplementation deps.test.powermockJunit
     androidTestImplementation deps.test.espressoCore
-    androidTestImplementation deps.test.supportRunner
-    androidTestImplementation deps.test.supportRules
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
 
     // Other Testing unit
     androidTestImplementation deps.work.test
