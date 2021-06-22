@@ -3,7 +3,6 @@ buildscript {
     ext {
         androidProjectCommon = "${rootDir}/../android_starter/AndroidCommon/project_common.gradle"
         androidModuleCommon = "${rootDir}/../android_starter/AndroidCommon/module_common.gradle"
-        kotlin_version = '1.4.21'
     }
     apply from: "${androidProjectCommon}"
     repositories {
@@ -17,7 +16,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "com.android.plugin:webp:1.0.0"
 

@@ -37,7 +37,6 @@ dependencies {
     implementation project(':AndroidCommon')
     implementation project(':LibDataStore')
     implementation deps.xxpermissions
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation deps.test.junit

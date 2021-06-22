@@ -35,7 +35,7 @@ ext {
             'buildTools'       : "30.0.3",
 
             // Android official support
-            'kotlin'           : "1.4.32",
+            'kotlin'           : "1.5.10",
             'cotoutines'       : "1.4.3",
             'androidxCore'     : "1.3.2",
             'appcompat'        : "1.2.0",
