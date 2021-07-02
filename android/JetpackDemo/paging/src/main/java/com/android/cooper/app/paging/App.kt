@@ -2,6 +2,7 @@ package com.android.cooper.app.paging
 
 import android.app.Application
 import com.android.common.utils.ApplicationUtils
+import com.hjq.permissions.XXPermissions
 
 /**
  * Created by cooper
@@ -12,5 +13,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         ApplicationUtils.init(this)
+        XXPermissions.setScopedStorage(true)
     }
 }

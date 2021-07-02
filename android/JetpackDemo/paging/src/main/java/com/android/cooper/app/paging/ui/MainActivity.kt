@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.cooper.app.paging.R
 import com.android.cooper.app.paging.databinding.ActivityMainBinding
 import com.android.cooper.app.paging.model.MainViewModel
+import com.android.cooper.app.paging.qr.VisionActivity
+import com.android.lib.uicommon.startActivity
 import com.android.lib.uicommon.viewBinding
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +39,9 @@ class MainActivity : AppCompatActivity() {
             Intent(it.context, GraphActivity::class.java).apply {
                 startActivity(this)
             }
+        }
+        binding.btVision.setOnClickListener {
+            startActivity<VisionActivity>()
         }
     }
 

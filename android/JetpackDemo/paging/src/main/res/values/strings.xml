@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Paging</string>
     <string name="graph">graph</string>
+    <string name="vision">vision</string>
 </resources>

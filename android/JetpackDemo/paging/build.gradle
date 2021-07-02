@@ -33,7 +33,15 @@ dependencies {
 
     implementation project(path: ':AndroidCommon')
     implementation project(path: ':UiCommon')
+    implementation deps.xxpermissions
     implementation 'top.zibin:Luban:1.1.8'
+    implementation(
+            deps.camerax.core,
+            deps.camerax.camera2,
+            deps.camerax.lifecycle,
+            'androidx.camera:camera-view:1.0.0-alpha25',
+            'com.google.mlkit:barcode-scanning:16.2.0',
+    )
 
     testImplementation deps.test.junit
     testImplementation deps.test.junitKtx
